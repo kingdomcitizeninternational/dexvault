@@ -29,7 +29,6 @@ import Profile from './screens/Profile';
 import NotificationPage from './screens/NotificationPage';
 import Transactions from './screens/Transaction';
 
-import Invest from './screens/portfolio';
 import Assets from './screens/Assets';
 import Registeration from './screens/Registeration';
 import ProfilePhoto from './screens/ProfilePhoto';

@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
 
 export default defineConfig({
   plugins: [
@@ -23,70 +24,73 @@ export default defineConfig({
           {
             src: 'icons/icon-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'icons/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
           },
           {
             src: 'icons/icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
-          }
-        ]
+          },
+          {
+            src: 'icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+        ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
       },
       devOptions: {
-        enabled: true
-      }
-    })
+        enabled: true,
+      },
+    }),
   ],
   resolve: {
     alias: {
-      crypto: 'crypto-browserify',
+      process: 'process/browser',
       stream: 'stream-browserify',
+      crypto: 'crypto-browserify',
       assert: 'assert',
       buffer: 'buffer',
       util: 'util',
-      process: 'process/browser',
-      path: 'path-browserify'
-    }
+      path: 'path-browserify',
+    },
   },
   define: {
-    'process.env': {},
+    'process.env': {}, // prevents "process is not defined" error
     global: 'globalThis',
   },
   optimizeDeps: {
-    include: ['@emotion/react', '@emotion/styled'],
+    include: [
+      '@emotion/react',
+      '@emotion/styled',
+      'buffer',
+      'process',
+      'util',
+      'stream-browserify',
+    ],
     esbuildOptions: {
       define: {
         global: 'globalThis',
       },
       plugins: [
         NodeGlobalsPolyfillPlugin({
-          buffer: true,
           process: true,
-        })
-      ]
-    }
+          buffer: true,
+        }),
+        NodeModulesPolyfillPlugin(),
+      ],
+    },
   },
   build: {
-    rollupOptions: {
-      plugins: [
-        rollupNodePolyFill()
-      ]
-    },
     commonjsOptions: {
-      transformMixedEsModules: true
-    }
-  }
+      transformMixedEsModules: true,
+    },
+    rollupOptions: {
+      plugins: [rollupNodePolyFill()],
+    },
+  },
 });
-
-
-
 
