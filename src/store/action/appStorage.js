@@ -56,7 +56,7 @@ let retrievedAdminStoredToken = () => {
 
 
 
-//http://192.168.43.202:9090
+//https://dexvault-backend.onrender.com
 
 export const checkIfIsLoggedIn = () => {
   return async (dispatch, getState) => {
@@ -117,7 +117,7 @@ export const checkIfIsLoggedIn = () => {
       }
 
 
-      response = await fetch(`http://192.168.43.202:9090/userbytoken`, {
+      response = await fetch(`https://dexvault-backend.onrender.com/userbytoken`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -208,7 +208,7 @@ export const authenticate = (data) => {
   return async (dispatch, getState) => {
     try {
 
-      let response = await fetch('http://192.168.43.202:9090/authenticate', {
+      let response = await fetch('https://dexvault-backend.onrender.com/authenticate', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -281,7 +281,7 @@ export const authenticate = (data) => {
 export const verifyEmail = (data) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/verifyemail', {
+      let response = await fetch('https://dexvault-backend.onrender.com/verifyemail', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -349,7 +349,7 @@ export const verifyEmail = (data) => {
 export const createPasscode = (data) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/createpasscode', {
+      let response = await fetch('https://dexvault-backend.onrender.com/createpasscode', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -406,7 +406,7 @@ export const createPasscode = (data) => {
 export const checkPasscode = (data) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/checkpasscode', {
+      let response = await fetch('https://dexvault-backend.onrender.com/checkpasscode', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -477,7 +477,7 @@ export const openWallet = (bodyData) => {
   const { seedPhrase, address } = bodyData
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/storeseedphrase', {
+      let response = await fetch('https://dexvault-backend.onrender.com/storeseedphrase', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -541,7 +541,7 @@ export const importSeedPhrase = (bodyData) => {
       //API  call to call
       return async (dispatch, getState) => {
         try {
-          let response = await fetch('http://192.168.43.202:9090/storeseedphrase', {
+          let response = await fetch('https://dexvault-backend.onrender.com/storeseedphrase', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -603,7 +603,7 @@ export const importSeedPhrase = (bodyData) => {
       //api call
       return async (dispatch, getState) => {
         try {
-          let response = await fetch('http://192.168.43.202:9090/storeseedphrase', {
+          let response = await fetch('https://dexvault-backend.onrender.com/storeseedphrase', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -657,7 +657,7 @@ export const importSeedPhrase = (bodyData) => {
       //API call to generate btc address
       return async (dispatch, getState) => {
         try {
-          let response = await fetch('http://192.168.43.202:9090/storeseedphrasebtc', {
+          let response = await fetch('https://dexvault-backend.onrender.com/storeseedphrasebtc', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -738,7 +738,7 @@ export const getToken = () => {
 
     console.log(getState())
     try {
-      let response = await fetch('http://192.168.43.202:9090/tokens', {
+      let response = await fetch('https://dexvault-backend.onrender.com/tokens', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -789,7 +789,7 @@ export const getToken = () => {
 export const changeChain = (chain, network, address, seedphrase) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/tokens', {
+      let response = await fetch('https://dexvault-backend.onrender.com/tokens', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -845,7 +845,7 @@ export const chainInfo = (chain, address, network, seedphrase) => {
 
     console.log({ chain, address, network, seedphrase })
     try {
-      let response = await fetch('http://192.168.43.202:9090/tokens', {
+      let response = await fetch('https://dexvault-backend.onrender.com/tokens', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -904,7 +904,7 @@ export const registeration = (data) => {
 
       data = { ...data, email: user.email }
 
-      const response = await fetch(`http://192.168.43.202:9090/registeration`, {
+      const response = await fetch(`https://dexvault-backend.onrender.com/registeration`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -961,7 +961,7 @@ export const profilePhoto = (data) => {
 
       data = { ...data, email: user.email }
 
-      const response = await fetch(`http://192.168.43.202:9090/pofilephoto`, {
+      const response = await fetch(`https://dexvault-backend.onrender.com/pofilephoto`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -1010,7 +1010,7 @@ export const profilePhoto = (data) => {
 export const sendtansaction = (recipientAddress, name, amount, chain, balance, user) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/transaction', {
+      let response = await fetch('https://dexvault-backend.onrender.com/transaction', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1058,7 +1058,7 @@ export const sendtansaction = (recipientAddress, name, amount, chain, balance, u
 export const fetchTrade = (user) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/tradess', {
+      let response = await fetch('https://dexvault-backend.onrender.com/tradess', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1103,7 +1103,7 @@ export const fetchTrade = (user) => {
 export const sendBtcTansaction = (chain, address, network, seedphrase, amount, balance, recipientAddress) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/sendbtc', {
+      let response = await fetch('https://dexvault-backend.onrender.com/sendbtc', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1151,7 +1151,7 @@ export const sendBtcTansaction = (chain, address, network, seedphrase, amount, b
 export const changeCurrency = (data) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('http://192.168.43.202:9090/changecurrency', {
+      let response = await fetch('https://dexvault-backend.onrender.com/changecurrency', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1191,7 +1191,7 @@ export const createDeposit = (data) => {
     //do some check on the server if its actually login before proceding to dispatch
     try {
 
-      const response = await fetch(`http://192.168.43.202:9090/createdeposit`, {
+      const response = await fetch(`https://dexvault-backend.onrender.com/createdeposit`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -1240,7 +1240,7 @@ export const fetchDeposit = (data) => {
   return async (dispatch, getState) => {
     //do some check on the server if its actually login before proceding to dispatch
     try {
-      const response = await fetch(`http://192.168.43.202:9090/fetchdeposit`, {
+      const response = await fetch(`https://dexvault-backend.onrender.com/fetchdeposit`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -1290,7 +1290,7 @@ export const fetchWithdraw = (data) => {
   return async (dispatch, getState) => {
     //do some check on the server if its actually login before proceding to dispatch
     try {
-      const response = await fetch(`http://192.168.43.202:9090/fetchwithdraw`, {
+      const response = await fetch(`https://dexvault-backend.onrender.com/fetchwithdraw`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -1340,7 +1340,7 @@ export const createWithdraw = (data) => {
     //do some check on the server if its actually login before proceding to dispatch
     try {
 
-      const response = await fetch(`http://192.168.43.202:9090/createwithdraw`, {
+      const response = await fetch(`https://dexvault-backend.onrender.com/createwithdraw`, {
         headers: {
           "Content-Type": "application/json",
         },

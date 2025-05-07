@@ -81,6 +81,7 @@ const styles = {
     fontSize: '16px',
     lineHeight: '1.5',
   },
+ 
   icon: {
     margin: '0 0.25rem',
   },
