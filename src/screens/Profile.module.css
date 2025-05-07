@@ -1,0 +1,539 @@
+/* Main Layout */
+.dashboard {
+    display: flex;
+    background-color: rgb(252, 252, 252);
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+
+.dashboard .leftSection {
+    width: 20%;
+
+}
+
+.dashboard .leftSection,
+.sidebarContent {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.sidebarContent {
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.sidebarTitle {
+    font-weight: 900;
+    color: #4F46E5;
+    margin-bottom: 40px;
+    padding-left: 10px;
+    margin-top: 5px;
+
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.navItem {
+    font-weight: 900;
+    color: rgb(107, 107, 107);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    width: 200px;
+    border-radius: 30px;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding-left: 40px;
+    font-size: 17px;
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+.navItem:nth-of-type(2) {
+    background-color: #fdfdfd;
+    color: #4F46E5;
+}
+
+
+.navItem:hover {
+    background-color: #f5f5f5;
+    color: #4F46E5;
+
+}
+
+
+
+.navItem p {
+    margin-left: 10px;
+}
+
+
+
+.dashboard .mainSection {
+    width: 80%;
+    margin-left: 5px;
+    background-color: white;
+    padding: 0px;
+    justify-content: flex-start;
+    overflow-y: scroll;
+
+
+}
+
+
+
+.headerContainer {
+    background-color: rgb(255, 255, 255);
+    height: 53px;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    padding-right: 20px;
+  
+    margin-bottom: 10px;
+}
+
+
+.title {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: bolder;
+    width: 50%
+}
+
+.title h2 {
+    margin-top: 0px;
+}
+
+.buttonContainer {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.buysellbutton,
+.sendreceivebutton {
+  width: 130px;
+  height: 45px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #4F46E5;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.2);
+  transition: 
+    background-color 0.3s ease,
+    transform 0.25s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Unified hover effect */
+.buysellbutton:hover,
+.sendreceivebutton:hover {
+  background-color: #4338CA;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(67, 56, 202, 0.25);
+}
+
+/* Optional special hover color for send button */
+.sendreceivebutton:hover {
+  color: #4F46E5;
+  background-color: #ffffff;
+}
+.sendreceivebutton {
+    background-color: #fdfdfd;
+    color: black;
+
+}
+
+.notificationbutton,
+.imagebutton {
+    border-radius: 45px;
+    width: 45px;
+    height: 45px;
+    background-color: #fdfdfd;
+    position: relative;
+}
+
+.notificationbutton span {
+    color: #fff;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: red;
+    font-size: 10px;
+}
+
+
+.mobileHeader {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    display: none;
+    display: flex;
+    align-items: center;
+}
+
+.mobileHeader .hamburger{
+    cursor: pointer;
+    z-index: 1000;
+    width:30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.mobileHeader h2{
+    width:70%;
+    display: flex;
+    justify-content: flex-start;
+
+
+}
+
+
+/*desktop styling*/
+.desktopMainSection {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;  /* Scope the ::before within this section */
+    overflow: hidden; 
+}
+
+
+
+.dashboardContent {
+    width: 100%;
+    display: flex;
+}
+
+
+
+.dashboardContentleft {
+    width: 50%
+}
+
+.dashboardContentright {
+    width: 50%;
+}
+
+/* profile style goes in here */
+.profileCard {
+    background: #ffffff;
+    border-radius: 24px;
+    padding:13px;
+    margin: 0 auto;
+    transition: all 0.4s ease;
+    animation: fadeIn 0.8s ease forwards;
+    background-color: transparent;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .profileTop {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    margin-bottom: 1.8rem;
+  }
+  
+  .avatarWrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    overflow: hidden;
+    border: 3px solid #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  
+  .avatarWrapper:hover {
+    transform: scale(1.05);
+  }
+  
+  .avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .userDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+  }
+  
+  .email {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-top: 0.3rem;
+  }
+  
+  .divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 1.5rem 0;
+  }
+  
+  .detailsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    animation: slideUp 0.5s ease forwards;
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .detailItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.7rem;
+    background-color: #fafbfb;
+    padding: 10px 16px;
+    border-radius: 25px;
+    border-bottom: 1px dashed #f3f4f6;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  
+  
+  .detailItem:hover {
+    background-color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px dashed #e0e0e0;
+  }
+  
+  
+  .label {
+    font-size: 0.95rem;
+    color: #8c929d;
+  }
+  
+  .value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #111827;
+    transition: color 0.3s;
+  }
+  
+  .buttonWrapper {
+    margin-top: 2.2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .editProfileBtn {
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    padding: 1.1rem 2rem;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
+    transition: all 0.3s ease;
+    width:100%;
+  }
+  
+  .editProfileBtn:hover {
+    background-color: #4338ca;
+    box-shadow: 0 10px 18px rgba(67, 56, 202, 0.25);
+  }
+  
+
+
+
+/*  right dashboard styles*/
+
+.rightPanel {
+    width: 100%;
+    max-width: 350px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.heading {
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 0.75rem;
+    color: #222;
+}
+
+/* Transaction Section */
+
+
+
+
+  
+
+  
+
+
+
+@media (max-width: 850px) {
+    .navItem p {
+        display: none;
+    }
+
+    .navItem {
+        padding: 12px;
+        display: flex;
+        width: 100px;
+        font-size: 20px;
+    }
+
+    .dashboard .leftSection {
+        width: 18%;
+    }
+
+    .dashboard .mainSection {
+        width: 82%;
+    }
+
+    .title {
+        width: 30%
+    }
+
+    .buttonContainer {
+        width: 70%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+
+
+}
+
+@media (max-width: 700px) {
+    .title {
+        width: 20%
+    }
+
+    .buttonContainer {
+        width: 80%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+}
+
+/* mobile screen*/
+@media (max-width: 600px) {
+
+    .title {
+        display: none;
+    }
+
+    .buttonContainer {
+        display: none;
+    }
+
+    .dashboard .leftSection {
+        display: none;
+    }
+
+
+    .dashboard .mainSection {
+        width: 100%;
+    }
+
+    .headerContainer {
+        background: transparent;
+        padding: 0px;
+        box-shadow: none;
+      
+    }
+
+
+
+    .mobileHeader {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .dashboard .mainSection {
+        margin-left: 0px;
+    }
+
+
+
+
+    .dashboardContent {
+        width: 100%;
+    }
+
+
+    .rightPanel {
+        display: none;
+    }
+
+    .dashboardContentleft{
+        width: 100%;
+    }
+    .dashboardContentright{
+        display: none;
+    }
+
+}

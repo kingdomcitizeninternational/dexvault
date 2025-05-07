@@ -1,0 +1,473 @@
+/* Main Layout */
+.dashboard {
+    display: flex;
+    background-color: rgb(252, 252, 252);
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+
+.dashboard .leftSection {
+    width: 20%;
+
+}
+
+.dashboard .leftSection{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+
+
+
+.dashboard .mainSection {
+    width: 80%;
+    margin-left: 5px;
+    background-color: white;
+    padding: 0px;
+    justify-content: flex-start;
+    overflow-y: scroll;
+
+
+}
+
+
+
+.headerContainer {
+    background-color: rgb(255, 255, 255);
+    height: 53px;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    padding-right: 20px;
+  
+    margin-bottom: 10px;
+}
+
+
+.title {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: bolder;
+    width: 50%
+}
+
+.title h2 {
+    margin-top: 0px;
+}
+
+.buttonContainer {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.buysellbutton,
+.sendreceivebutton {
+  width: 130px;
+  height: 45px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #4F46E5;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.2);
+  transition: 
+    background-color 0.3s ease,
+    transform 0.25s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Unified hover effect */
+.buysellbutton:hover,
+.sendreceivebutton:hover {
+  background-color: #4338CA;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(67, 56, 202, 0.25);
+}
+
+/* Optional special hover color for send button */
+.sendreceivebutton:hover {
+  color: #4F46E5;
+  background-color: #ffffff;
+}
+.sendreceivebutton {
+    background-color: #fdfdfd;
+    color: black;
+
+}
+
+.notificationbutton,
+.imagebutton {
+    border-radius: 45px;
+    width: 45px;
+    height: 45px;
+    background-color: #fdfdfd;
+    position: relative;
+}
+
+.notificationbutton span {
+    color: #fff;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: red;
+    font-size: 10px;
+}
+
+
+.mobileHeader {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    display: none;
+    display: flex;
+    align-items: center;
+}
+
+.mobileHeader .hamburger{
+    cursor: pointer;
+    z-index: 1000;
+    width:30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.mobileHeader h2{
+    width:70%;
+    display: flex;
+    justify-content: flex-start;
+
+
+}
+
+
+/*desktop styling*/
+.desktopMainSection {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;  /* Scope the ::before within this section */
+    overflow: hidden; 
+}
+
+
+
+.dashboardContent {
+    width: 100%;
+    display: flex;
+}
+
+
+
+.dashboardContentleft {
+    width: 50%
+}
+
+.dashboardContentright {
+    width: 50%;
+}
+
+
+
+
+
+
+/*  right dashboard styles*/
+
+
+
+.rightPanel {
+    width: 100%;
+    max-width: 350px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.heading {
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 0.75rem;
+    color: #222;
+}
+
+/* Transaction Section */
+.transactionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.transactionItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+
+.icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.iconReceived {
+    color: #22c55e;
+}
+
+.iconSent {
+    color: #ef4444;
+}
+
+.iconSwap {
+    color: #3b82f6;
+}
+
+.details {
+    flex: 1;
+    margin-left: 0.5rem;
+}
+
+.txType {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.asset {
+    color: #555;
+    margin-left: 4px;
+}
+
+.date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.amount {
+    font-weight: 600;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+
+/* asset style*/
+
+
+  
+
+.searchContainer {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 10px 20px;
+    margin: 0; /* remove margin so it stays flush with top */
+    background-color: #ffffff;
+}
+
+
+.searchInput {
+    width: 93%;
+    padding: 15px 15px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: 1px solid #f8f9fa;
+    outline: none;
+    background-color: #fdfdfd;
+}
+
+.cryptoList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 20px;
+}
+
+.cryptoItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background-color: #fcfcfc;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.cryptoItem:hover {
+    background-color: #f8f9fa;
+}
+
+.coinInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.coinImage {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.coinName {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.coinSymbol {
+    font-size: 14px;
+    color: #777;
+}
+
+.coinPrice {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+}
+
+
+
+
+
+
+@media (max-width: 850px) {
+    .navItem p {
+        display: none;
+    }
+
+    .navItem {
+        padding: 12px;
+        display: flex;
+        width: 100px;
+        font-size: 20px;
+    }
+
+    .dashboard .leftSection {
+        width: 18%;
+    }
+
+    .dashboard .mainSection {
+        width: 82%;
+    }
+
+    .title {
+        width: 30%
+    }
+
+    .buttonContainer {
+        width: 70%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+
+
+}
+
+@media (max-width: 700px) {
+    .title {
+        width: 20%
+    }
+
+    .buttonContainer {
+        width: 80%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+}
+
+/* mobile screen*/
+@media (max-width: 600px) {
+
+    .title {
+        display: none;
+    }
+
+    .buttonContainer {
+        display: none;
+    }
+
+    .dashboard .leftSection {
+        display: none;
+    }
+
+
+    .dashboard .mainSection {
+        width: 100%;
+    }
+
+    .headerContainer {
+        background: transparent;
+        padding: 0px;
+        box-shadow: none;
+      
+    }
+
+
+
+    .mobileHeader {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .dashboard .mainSection {
+        margin-left: 0px;
+    }
+
+
+
+
+    .dashboardContent {
+        width: 100%;
+    }
+
+
+    .rightPanel {
+        display: none;
+    }
+
+    .dashboardContentleft{
+        width: 100%;
+    }
+    .dashboardContentright{
+        display: none;
+    }
+
+}
+

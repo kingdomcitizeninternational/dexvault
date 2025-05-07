@@ -1,0 +1,91 @@
+.modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+    
+  }
+  
+  .modalView {
+    background-color: #fff;
+    border-radius: 10px;
+    width:300px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  
+  .modalState {
+    font-size: 17px;
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: black;
+  }
+  
+  .modalButtonContainer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .acceptBtn {
+    width: 90%;
+    padding: 15px;
+    border-radius: 50px;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 15px;
+    font-family: "ABeeZee", sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .acceptBtn:hover {
+    background-color: #3b3cc4;
+  }
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  .copiedBubble {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #10b981;
+    font-weight: bold;
+    font-size: 16px;
+    animation: fadeOut 2s forwards;
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50%) scale(0.9);
+    }
+  }
+  

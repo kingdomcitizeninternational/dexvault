@@ -1,0 +1,563 @@
+/* Main Layout */
+.dashboard {
+    display: flex;
+   
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+
+.dashboard .leftSection {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.dashboard .mainSection {
+    width: 80%;
+    margin-left: 5px;
+    background-color: white;
+    padding: 0px;
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+
+
+
+.headerContainer {
+    background-color: rgb(255, 255, 255);
+    height: 53px;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    padding-right: 20px;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.title {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: bolder;
+    width: 50%
+}
+
+.title h2 {
+    margin-top: 0px;
+}
+
+.buttonContainer {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.buysellbutton,
+.sendreceivebutton {
+  width: 130px;
+  height: 45px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #4F46E5;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.2);
+  transition: 
+    background-color 0.3s ease,
+    transform 0.25s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Unified hover effect */
+.buysellbutton:hover,
+.sendreceivebutton:hover {
+  background-color: #4338CA;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(67, 56, 202, 0.25);
+}
+
+/* Optional special hover color for send button */
+.sendreceivebutton:hover {
+  color: #4F46E5;
+  background-color: #ffffff;
+}
+.sendreceivebutton {
+    background-color: #fdfdfd;
+    color: black;
+
+}
+
+.notificationbutton,
+.imagebutton {
+    border-radius: 45px;
+    width: 45px;
+    height: 45px;
+    background-color: #fdfdfd;
+    position: relative;
+}
+
+.notificationbutton span {
+    color: #fff;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: red;
+    font-size: 10px;
+}
+
+/*
+.mobileHeader {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+ 
+}*/
+.mobileHeader {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    padding-right: 15px;
+    display: none;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0px;
+    z-index: 1000;
+    /* Add this to prevent content underneath from showing through */
+}
+
+
+
+.hamburger,
+.bell {
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
+
+/* styling the balance section */
+.dashboardContent {
+    width: 100%;
+}
+
+
+
+
+
+
+/*desktop styling*/
+.desktopMainSection {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.desktopMainSectionleft {
+    width: 50%
+}
+
+.desktopMainSectionright {
+    width: 50%
+}
+
+
+
+
+/*  */
+
+
+  
+.tradeSummaryCard {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    width: 90%;
+    margin: auto;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #575757;
+    margin-bottom: 2rem;
+  }
+  
+  .balanceSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .balanceItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .badge {
+    background: #6c47ff;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 0.75rem;
+  }
+  
+  .label {
+    font-size: 1rem;
+    color: #222;
+    font-weight: 500;
+  }
+  
+  .value {
+    font-weight: 600;
+    color: #000;
+  }
+  
+  .ctaButton {
+    width: 200px;
+    background-color: #6c47ff;
+    color: #fff;
+    font-weight: 600;
+    font-size: .9rem;
+    padding: 1rem;
+    border: none;
+    border-radius:5px;
+    margin: 1.5rem 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .ctaButton:hover {
+    background-color: #593bd8;
+  }
+  
+  .tableWrapper {
+    border-radius: 1rem;
+    overflow-x: auto;
+  }
+  
+  .tradeTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  
+  
+  .tradeTable th,
+  .tradeTable td {
+    padding: 1.5rem;
+    border-bottom: 1px solid #ffffff;
+    color: #444;
+  }
+
+  .tradeTable th{
+    font-weight: 700;
+    background-color: rgb(248, 248, 248);
+    background: linear-gradient(145deg, #f8f9fe, #ecf0ff);
+  }
+
+
+  
+  .placeholderRow {
+    height: 3rem;
+    text-align: center;
+    color: #aaa;
+  }
+
+
+  .dashboardWrapper {
+    padding: 2rem;
+    overflow-x: hidden;
+    width: 100%;
+    margin: 15px;
+    margin-top: 20px;
+    padding-top: 0px;
+    background: #fff!important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-radius: 15px;
+   
+  }
+  
+ 
+  
+  .scrollingWrapper {
+    display: flex;
+    gap: 10px;
+    animation: scrollX 40s linear infinite;
+    width: max-content;
+  }
+  
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    width: 240px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+  
+  .priceSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 10px;
+  }
+  
+  .priceChart {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  @keyframes scrollX {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+  .card,
+  .historyCard {
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+  }
+  .emptyText {
+    font-size: 0.95rem;
+    color: var(--light-text);
+    margin-top: 1rem;
+  }
+  
+  
+
+  
+
+
+@media (max-width: 850px) {
+   
+
+    .dashboard .leftSection {
+        width: 18%;
+    }
+
+    .dashboard .mainSection {
+        width: 82%;
+    }
+
+    .title {
+        width: 30%
+    }
+
+    .buttonContainer {
+        width: 70%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+
+
+}
+
+@media (max-width: 700px) {
+    .title {
+        width: 20%
+    }
+
+    .buttonContainer {
+        width: 80%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+
+    .tradeSummaryCard {
+        width: 95%;
+        padding: 10px;
+      }
+}
+
+/* mobile screen*/
+@media (max-width: 600px) {
+
+    .title {
+        display: none;
+    }
+
+    .buttonContainer {
+        display: none;
+    }
+
+    .dashboard .leftSection {
+        display: none;
+    }
+
+
+    .dashboard .mainSection {
+        width: 100%;
+    }
+
+    .headerContainer {
+        background: transparent;
+        padding: 0px;
+        box-shadow: none;
+    }
+
+
+
+    .mobileHeader {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .dashboard .mainSection {
+        margin-left: 0px;
+    }
+
+
+    .balanceCard {
+        display: block;
+    }
+
+
+    .dashboardContent {
+        width: 100%;
+    }
+
+    .tabsContainer {
+        display: block;
+    }
+
+
+    /*  styling the desktop balance*/
+
+    .desktopbalanceSection {
+        display: none;
+    }
+
+
+    /* dsktop tab section */
+    .desktoptabsContainer {
+        display: none;
+    }
+
+    .desktoptabContent {
+        display: none;
+    }
+
+    .rightPanel {
+        display: none;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+.tickerTape {
+  overflow: hidden;
+  background-color: #fafafa;
+  padding: 12px 0;
+  margin-bottom: 24px;
+}
+
+.tickerInner {
+  display: flex;
+  animation: scroll 50s linear infinite;
+  gap: 40px;
+  white-space: nowrap;
+}
+
+.tickerItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: black;
+  font-size: 14px;
+  font-family: 'ABeeZee';
+}
+
+.coinIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.coinName {
+  font-weight: 600;
+  font-family: 'ABeeZee';
+}
+
+.priceUp {
+  color: #22c55e;
+}
+
+.priceDown {
+  color: #ef4444;
+}
+
+
+@keyframes scroll {
+  0% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

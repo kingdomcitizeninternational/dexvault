@@ -1,0 +1,115 @@
+.security_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid rgb(240, 240, 240);
+    margin-bottom: 80px;
+    transition: all 0.3s ease;
+}
+
+.security_Con {
+    display: flex;
+    justify-content: space-around;
+    width: 95%;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.security_card {
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.security_card:hover {
+    transform: translateY(-10px);
+}
+
+.security_imageCon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.security_imageCon span {
+    font-size: 4rem;
+    color: #1652f0;
+}
+
+.security_imageCon img {
+    width: 30%;
+    transition: all 0.3s ease;
+}
+
+.security_content h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    font-family: ABeeZee;
+    color: rgb(120, 120, 120);
+}
+
+.security_content p {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgb(100, 100, 100);
+    font-family: ABeeZee;
+    margin-bottom: 30px;
+}
+
+.security_content a {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1652f0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+    .security_Con {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 90%;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+
+    .security_card {
+        width: 85%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 100px;
+        height: 50vh;
+    }
+
+    .security_section {
+        margin-bottom: 0px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .security_imageCon span {
+        font-size: 3rem;
+    }
+
+    .security_content h1 {
+        font-size: 1.3rem;
+    }
+
+    .security_content p {
+        font-size: 1rem;
+    }
+
+    .security_content a {
+        font-size: 0.9rem;
+    }
+}

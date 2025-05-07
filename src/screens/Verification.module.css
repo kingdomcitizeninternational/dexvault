@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 10px;
+  }
+
+  .innerContainer {
+    width: 33%;
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+    border-radius: 15px;
+    font-family: 'ABeeZee';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+}
+  
+  .progress {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .progressbar {
+    width: 50px;
+    height: 4px;
+    margin-right: 8px;
+    background-color: #E5E7EB;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  .progressBarFilled {
+    height: 100%;
+    background-color: #4F46E5;
+  }
+  
+  .boldText {
+    font-weight: bold;
+    font-family: 'ABeeZee';
+  }
+  
+  .title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 0px;
+    font-family: 'ABeeZee';
+  }
+  
+  .subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4F46E5;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'ABeeZee';
+  }
+  
+  .description {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'ABeeZee';
+  }
+  
+  .input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-family: 'ABeeZee';
+}
+  
+  .button {
+    background-color: #4F46E5;
+    padding: 14px;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .disabledButton {
+    background-color: #D1D5DB;
+  }
+  
+  .loader {
+    margin: 0 auto;
+  }
+  
+ 
+  
+
+  @media (max-width: 768px) {
+    .innerContainer {
+        width: 80%;
+        border: none;
+        box-shadow: none;
+    }
+    .progressContainer {
+        width: 80%;
+        /* Adds space between the progress bar and other elements */
+    }
+}

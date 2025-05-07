@@ -1,0 +1,160 @@
+.earn_container_outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.earn_container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 90%;
+}
+
+.earn_section {
+    width: 30%;
+}
+
+.earn_section h1 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.earn_section p {
+    font-size: 15px;
+    font-family: ABeeZee;
+    margin-bottom: 15px;
+}
+
+.earn_section button {
+    width: 120px;
+    background-color: #1652f0;
+    margin-bottom: 15px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    display: flex;
+    font-size: 15px;
+    color: #fff;
+    border-radius: 3px;
+    justify-content: center;
+    align-self: center;
+}
+
+.earn_tech {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-right: 10px;
+}
+
+.earn_tech_content {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    transition: 1s all;
+    box-shadow: 5px 3px 3px 3px rgb(245, 245, 245);
+}
+
+.earn_tech_content:hover {
+    box-shadow: 5px 3px 3px 3px rgb(228, 228, 228);
+    z-index: 10;
+}
+
+.earn_tech_paragraph {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1652f0;
+    align-self: flex-start;
+    padding-left: 50%;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.earn_tech_symbol {
+    display: flex;
+    width: 40%;
+}
+
+.earn_tech_earn {
+    display: flex;
+    width: 50%;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.earn_techimg_con {
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.earn_techimg_con img {
+    width: 35px;
+    background-color: #fff;
+}
+
+.earn_techtitle {
+    font-size: 20px;
+    font-family: ABeeZee;
+    color: rgb(100, 100, 100);
+    font-weight: 700;
+}
+
+.earn_tech_earn_action {
+    font-size: 17px;
+    font-family: ABeeZee;
+    color: green;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 750px) {
+    .earn_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .earn_section {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .earn_tech {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-right: 0px;
+        margin-bottom: 5px;
+    }
+
+    .earn_tech_content {
+        width: 95%;
+        border: 1px solid rgb(240, 240, 240);
+        padding-top: 25px;
+        padding-bottom: 25px;
+        border-radius: 10px;
+    }
+
+    .earn_techtitle {
+        font-size: 15px;
+        font-family: ABeeZee;
+        color: rgb(100, 100, 100);
+        font-weight: 500;
+        width: 100%;
+    }
+}

@@ -1,0 +1,133 @@
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.innerContainer {
+    width: 33%;
+    border: 1px solid #e6e6e6;
+    padding: 15px;
+    border-radius: 15px;
+    font-family: 'ABeeZee';
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-top: 0px;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.generateButton {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+    background-color: #4F46E5;
+    color: white;
+    font-family: 'ABeeZee', sans-serif;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.generateButton:hover {
+    opacity: 0.9;
+}
+
+.generateButton:active {
+    transform: scale(0.98);
+}
+
+.seedPhraseContainer {
+    margin-top: 20px;
+}
+.seedWarning{
+    background-color: rgb(255, 248, 236);
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 1px;
+    margin-bottom: 10px;
+}
+
+.seedPhraseInput {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-family: 'ABeeZee';
+    color: #555;
+    background-color: #f9f9f9;
+    resize: none;
+    height: auto;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.createButton {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    color:rgb(23, 23, 23);
+    font-family: 'ABeeZee', sans-serif;
+   
+}
+
+.createButton:hover {
+    opacity: 0.9;
+}
+
+.createButton:active {
+    transform: scale(0.98);
+}
+
+.securityMessage {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+    text-align: center;
+}
+
+/* For mobile screens */
+@media (max-width: 768px) {
+    .innerContainer {
+        width: 80%;
+        border: none;
+        box-shadow: none;
+    }
+}

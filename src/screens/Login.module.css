@@ -1,0 +1,237 @@
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+    padding-top: 0px;
+
+}
+
+.innerContainer {
+    width: 33%;
+    border: 1px solid #e6e6e6;
+    padding: 15px;
+    border-radius: 15px;
+    font-family: 'ABeeZee';
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+  
+.progress {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .progressbar {
+    width: 50px;
+    height: 4px;
+    margin-right: 8px;
+    background-color: #E5E7EB;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  .progressBarFilled {
+    height: 100%;
+    background-color: #4F46E5;
+  }
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: -15px;
+    font-family: 'ABeeZee';
+}
+
+.subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4F46E5;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'ABeeZee';
+}
+
+.description {
+    font-size: 14px;
+    text-align: center;
+    color: #555;
+    margin-bottom: 16px;
+    font-family: 'ABeeZee';
+}
+
+.input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-family: 'ABeeZee';
+    padding-top: 15px;
+    padding-bottom: 15px;
+    
+}
+
+.button,.importbutton,.createbutton {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #4F46E5;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.button:hover,.importbutton:hover,.createbutton:hover {
+    background-color: #3b3cc4;
+}
+
+.importbutton{
+    background-color: #ededed;
+    color:#3b3cc4;
+}
+
+.disabledButton {
+    background-color: #d1d5db;
+    cursor: not-allowed;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.termsText {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.link {
+    color: #4F46E5;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+
+.loader {
+    width: 10px;
+    height: 10px;
+    color:#fff;
+}
+
+.progressContainer {
+    width: 30%;
+    margin-bottom: 20px; /* Adds space between the progress bar and other elements */
+}
+
+.progressBar {
+    width: 100%;
+    height: 8px;
+    appearance: none;
+    border-radius: 10px;
+    border:1px solid #E5E7EB;
+    color: #4F46E5;
+    background-color: red;
+}
+
+
+/* wallet screen*/
+title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.walletButton {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.importButton {
+    background-color: #f8f9fa;
+    color:rgb(23, 23, 23);
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.createButton {
+    background-color: #4F46E5;
+    color: white;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.walletButton:hover {
+    opacity: 0.9;
+}
+
+.walletButton:active {
+    transform: scale(0.98);
+}
+
+
+.securityMessage {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+}
+
+
+@media (max-width: 768px) {
+    .innerContainer {
+        width: 80%;
+        border: none;
+         box-shadow: none;
+    }
+    .progressContainer {
+        width: 80%;
+        /* Adds space between the progress bar and other elements */
+    }
+}
+
+/* For mobile screens */
+@media (max-width: 480px) {}

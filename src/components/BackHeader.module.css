@@ -1,0 +1,144 @@
+.headerContainer {
+    background-color: rgb(255, 255, 255);
+    height: 53px;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    padding-right: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .title {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: bolder;
+    width: 50%;
+  }
+  
+  .title h2 {
+    margin-top: 0px;
+  }
+  
+  .buttonContainer {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .buysellbutton,
+  .sendreceivebutton {
+    width: 130px;
+    height: 45px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #4F46E5;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.2);
+    transition: background-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease, color 0.3s ease;
+  }
+  
+  .buysellbutton:hover,
+  .sendreceivebutton:hover {
+    background-color: #4338CA;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(67, 56, 202, 0.25);
+  }
+  
+  .sendreceivebutton {
+    background-color: #fdfdfd;
+    color: black;
+  }
+  
+  .sendreceivebutton:hover {
+    color: #4F46E5;
+    background-color: #ffffff;
+  }
+  
+  .notificationbutton,
+  .imagebutton {
+    border-radius: 45px;
+    width: 45px;
+    height: 45px;
+    background-color: #fdfdfd;
+    position: relative;
+  }
+  
+  .notificationbutton span {
+    color: #fff;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: red;
+    font-size: 10px;
+  }
+  
+  .mobileHeader {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    display: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .mobileHeader .hamburger {
+    cursor: pointer;
+    z-index: 1000;
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+  }
+  
+  .mobileHeader h2 {
+    width: 70%;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  @media (max-width: 850px) {
+    .title {
+      width: 30%;
+    }
+  
+    .buttonContainer {
+      width: 70%;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .title {
+      width: 20%;
+    }
+  
+    .buttonContainer {
+      width: 80%;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .title {
+      display: none;
+    }
+  
+    .buttonContainer {
+      display: none;
+    }
+  
+    .headerContainer {
+      background: transparent;
+      padding: 0px;
+      box-shadow: none;
+    }
+  
+    .mobileHeader {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  

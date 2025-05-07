@@ -1,0 +1,38 @@
+.card{
+    width:40%;
+    display:flex;
+    flex-direction:column;
+    justify-content:Center;
+    align-items:flex-start;
+}
+.card img{
+    width:100%;
+    margin-bottom:15px
+}
+.card p{
+    font-size:1rem;
+    color:rgb(100,100,100);
+    width:100%
+}
+.card h1{
+    font-size:1.8rem;
+    margin-bottom:10px
+}
+.card h3{
+    font-family: ABeeZee;
+    font-weight:200;
+    font-size:1.2rem;
+
+}
+/* for smaller screens*/
+@media screen and (max-width: 768px) {
+    .card{
+        width:92%;
+        margin-bottom:60px
+    
+    }
+    .card h1{
+        font-size:1.6rem;
+    }
+
+}

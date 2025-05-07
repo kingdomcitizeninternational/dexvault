@@ -1,0 +1,172 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 65%;
+    max-width: 320px;
+    height: 100%;
+    background: #4F46E5;
+    color: #fff;
+    padding: 24px;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in-out;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow-y: scroll;
+   
+  }
+  
+  /* User profile section */
+  .userProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  
+  .avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .username {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+  }
+  
+  /* Navigation links */
+  .sidebarLinks {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebarLinks li {
+    margin: 18px 0;
+  }
+  
+  .sidebarLinks a {
+    color: #f3f3f3;
+    text-decoration: none;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .sidebarLinks a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+  }
+  
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(105, 105, 105, 0.5);
+    z-index: 999;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+    display: none;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+
+
+
+.activeLink {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff !important;
+    font-weight: bold;
+    transform: translateX(5px);
+    border-left: 4px solid #fff;
+  }
+  .sidebarLinks a {
+    transition: background 0.3s, transform 0.2s, border-left 0.2s;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .link {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  
+  .link:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .activeLink {
+    background-color: #4f46e5;
+    color: white;
+    font-weight: bold;
+  }
+  
+    
+  /* mobile screen*/
+@media (max-width: 600px) {
+    .sidebar{
+        display: flex;
+        padding-bottom: 300px;
+    }
+    .overlay{
+        display:flex
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,109 @@
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+}
+
+.innerContainer {
+    width: 33%;
+    border: 1px solid #e6e6e6;
+    padding: 15px;
+    border-radius: 15px;
+    font-family: 'ABeeZee';
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-top: 5px;
+}
+
+/*
+.innerContainer {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+*/
+
+.title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.seedPhraseInput {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-family: 'ABeeZee';
+}
+
+.errorMessage {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.importButton {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+    background-color: #4F46E5;
+    color: white;
+    font-family: 'ABeeZee', sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.importButton:hover {
+    opacity: 0.9;
+}
+
+.importButton:active {
+    transform: scale(0.98);
+}
+
+.securityMessage {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+    text-align: center;
+}
+
+
+
+@media (max-width: 768px) {
+    .innerContainer {
+        width: 80%;
+        border: none;
+        box-shadow: none;
+    }
+   
+}
+
+/* For mobile screens */
+@media (max-width: 480px) {}
