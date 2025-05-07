@@ -30,7 +30,7 @@ const ProfileModal = ({ hideModal, propertyName, propertyValue }) => {
         <span className="material-icons" style={{ width: "100%", textAlign: "start", cursor: "pointer" }} onClick={closeHandler}>
           close
         </span>
-        <div className={styles.optionList} style={{ gap: '0px', alignItems: 'start', padding: '10px', padding: '3px' }}>
+        <div className={styles.optionList} style={{ gap: '0px', alignItems: 'start', padding: '3px' }}>
           <span >{propertyName}</span>
           <p style={{ wordBreak: 'break-word', whiteSpace: 'normal' }}>{propertyValue}</p>
 
