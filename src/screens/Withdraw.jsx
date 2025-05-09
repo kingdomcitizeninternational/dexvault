@@ -57,6 +57,9 @@ const Withdraw = () => {
         fetchCryptoData();
     }, []);
 
+
+
+
     const handleWithdraw = async () => {
         if (loading) return;
         if (!amount || !method) {
@@ -64,22 +67,19 @@ const Withdraw = () => {
             setIsAuthError(true);
             return;
         }
-
-
-        //check for restriction
+    
         if (!user.accountStatus) {
             setAuthInfo('Account not yet veririfed');
             setIsAuthError(true);
             return;
         }
-
-        //check for account balance
+    
         if (Number(user.availableBalance) < Number(amount)) {
             setAuthInfo('Insufficient fund');
             setIsAuthError(true);
             return;
         }
-
+    
         let data = {
             amount,
             method,
@@ -92,21 +92,42 @@ const Withdraw = () => {
             cashapp_address: cashappAddress,
             zelle_address: zelleAddress,
         };
-
+    
         try {
             setLoading(true);
             const res = await dispatch(createWithdraw(data));
             if (!res.bool) {
                 setIsAuthError(true);
-                setAuthInfo(res.message);
+                return setAuthInfo(res.message);
             }
+    
+            setIsAuthError(true);
+            setWithdrawals(res.message);
+            setAuthInfo("Withdrawal initiated.");
             setLoading(false);
             fetchWithdrawHandler();
+    
+            // ✅ Clear all input fields
+            setAmount('');
+            setMethod('');
+            setAccountName('');
+            setAccountNumber('');
+            setBankName('');
+            setBitcoinAddress('');
+            setEtheriumAddress('');
+            setCashappAddress('');
+            setZelleAddress('');
         } catch (error) {
             setIsAuthError(true);
             setAuthInfo(error.message);
+            setLoading(false);
         }
     };
+    
+
+
+
+
 
     const fetchWithdrawHandler = async () => {
         try {
@@ -141,12 +162,12 @@ const Withdraw = () => {
     };
 
     const navigateMobileHandler = (url) => {
-        if (user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
         if (url === 'dashboard') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -160,6 +181,11 @@ const Withdraw = () => {
             }
 
         } else if (url === 'transactions') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -179,7 +205,6 @@ const Withdraw = () => {
         } else {
             return navigate(`/${url}`)
         }
-
     }
 
     return (
@@ -231,7 +256,7 @@ const Withdraw = () => {
                                 <div className={styles.formGroup}>
                                     <input
                                         type="number"
-                                        placeholder="Amount"
+                                        placeholder="Amount in dollars"
                                         className={styles.input}
                                         value={amount}
                                         onChange={(e) => setAmount(e.target.value)}

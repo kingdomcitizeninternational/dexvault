@@ -54,12 +54,13 @@ const Settings = () => {
 
 
    const navigateMobileHandler = (url) => {
-        if (user.walletFeauture) {
+       
+        if (url === 'dashboard') {
+          if (!user.walletFeauture) {
             setIsAuthError(true)
             setAuthInfo('Wallet feature is not enabled yet on this account')
             return
-        }
-        if (url === 'dashboard') {
+          }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -74,6 +75,11 @@ const Settings = () => {
 
 
         } else if (url === 'transactions') {
+          if (!user.walletFeauture) {
+            setIsAuthError(true)
+            setAuthInfo('Wallet feature is not enabled yet on this account')
+            return
+          }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -140,8 +146,9 @@ const Settings = () => {
 
                 {seedphrase && chain && network && address && <div className={styles.settingsItem} onClick={openNetworkModalHandler}><FaNetworkWired className={styles.icon} /> Select Network</div>}
 
-                <div className={styles.settingsItem}><FaCoins className={styles.icon} /> Manage Tokens</div>
-                <div className={styles.settingsItem}><FaGasPump className={styles.icon} /> Gas Fee Settings</div>
+              
+                {seedphrase && chain && network && address &&<div className={styles.settingsItem}><FaGasPump className={styles.icon} /> Gas Fee Settings</div>}
+
                 <div className={styles.settingsItem}><FaSearchLocation className={styles.icon} /> Explorer Preference</div>
               </div>
 

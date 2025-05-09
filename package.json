@@ -70,7 +70,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "assert": "^2.1.0",
     "browserify": "^17.0.1",
-    "buffer": "^6.0.3",
+    "buffer": "^5.7.1",
     "crypto-browserify": "^3.12.1",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",

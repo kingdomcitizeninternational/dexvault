@@ -130,12 +130,12 @@ const FundAccount = () => {
     }
 
     const navigateMobileHandler = (url) => {
-        if (user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
         if (url === 'dashboard') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -149,6 +149,11 @@ const FundAccount = () => {
             }
 
         } else if (url === 'transactions') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -168,7 +173,6 @@ const FundAccount = () => {
         } else {
             return navigate(`/${url}`)
         }
-
     }
 
     const changeHandler = (data) => {
@@ -200,41 +204,75 @@ const FundAccount = () => {
     }
 
     const createDepositHandler = async () => {
-        if (loading) {
-            return
-        }
-         //check for restriction
-         if (!user.accountStatus) {
-            setAuthInfo('Account not yet veririfed');
+        if (loading) return;
+
+        if (!user?.accountStatus) {
+            setAuthInfo('Account not yet verified');
             setIsAuthError(true);
             return;
         }
-        //distructuring data to submit
-        let data = {
-            amount: fund.amount,
-            plan: fund.plan,
-            mode: isPaymentMode ? isPaymentMode : 'isPaymentMode',
-            user: user
+
+        if (isPaymentMode === 'isPaymentMode' || isPaymentMode === '') {
+            setAuthInfo('Please select the mode of deposit');
+            setIsAuthError(true);
+            return;
         }
 
+        const { amount, plan } = fund;
+        const mode = isPaymentMode;
+
+        if (!amount || !plan || !mode) {
+            setAuthInfo('Please fill all required fields correctly');
+            setIsAuthError(true);
+            return;
+        }
+
+        if (!user?.email) {
+            setAuthInfo('User information is missing');
+            setIsAuthError(true);
+            return;
+        }
+
+        const data = {
+            amount,
+            plan,
+            mode,
+            user
+        };
 
         try {
-            setLoading(true)
-            const res = await dispatch(createDeposit(data))
+            setLoading(true);
+            const res = await dispatch(createDeposit(data));
 
             if (!res.bool) {
                 setIsAuthError(true);
                 setAuthInfo(res.message);
+                setLoading(false);
+                return;
             }
-            setLoading(false)
-            //fetch all deposit
+
+            setLoading(false);
+            setIsDeposits(res.message);
+            setAuthInfo('Deposit initiated. Scroll down the history table, click the pay now, and follow the instruction to complete payment');
+            setIsAuthError(true);
+
+            // ✅ Clear input fields after successful submission
+            setFund({
+                plan: '',
+                amount: ''
+            });
+            setIsPaymentMode('');
+
+            return;
 
         } catch (error) {
+            setLoading(false);
             setIsAuthError(true);
-            setAuthInfo(error.message);
+            setAuthInfo(error.message || 'Something went wrong');
         }
+    };
 
-    }
+
 
 
 
@@ -334,16 +372,28 @@ const FundAccount = () => {
                             </div>
 
                             <div className={styles.formGroup}>
-                                <select className={styles.select} onChange={(e) => changeHandler(e.target.value)} value={fund.plan}>
-                                    <option value="">Investment Package</option>
-                                    <option value="Starter">Starter</option>
-                                    <option value="Bronze">Bronze</option>
-                                    <option value="Silver">Silver</option>
+                                <select
+                                    className={styles.select}
+                                    value={isPaymentMode}
+                                    onChange={(e) => changeModeHandler(e.target.value)}
+                                >
+                                    <option value="">Method of Payment</option>
+                                    <option value="Bitcoin">Bitcoin</option>
+                                    <option value="Etheruem">Etheruem</option>
+                                    <option value="Gcash">Gcash</option>
                                 </select>
+
                             </div>
 
                             <div className={styles.formGroup}>
-                                <input type="number" placeholder="Amount" className={styles.input} value={fund.amount} />
+                                <input
+                                    type="number"
+                                    placeholder="Enter amount in dollars"
+                                    className={styles.input}
+                                    value={fund.amount}
+                                    onChange={(e) => setFund(prev => ({ ...prev, amount: e.target.value }))}
+                                />
+
                             </div>
 
 

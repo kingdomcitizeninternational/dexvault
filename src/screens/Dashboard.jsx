@@ -139,6 +139,7 @@ const Dashboard = () => {
             if (!res.bool) {
                 setIsAuthError(true);
                 setAuthInfo(res.message);
+                return
             }
             setLoading(false)
             setToken(res.message.tokens)
@@ -172,13 +173,10 @@ const Dashboard = () => {
 
     const buyFunction = () => {
         setOpenBuyModal(false)
-
-
     }
+
     const sellFunction = () => {
         setOpenBuyModal(false)
-
-
     }
 
 
@@ -201,12 +199,16 @@ const Dashboard = () => {
 
 
     const actionHandler = (data) => {
+        //for buy and sell throw why user has error
+        if(data === 'sell-assets'|| data === 'buy-assets'){
+
+        }
         if (data === 'receive') {
             return navigate('/receive')
         }
         navigate(`/${data}`)
     }
-
+    
     const notificationHandler = () => {
         navigate('/notifications')
     }
@@ -216,15 +218,14 @@ const Dashboard = () => {
     }
 
 
-
-
     const navigateTabHandler = (url) => {
-        if (user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
+       
         if (url === 'dashboard') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -239,6 +240,11 @@ const Dashboard = () => {
 
 
         } else if (url === 'transactions') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -262,12 +268,13 @@ const Dashboard = () => {
     }
 
     const navigateMobileHandler = (url) => {
-        if (user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
+       
         if (url === 'dashboard') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -282,6 +289,11 @@ const Dashboard = () => {
 
         } else if (url === 'transactions') {
             //logic to check if wallet properties are saved to async storage
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })

@@ -9,11 +9,7 @@ import { combineReducers, createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux"
 import { userAuthReducer } from "./store/reducer/appStorage"
 import PWAPrompt from 'react-ios-pwa-prompt'
-import { Buffer } from 'buffer';
 
-
-// Make Buffer available globally
-if (!window.Buffer) window.Buffer = Buffer;
 
 
 //configuring the redux store

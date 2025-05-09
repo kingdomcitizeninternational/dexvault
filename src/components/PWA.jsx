@@ -48,7 +48,7 @@ const InstallBanner = () => {
       {isIOS ? (
         <div>
           <p style={styles.text}>
-            📱 To install this app on your iPhone, tap <strong>Share</strong> 
+            📱 To install this app on your iPhone, tap <strong>Share</strong>
             <span style={styles.icon}>🔗</span> and then <strong>Add to Home Screen</strong> 📲
           </p>
         </div>
@@ -81,7 +81,7 @@ const styles = {
     fontSize: '16px',
     lineHeight: '1.5',
   },
- 
+
   icon: {
     margin: '0 0.25rem',
   },

@@ -15,7 +15,7 @@ const navigateToPortfolio = () => {
   if (location.pathname === "/portfolio") {
     navigate("/invest");
   } else {
-    navigate("/portfolio");
+    navigate("/settings");
   }
 };
 

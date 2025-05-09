@@ -202,12 +202,13 @@ const TradeCenter = () => {
 
 
       const navigateMobileHandler = (url) => {
-        if (user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
+        
         if (url === 'dashboard') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+              }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -222,6 +223,11 @@ const TradeCenter = () => {
 
 
         } else if (url === 'transactions') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+              }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {

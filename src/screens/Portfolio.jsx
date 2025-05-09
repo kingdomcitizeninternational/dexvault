@@ -26,7 +26,6 @@ const Portfolio = () => {
     const [isAuthError, setIsAuthError] = useState(false);
     const [authInfo, setAuthInfo] = useState("");
     let { user, seedphrase, chain, network, address } = useSelector(state => state.userAuth)
-    const targetValue = 18500;
     const [count, setCount] = useState(0);
 
 
@@ -131,12 +130,12 @@ const Portfolio = () => {
 
 
     const navigateTabHandler = (url) => {
-        if (user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
         if (url === 'dashboard') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -151,6 +150,11 @@ const Portfolio = () => {
       
       
         } else if (url === 'transactions') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -170,21 +174,17 @@ const Portfolio = () => {
         } else {
             return navigate(`/${url}`)
         }
-
     }
 
 
 
-
-
-
     const navigateMobileHandler = (url) => {
-        if (user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
         if (url === 'dashboard') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -199,6 +199,11 @@ const Portfolio = () => {
       
       
         } else if (url === 'transactions') {
+            if (!user.walletFeauture) {
+                setIsAuthError(true)
+                setAuthInfo('Wallet feature is not enabled yet on this account')
+                return
+            }
             //logic to check if wallet properties are saved to async storage
             let seedphrase = localStorage.getItem('seedphrase');
             if (!seedphrase) {
@@ -218,7 +223,6 @@ const Portfolio = () => {
         } else {
             return navigate(`/${url}`)
         }
-      
       };
 
 

@@ -1208,7 +1208,6 @@ export const createDeposit = (data) => {
         }
       }
 
-
       if (response.status === 300) {
         let data = await response.json()
         return {

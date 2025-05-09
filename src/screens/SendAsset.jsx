@@ -49,17 +49,17 @@ const SendAsset = () => {
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [openSendModal, setOpenSendModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  
+
 
   const [isAuthError, setIsAuthError] = useState(false);
   const [authInfo, setAuthInfo] = useState("");
   let { user, seedphrase, chain, network, address } = useSelector(state => state.userAuth)
 
 
-   const updateAuthError = () => {
-        setIsAuthError(prev => !prev);
-        setAuthInfo('')
-    }
+  const updateAuthError = () => {
+    setIsAuthError(prev => !prev);
+    setAuthInfo('')
+  }
 
 
 
@@ -139,48 +139,54 @@ const SendAsset = () => {
     navigate('/send', { state: { symbol: data.symbol, name: data.name, data: data } });
   }
 
-   const navigateMobileHandler = (url) => {
-        if (user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
+  const navigateMobileHandler = (url) => {
+   
+    if (url === 'dashboard') {
+      if (!user.walletFeauture) {
+        setIsAuthError(true)
+        setAuthInfo('Wallet feature is not enabled yet on this account')
+        return
+      }
+      //logic to check if wallet properties are saved to async storage
+      let seedphrase = localStorage.getItem('seedphrase');
+      if (!seedphrase) {
+        return navigate('/create-wallet', { state: { email: user.email } })
+      } else {
+        if (seedphrase && chain && network && address) {
+          return navigate('/dashboard')
+        } else {
+          return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
         }
-        if (url === 'dashboard') {
-            //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
-            if (!seedphrase) {
-                return navigate('/create-wallet', { state: { email: user.email } })
-            } else {
-                if (seedphrase && chain && network && address) {
-                    return navigate('/dashboard')
-                } else {
-                    return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-                }
-            }
+      }
 
 
-        } else if (url === 'transactions') {
-            //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
-            if (!seedphrase) {
-                return navigate('/create-wallet', { state: { email: user.email } })
-            } else {
+    } else if (url === 'transactions') {
+      if (!user.walletFeauture) {
+        setIsAuthError(true)
+        setAuthInfo('Wallet feature is not enabled yet on this account')
+        return
+      }
+      //logic to check if wallet properties are saved to async storage
+      let seedphrase = localStorage.getItem('seedphrase');
+      if (!seedphrase) {
+        return navigate('/create-wallet', { state: { email: user.email } })
+      } else {
 
-                if (seedphrase && chain && network && address) {
-                    return navigate('/transactions')
-
-                } else {
-
-                    return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-                }
-            }
-
+        if (seedphrase && chain && network && address) {
+          return navigate('/transactions')
 
         } else {
-            return navigate(`/${url}`)
-        }
 
-    };
+          return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+        }
+      }
+
+
+    } else {
+      return navigate(`/${url}`)
+    }
+
+  };
 
   return (
     <>

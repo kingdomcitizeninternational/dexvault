@@ -321,12 +321,13 @@ const Send = () => {
 
 
   const navigateMobileHandler = (url) => {
-    if (user.walletFeauture) {
+   
+    if (url === 'dashboard') {
+      if (!user.walletFeauture) {
         setIsAuthError(true)
         setAuthInfo('Wallet feature is not enabled yet on this account')
         return
     }
-    if (url === 'dashboard') {
         //logic to check if wallet properties are saved to async storage
         let seedphrase = localStorage.getItem('seedphrase');
         if (!seedphrase) {
@@ -341,6 +342,11 @@ const Send = () => {
 
 
     } else if (url === 'transactions') {
+      if (!user.walletFeauture) {
+        setIsAuthError(true)
+        setAuthInfo('Wallet feature is not enabled yet on this account')
+        return
+    }
         //logic to check if wallet properties are saved to async storage
         let seedphrase = localStorage.getItem('seedphrase');
         if (!seedphrase) {
