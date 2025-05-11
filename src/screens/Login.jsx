@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticate } from '../store/action/appStorage';
-import './Login.css'; // regular CSS
+import styles from './Login.module.css';
 import AuthModal from '../Modal/AuthModal';
 import Spinner from "react-activity/dist/Spinner";
 import "react-activity/dist/Spinner.css";
@@ -63,30 +64,30 @@ const LoginScreen = () => {
     return (
         <>
             {isAuthError && <AuthModal modalVisible={isAuthError} updateVisibility={updateAuthError} message={authInfo} />}
-            <div className="container">
-                <div className="innerContainer">
-                    <div className="progress">
+            <div className={styles.container}>
+                <div className={styles.innerContainer}>
+                    <div className={styles.progress}>
                         {[100, 50, 0, 0].map((val, i) => (
-                            <div className="progressbar" key={i}>
-                                <div className="progressBarFilled" style={{ width: `${val}%` }}></div>
+                            <div className={styles.progressbar} key={i}>
+                                <div className={styles.progressBarFilled} style={{ width: `${val}%` }}></div>
                             </div>
                         ))}
                     </div>
-                    <h2 className="title">Log in or Create</h2>
-                    <h3 className="subtitle">Account</h3>
-                    <p className="description">Choose the method to create an account or log in to Dexvault.</p>
+                    <h2 className={styles.title}>Log in or Create</h2>
+                    <h3 className={styles.subtitle}>Account</h3>
+                    <p className={styles.description}>Choose the method to create an account or log in to Dexvault.</p>
 
                     <input
                         type="email"
-                        className="input"
+                        className={styles.input}
                         placeholder="Enter your email"
                         value={email}
                         onChange={handleEmailChange}
                     />
-                    <p className="error">{isEmailValid}</p>
+                    <p className={styles.error}>{isEmailValid}</p>
 
                     <button
-                        className={`button ${isDisabled ? 'disabledButton' : ''}`}
+                        className={`${styles.button} ${isDisabled ? styles.disabledButton : ''}`}
                         disabled={isDisabled}
                         onClick={submitHandler}
                     >
@@ -94,15 +95,15 @@ const LoginScreen = () => {
                             <Spinner
                                 size={10}
                                 color="#fff"
-                                className="loader"
+                                className={styles.loader}
                                 style={{ color: '#fff', fill: '#fff', stroke: '#fff' }}
                             />
                         ) : 'Continue'}
                     </button>
 
-                    <div className="termsText">
-                        By using the Dexvault app, I agree to the <span className="link">Terms of Service</span> and
-                        <span className="link"> Privacy Policy</span>
+                    <div className={styles.termsText}>
+                        By using the Dexvault app, I agree to the <span className={styles.link}>Terms of Service</span> and
+                        <span className={styles.link}> Privacy Policy</span>
                     </div>
                 </div>
             </div>
@@ -111,5 +112,6 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+
 
 
