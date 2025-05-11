@@ -179,6 +179,7 @@ const Profile = () => {
                                 <div className={styles.divider} />
 
                                 <div className={styles.detailsSection}>
+                                    {seedphrase && chain && network && address && (<> 
                                     <div className={styles.detailItem} onClick={() => openModal('Wallet Address', address)}>
                                         <span className={styles.label}>Wallet Address</span>
                                         <p className={styles.value}>{address ? address?.slice(0, 10) : ''}...</p>
@@ -188,6 +189,7 @@ const Profile = () => {
                                         <span className={styles.label}>Network</span>
                                         <p className={styles.value}>{network ? network : ''}</p>
                                     </div>
+                                    </>)}
 
 
                                     <div className={styles.detailItem} onClick={() => openModal('Passcode', user.passcode)}>

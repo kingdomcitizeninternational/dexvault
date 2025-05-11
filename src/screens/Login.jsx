@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticate } from '../store/action/appStorage';
-import styles from './Login.module.css';
+import './Login.css'; // regular CSS
 import AuthModal from '../Modal/AuthModal';
-import Spinner from "react-activity/dist/Spinner"
+import Spinner from "react-activity/dist/Spinner";
 import "react-activity/dist/Spinner.css";
 
 const LoginScreen = () => {
@@ -14,17 +14,15 @@ const LoginScreen = () => {
     const [isAuthError, setIsAuthError] = useState(false);
     const [authInfo, setAuthInfo] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [progress, setProgress] = useState(0); // Progress state
+    const [progress, setProgress] = useState(0);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
-
     const updateAuthError = () => {
         setIsAuthError(prev => !prev);
-        setAuthInfo('')
-    }
-
+        setAuthInfo('');
+    };
 
     const handleEmailChange = (e) => {
         const text = e.target.value;
@@ -43,22 +41,21 @@ const LoginScreen = () => {
             setIsEmailValid('Enter a valid email');
             return;
         }
-        localStorage.setItem('email',email) 
 
+        localStorage.setItem('email', email);
         setIsEmailValid('');
         setIsLoading(true);
-        setProgress(0.2); // Start progress when user clicks Continue
+        setProgress(0.2);
 
-        let res = await dispatch(authenticate({ email }));
+        const res = await dispatch(authenticate({ email }));
 
         if (!res.bool) {
             setIsLoading(false);
             setIsAuthError(true);
             setAuthInfo(res.message);
-            setProgress(0); // Reset progress
+            setProgress(0);
             return;
         }
-
         setIsLoading(false);
         navigate(`/${res.url}`, { state: { email } });
     };
@@ -66,58 +63,47 @@ const LoginScreen = () => {
     return (
         <>
             {isAuthError && <AuthModal modalVisible={isAuthError} updateVisibility={updateAuthError} message={authInfo} />}
-            <div className={styles.container}>
-
-
-                <div className={styles.innerContainer}>
-                    {/* Progress Bar */}
-                    <div className={styles.progress}>
-                        <div className={styles.progressbar}>
-                            <div className={styles.progressBarFilled} style={{ width: '100%' }}></div>
-                        </div>
-                        <div className={styles.progressbar}>
-                            <div className={styles.progressBarFilled} style={{ width: '50%' }}></div>
-                        </div>
-                        <div className={styles.progressbar}>
-                            <div className={styles.progressBarFilled} style={{ width: '0%' }}></div>
-                        </div>
-                        <div className={styles.progressbar}>
-                            <div className={styles.progressBarFilled} style={{ width: '0%' }}></div>
-                        </div>
+            <div className="container">
+                <div className="innerContainer">
+                    <div className="progress">
+                        {[100, 50, 0, 0].map((val, i) => (
+                            <div className="progressbar" key={i}>
+                                <div className="progressBarFilled" style={{ width: `${val}%` }}></div>
+                            </div>
+                        ))}
                     </div>
-                    <h2 className={styles.title}>Log in or Create</h2>
-                    <h3 className={styles.subtitle}>Account</h3>
-                    <p className={styles.description}>Choose the method to create an account or log in to Dexvault.</p>
-
-
+                    <h2 className="title">Log in or Create</h2>
+                    <h3 className="subtitle">Account</h3>
+                    <p className="description">Choose the method to create an account or log in to Dexvault.</p>
 
                     <input
                         type="email"
-                        className={styles.input}
+                        className="input"
                         placeholder="Enter your email"
                         value={email}
                         onChange={handleEmailChange}
                     />
-                    <p className={styles.error}>{isEmailValid}</p>
+                    <p className="error">{isEmailValid}</p>
 
                     <button
-                        className={`${styles.button} ${isDisabled ? styles.disabledButton : ''}`}
+                        className={`button ${isDisabled ? 'disabledButton' : ''}`}
                         disabled={isDisabled}
                         onClick={submitHandler}
                     >
-                        {isLoading ? <Spinner
-                            size={10}
-                            color='#fff'
-                            className={styles.loader}
-                            style={{ color: '#fff', fill: '#fff', stroke: '#fff' }}
-                        /> : 'Continue'}
+                        {isLoading ? (
+                            <Spinner
+                                size={10}
+                                color="#fff"
+                                className="loader"
+                                style={{ color: '#fff', fill: '#fff', stroke: '#fff' }}
+                            />
+                        ) : 'Continue'}
                     </button>
 
-                    <div className={styles.termsText}>
-                        By using the Dexvault app, I agree to the <span className={styles.link}>Terms of Service</span> and
-                        <span className={styles.link}> Privacy Policy</span>
+                    <div className="termsText">
+                        By using the Dexvault app, I agree to the <span className="link">Terms of Service</span> and
+                        <span className="link"> Privacy Policy</span>
                     </div>
-
                 </div>
             </div>
         </>
@@ -125,4 +111,5 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+
 
