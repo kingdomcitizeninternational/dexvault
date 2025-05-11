@@ -24,7 +24,7 @@ const Profile = () => {
     const [propertyName, setPropertyName] = useState('');
     const [propertyValue, setPropertyValue] = useState('');
 
-    let { network, address, user } = useSelector(state => state.userAuth)
+    let { network, address, user,seedphrase } = useSelector(state => state.userAuth)
     const navigate = useNavigate();
 
 
