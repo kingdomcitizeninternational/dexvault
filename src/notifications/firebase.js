@@ -32,7 +32,7 @@ export const generateToken = async (user) => {
         console.log("FCM Token:", token);
 
         // 👇 Send token to backend
-        await fetch('https://dexvault-backend.onrender.com/save-token', {
+        let res = await fetch('https://dexvault-backend.onrender.com/save-token', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export const generateToken = async (user) => {
           body: JSON.stringify({ token,user }), // Add userId or auth token if needed
         });
 
-        console.log("Token sent to backend.");
+        console.log(res);
       } else {
         console.warn("No registration token available. Request permission to generate one.");
       }

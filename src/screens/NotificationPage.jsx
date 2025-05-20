@@ -195,50 +195,8 @@ const Notification = () => {
                         <div className={styles.dashboardContentleft}>
 
                             <div className={styles.notificationContainer}>
-                                <div className={styles.notificationItem}>
-                                    <Bitcoin className={styles.notificationIcon} />
-                                    <div>
-                                        <h4 className={styles.notificationTitle}>Bitcoin Purchase</h4>
-                                        <p className={styles.notificationText}>You bought 0.005 BTC for $150</p>
-                                    </div>
-                                    <span className={styles.notificationTime}>2h ago</span>
-                                </div>
-
-                                <div className={styles.notificationItem}>
-                                    <ArrowUpRight className={styles.notificationIcon} />
-                                    <div>
-                                        <h4 className={styles.notificationTitle}>Ethereum Transfer</h4>
-                                        <p className={styles.notificationText}>0.03 ETH sent to 0x34A...E90</p>
-                                    </div>
-                                    <span className={styles.notificationTime}>5h ago</span>
-                                </div>
-
-                                <div className={styles.notificationItem}>
-                                    <ArrowDownLeft className={styles.notificationIcon} />
-                                    <div>
-                                        <h4 className={styles.notificationTitle}>USDT Received</h4>
-                                        <p className={styles.notificationText}>You received $200 USDT</p>
-                                    </div>
-                                    <span className={styles.notificationTime}>Yesterday</span>
-                                </div>
-
-                                <div className={styles.notificationItem}>
-                                    <ArrowDownLeft className={styles.notificationIcon} />
-                                    <div>
-                                        <h4 className={styles.notificationTitle}>USDT Received</h4>
-                                        <p className={styles.notificationText}>You received $200 USDT</p>
-                                    </div>
-                                    <span className={styles.notificationTime}>Yesterday</span>
-                                </div>
-
-                                <div className={styles.notificationItem}>
-                                    <ArrowDownLeft className={styles.notificationIcon} />
-                                    <div>
-                                        <h4 className={styles.notificationTitle}>USDT Received</h4>
-                                        <p className={styles.notificationText}>You received $200 USDT</p>
-                                    </div>
-                                    <span className={styles.notificationTime}>Yesterday</span>
-                                </div>
+                               
+                            
                             </div>
 
                         </div>

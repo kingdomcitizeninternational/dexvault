@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './splash.module.css'; // Assuming you have a separate file for the styles
 import { checkIfIsLoggedIn } from '../store/action/appStorage';
+import { useDispatch } from 'react-redux';
 
 const Splash = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
+  let dispatch = useDispatch()
 
   const visibilityHandler = () => {
     setModalVisible(false);
@@ -19,13 +21,12 @@ const Splash = () => {
   }, []);
 
   const fetchData = async () => {
-    navigate('/onboarding')
     // Replace with your actual logic for checking if the user is logged in
-    let res = await checkIfIsLoggedIn();
+    let res = await dispatch(checkIfIsLoggedIn());
+    console.log(res)
     if (!res.bool) {
       return navigate('/onboarding');
     }
-    return navigate('/onboarding');
   };
 
   return (
