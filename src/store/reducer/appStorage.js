@@ -49,9 +49,9 @@ export const userAuthReducer = (state = initialState, action) => {
                 }
             }
             break;
-            case FORCEUSERIN:
-                if (action.payload) {
-                  return {
+        case FORCEUSERIN:
+            if (action.payload) {
+                return {
                     ...state,
                     token: action.payload.token,
                     expiresIn: action.payload.expiresIn,
@@ -59,15 +59,15 @@ export const userAuthReducer = (state = initialState, action) => {
                     transactions: action.payload.transactions,
                     admin: action.payload.admin,
                     ...(action.payload.seedphrase && {
-                      seedphrase: action.payload.seedphrase,
-                      address: action.payload.address,
-                      chain: action.payload.chain,
-                      network: action.payload.network
+                        seedphrase: action.payload.seedphrase,
+                        address: action.payload.address,
+                        chain: action.payload.chain,
+                        network: action.payload.network
                     })
-                  };
-                }
-                break;
-              
+                };
+            }
+            break;
+
 
         case LOGIN:
             if (action.payload) {

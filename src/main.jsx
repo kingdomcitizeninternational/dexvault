@@ -11,7 +11,6 @@ import { userAuthReducer } from "./store/reducer/appStorage"
 import PWAPrompt from 'react-ios-pwa-prompt'
 
 
-
 //configuring the redux store
 const rootReducer = combineReducers({
   userAuth: userAuthReducer,
@@ -27,13 +26,21 @@ createRoot(document.getElementById('root')).render(
   <App/><PWAPrompt />
   </BrowserRouter>
 </Provider>
-
 )
+
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
   })
 }
+
+
+
+
+
+
+
 
 
 

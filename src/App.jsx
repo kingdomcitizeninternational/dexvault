@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import FallBackComponent from './components/Fallback';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoute from './components/ProtectedRoute';
 import InstallBanner from './components/PWA';
 
@@ -30,8 +30,8 @@ import NotificationPage from './screens/NotificationPage';
 import Transactions from './screens/Transaction';
 
 import Assets from './screens/Assets';
-import Registeration from './screens/Registeration';
-import ProfilePhoto from './screens/ProfilePhoto';
+//import Registeration from './screens/Registeration';
+//import ProfilePhoto from './screens/ProfilePhoto';
 import Portfolio from './screens/Portfolio';
 import { checkIfIsLoggedIn, logout } from "./store/action/appStorage";
 import TradeCenter from "./screens/Trade-center";
@@ -39,19 +39,56 @@ import Upgrade from "./screens/Upgrade";
 import FundAccount from "./screens/FundAccount";
 import Withdraw from "./screens/Withdraw";
 
+import { generateToken, messaging } from './notifications/firebase';
+import { onMessage } from "firebase/messaging";
+import { NotificationToast } from "./component/general/Notification";
+import { toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import ImgUrl from './assets/192.png'
+
+
 
 
 function App() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [isPWA, setIsPWA] = useState(false);
+  let { user } = useSelector(state => state.userAuth)
   const navigate = useNavigate()
 
   const location = useLocation()
 
+
+  useEffect(() => {
+    generateToken(user)
+    onMessage(messaging, (payload) => {
+      //react toast component here
+      toast(<NotificationToast
+        title={payload.notification.title}
+        message={payload.notification.body}
+        image={ImgUrl}
+      />, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide,
+      });
+      console.log(payload)
+    })
+
+ 
+  }, []);
+
   useEffect(() => {
     let apiCall = async () => {
       let res = await dispatch(checkIfIsLoggedIn());
+      if (res.bool) {
+        navigate('/invest')
+      }
       setIsLoading(false);
     }
     apiCall();
@@ -61,7 +98,7 @@ function App() {
       window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
     setIsPWA(isInStandaloneMode());
-  }, [dispatch]);
+  }, []);
 
 
 
@@ -83,7 +120,7 @@ function App() {
       <Suspense fallback={<FallBackComponent />}>
         <Routes>
           {/* Public Routes */}
-         
+
           <Route path='/onboarding' element={<Splash2 />} />
           <Route path='/login' element={<Login />} />
           <Route path='/verification' element={<Verification />} />
@@ -108,20 +145,22 @@ function App() {
           <Route path='/transactions' element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
           <Route path='/assets' element={<ProtectedRoute><Assets /></ProtectedRoute>} />
           <Route path='/invest' element={<ProtectedRoute><Portfolio /></ProtectedRoute>} />
-          <Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
-          <Route path='/profilephoto'  element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />
+          {/*<Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
+          <Route path='/profilephoto'  element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />*/}
 
-          <Route path='/portfolio'  element={<ProtectedRoute><Portfolio /></ProtectedRoute>} />
+          <Route path='/portfolio' element={<ProtectedRoute><Portfolio /></ProtectedRoute>} />
 
-          <Route path='/trade-center'  element={<ProtectedRoute><TradeCenter /></ProtectedRoute>} />
+          <Route path='/trade-center' element={<ProtectedRoute><TradeCenter /></ProtectedRoute>} />
 
-          <Route path='/upgrade'  element={<ProtectedRoute><Upgrade /></ProtectedRoute>} />
-          <Route path='/fund-account'  element={<ProtectedRoute><FundAccount /></ProtectedRoute>} />
+          <Route path='/upgrade' element={<ProtectedRoute><Upgrade /></ProtectedRoute>} />
+          <Route path='/fund-account' element={<ProtectedRoute><FundAccount /></ProtectedRoute>} />
 
-          <Route path='/withdraw'  element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
+          <Route path='/withdraw' element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
 
           {/* Conditional Root Route */}
-          <Route path='/' element={<Splash/>} />
+          <Route path='/' element={<ProtectedRoute><Splash /></ProtectedRoute>} />
+
+
         </Routes>
       </Suspense>
       <InstallBanner />

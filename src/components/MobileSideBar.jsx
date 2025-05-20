@@ -2,8 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import {
-  FaTachometerAlt, FaUserAlt, FaCreditCard, FaBell,
-  FaCog, FaSignOutAlt
+  FaWallet, FaUserAlt, FaCreditCard, FaBell,
+  FaCog, FaSignOutAlt, FaTachometerAlt
 } from 'react-icons/fa';
 import styles from './MobileSideBar.module.css';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ const Sidebar = ({ isOpen, toggleSidebar, isInvest, navigateMobileHandler }) => 
   const location = useLocation();
 
   const baseLinks = [
-    { to: "dashboard", icon: <FaTachometerAlt />, label: "Dashboards" },
+    { to: "dashboard", icon: <FaWallet />, label: "Wallet" },
     { to: "profile", icon: <FaUserAlt />, label: "Profile" },
     { to: "portfolio", icon: <FaTachometerAlt />, label: "Portfolio" },
   ];
@@ -65,8 +65,8 @@ const Sidebar = ({ isOpen, toggleSidebar, isInvest, navigateMobileHandler }) => 
               <NavLink
                 to={`/${to}`}
                 onClick={(e) => {
-                  e.preventDefault(); // Prevent the link navigation
-                  navigateMobileHandler(to); // Still call your handler
+                  e.preventDefault();
+                  navigateMobileHandler(to);
                 }}
                 className={({ isActive }) =>
                   `${styles.link} ${isActive ? styles.activeLink : ''}`
@@ -74,7 +74,6 @@ const Sidebar = ({ isOpen, toggleSidebar, isInvest, navigateMobileHandler }) => 
               >
                 {icon} {label}
               </NavLink>
-
             </li>
           ))}
         </ul>
@@ -87,5 +86,6 @@ const Sidebar = ({ isOpen, toggleSidebar, isInvest, navigateMobileHandler }) => 
 };
 
 export default Sidebar;
+
 
 

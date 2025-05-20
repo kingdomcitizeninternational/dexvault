@@ -1,5 +1,14 @@
 import React from 'react';
-import { FaBell, FaUser, FaCog, FaHome, FaSignOutAlt, FaExchangeAlt, FaTachometerAlt } from 'react-icons/fa';
+import { 
+  FaBell, 
+  FaUser, 
+  FaCog, 
+  FaHome, 
+  FaSignOutAlt, 
+  FaExchangeAlt, 
+  FaTachometerAlt, 
+  FaWallet // <-- Add this
+} from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import styles from './DesktopSideBar.module.css';
 
@@ -7,10 +16,11 @@ const DesktopSideBar = ({ isInvest, navigateMobileHandler }) => {
   const location = useLocation();
 
   const baseLinks = [
-    { to: "dashboard", icon: <FaHome />, label: "Dashboard" },
+    { to: "dashboard", icon: <FaWallet />, label: "Wallet" }, // <-- Updated icon here
     { to: "profile", icon: <FaUser />, label: "Profile" },
     { to: "portfolio", icon: <FaTachometerAlt />, label: "Portfolio" },
   ];
+
 
   const investLinks = [
 
