@@ -12,7 +12,10 @@ import LoadingSkeleton from '../components/Loader';
 import AuthModal from '../Modal/AuthModal';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchInvestment } from '../store/action/appStorage';
+import { FaDollarSign, FaDatabase } from 'react-icons/fa';
+
 
 
 
@@ -25,10 +28,40 @@ const Portfolio = () => {
     const navigate = useNavigate()
     const [isAuthError, setIsAuthError] = useState(false);
     const [authInfo, setAuthInfo] = useState("");
-    let { user, seedphrase, chain, network, address } = useSelector(state => state.userAuth)
+    let { user, chain, network, address } = useSelector(state => state.userAuth)
     const [count, setCount] = useState(0);
+    const [investment, setInvestment] = useState(null);
+    const [btcEquivalent, setBtcEquivalent] = useState("0.0000");
+    const [btcPrice, setBtcPrice] = useState(null);
+    const dispatch = useDispatch()
 
 
+    console.log(user)
+
+
+    const fetchAllData = async () => {
+        try {
+            const investRes = await dispatch(fetchInvestment(user._id));
+            if (!investRes) {
+                setAuthInfo("Failed to fetch investment data.");
+                return setIsAuthError(true);
+            }
+            setInvestment(investRes.message);
+
+            // Store handler result
+
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            setAuthInfo("An unexpected error occurred.");
+            setIsAuthError(true);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchAllData();
+    }, []);
 
 
     useEffect(() => {
@@ -147,8 +180,8 @@ const Portfolio = () => {
                     return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
                 }
             }
-      
-      
+
+
         } else if (url === 'transactions') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -160,17 +193,17 @@ const Portfolio = () => {
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
-      
+
                 if (seedphrase && chain && network && address) {
                     return navigate('/transactions')
-      
+
                 } else {
-      
+
                     return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
                 }
             }
-      
-      
+
+
         } else {
             return navigate(`/${url}`)
         }
@@ -196,8 +229,8 @@ const Portfolio = () => {
                     return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
                 }
             }
-      
-      
+
+
         } else if (url === 'transactions') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -209,21 +242,29 @@ const Portfolio = () => {
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
-      
+
                 if (seedphrase && chain && network && address) {
                     return navigate('/transactions')
-      
+
                 } else {
-      
+
                     return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
                 }
             }
-      
-      
+
+
         } else {
             return navigate(`/${url}`)
         }
-      };
+    };
+
+    useEffect(() => {
+        if (btcPrice && user?.availableBalance) {
+            const btcVal = (user.availableBalance / btcPrice).toFixed(6);
+            setBtcEquivalent(btcVal);
+        }
+    }, [btcPrice, user?.availableBalance]);
+    const navigateHandler = (url) => navigate(`/${url}`);
 
 
 
@@ -277,31 +318,105 @@ const Portfolio = () => {
                         </div>
 
 
-                        <div className={styles.dashboardGrid}>
-                            <div className={`${styles.card} ${styles.balance}`} data-aos="fade-up">
-                                <div className={styles.cardContent}>
-                                    <h2>{user.currency ? user.currency : '$'}{user.availableBalance}</h2>
+
+                        <div className={styles.cardContainer}>
+                            <div className={styles.cardSection}>
+                                {/* Top Welcome Card */}
+                                <div className={styles.topCard}>
+                                    <div className={styles.welcomeContent}>
+                                        <div className={styles.leftContent}>
+                                            <h3>Welcome Back, {user?.firstName?.slice(0, 5)}!</h3>
+
+                                            <p className={styles.balanceLabel}>Available Balance</p>
+                                            <h1 className={styles.balanceAmount}>${user.availableBalance}</h1>
+                                            <p className={styles.balanceBTC}>{btcEquivalent} BTC</p>
+                                        </div>
+
+                                        <div className={styles.actionButtons}>
+                                            <button className={styles.depositBtn} onClick={() => navigateHandler('fund-account')}>Deposit</button>
+                                            <button className={styles.withdrawBtn} onClick={() => navigateHandler('withdraw')}>Withdraw</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p>Balance</p>
+
+                                {/* Bottom Cards */}
+                                <div className={styles.bottomCards}>
+                                    <div className={styles.carditem}>
+                                        <div className={styles.cardIcon} style={{ backgroundColor: '#4e54c8' }}>
+                                            <FaDollarSign size={20} />
+                                        </div>
+                                        <p className={styles.cardTitle}>Total Profit</p>
+                                        <h2 className={styles.cardAmount}>${investment?.totalProfit}.00</h2>
+                                        
+                                    </div>
+
+                                    <div className={styles.carditem}>
+                                        <div className={styles.cardIcon} style={{ backgroundColor: '#1fa2ff' }}>
+                                            <FaDatabase size={20} />
+                                        </div>
+                                        <p className={styles.cardTitle}>Referral Bonus</p>
+                                        <h2 className={styles.cardAmount}>${investment?.referralBonus}.00</h2>
+                                        <p className={styles.percentageUp}>+7.11%</p>
+                                    </div>
+
+                                    <div className={styles.carditem}>
+                                        <div className={styles.cardIcon} style={{ backgroundColor: '#f953c6' }}>
+                                            <FaDatabase size={20} />
+                                        </div>
+                                        <p className={styles.cardTitle}>Total Deposit</p>
+                                        <h2 className={styles.cardAmount}>${investment?.totalDeposit}.00</h2>
+                                        <p className={styles.percentageUp}>+8.34%</p>
+                                        <p className={styles.liveTraders}>
+                                            Live Traders<br />${count.toLocaleString()}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className={`${styles.card} ${styles.trendsCard}`} data-aos="fade-up" data-aos-delay="300">
-                                <div className={styles.cardContent}>
-                                    <h2>{count.toLocaleString()}</h2>
-                                </div>
-                                <p>Total Live Traders</p>
-                            </div>
+                            <div className={styles.cardRightSection}>
+                                <div className={styles.rightCard}>
+                                    <h3 className={styles.title}>Ongoing Investment</h3>
 
-                            <div className={`${styles.card} ${styles.referralCard}`} data-aos="fade-up" data-aos-delay="600">
-                                <div className={styles.cardContent}>
-                                    <h3>Refer Friends. Get Rewarded</h3>
+                                    <div className={styles.section}>
+                                        <p className={styles.label}>Investment Plan</p>
+                                        <div className={styles.planBox}>
+                                            <span className={styles.planName}>{investment?.isActive ? investment?.investmentPlan : '---'}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.infoRow}>
+                                        <div className={styles.infoBox}>
+                                            <p className={styles.label}>Amount</p>
+                                            <p className={styles.value}>
+                                                {investment?.isActive ? '$' + investment?.amount : '---'}
+                                            </p>
+                                        </div>
+                                        <div className={styles.infoBox}>
+                                            <p className={styles.label}>Date</p>
+                                            <p className={styles.value}>
+                                                {investment?.isActive && investment?.date
+                                                    ? new Date(investment.date).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric',
+                                                    })
+                                                    : '---'}
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div className={styles.section}>
+                                        <p className={styles.label}>Profit</p>
+                                        <p className={styles.value}>
+                                            {investment?.isActive ? '$' + investment?.profit : '---'}
+                                        </p>
+                                    </div>
+
+                                    <button className={styles.button} onClick={() => navigateHandler('fund-account')}>Transact...</button>
                                 </div>
-                                <p>You can earn $40.00 referral reward for each new DExvault user!</p>
-                                <a href="#">Learn more</a>
                             </div>
                         </div>
-
-
 
 
 
@@ -321,7 +436,7 @@ const Portfolio = () => {
 
 
                 </div>
-            </div>
+            </div >
 
             <BottomTabs navigateTabHandler={navigateTabHandler} />
         </>

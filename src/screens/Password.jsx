@@ -40,6 +40,7 @@ export default function PasscodeScreen() {
                     email
                 }))
                 setIsLoading(false)
+                console.log(res)
 
                 if (!res.bool) {
                     setIsAuthError(true)

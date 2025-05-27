@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Upgrade.module.css';
-import BuyModal from '../Modal/BuyModal';
 import Sidebar from '../components/MobileSideBar';
-//import styles from '../../components/Sidebar.module.css';
-import 'react-activity/dist/library.css'; // 
+import 'react-activity/dist/library.css';
 import DesktopSideBar from '../components/DesktopSideBar';
-import SendModal from '../Modal/SendModal';
 import LoadingSkeleton from '../components/Loader';
 import AuthModal from '../Modal/AuthModal';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import BackHeader from '../components/BackHeader';
-import { useSelector } from 'react-redux';
+import BackHeader from '../components/DashboardHeader';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPackages } from '../store/action/appStorage';
+import { fetchInvestment } from '../store/action/appStorage';
 
 
 
@@ -28,8 +27,44 @@ const Upgrade = () => {
     const [isAuthError, setIsAuthError] = useState(false);
     const [authInfo, setAuthInfo] = useState("");
     let { user, seedphrase, chain, network, address } = useSelector(state => state.userAuth)
+    const [plans, setPlans] = useState([]);
+    const [investment, setInvestment] = useState(null);
+    const dispatch = useDispatch()
 
+// Fetch user investment
+    const fetchInvest = async () => {
+        const res = await dispatch(fetchInvestment(user._id));
+        if (!res) {
+            setAuthInfo(res.message);
+            return setIsAuthError(true);
+        }
+        if(!res.message.investmentPlan){
+            setAuthInfo(`you have no current plan. Contact administrator  to buy an investment investment plan`,);
+            return setIsAuthError(true);
 
+        }
+
+        setInvestment(res.message);
+        setAuthInfo(`your current plan is ${res.message.investmentPlan}. Contact administrator if you intend to change your investment plan`,);
+        return setIsAuthError(true);
+
+    };
+
+    // Fetch all plans
+    const fetchAllPlans = async () => {
+        const res = await dispatch(fetchPackages());
+        if (!res) {
+            setIsAuthError(true);
+            setAuthInfo(res.message);
+            return;
+        }
+        setPlans(res.message);
+    };
+
+    useEffect(() => {
+        fetchInvest();
+        fetchAllPlans();
+    }, []);
 
     useEffect(() => {
         AOS.init({
@@ -99,43 +134,7 @@ const Upgrade = () => {
     if (loading) {
         return <LoadingSkeleton />
     }
-    const plans = [
-        {
-            name: 'Starter',
-            price: `${user.currency ? user.currency : '$'}2,000.00`,
-            features: [
-                '24x7 Support',
-                'Professional Charts',
-                'Trading Alerts',
-                'Trading Central Starter',
-                '6,500 USD Bonus',
-            ],
-        },
-        {
-            name: 'Bronze',
-            price: `${user.currency ? user.currency : '$'}3,000.00`,
-            features: [
-                '24x7 Support',
-                'Professional Charts',
-                'Trading Alerts',
-                'Trading Central Bronze',
-                '8,500 USD Bonus',
-            ],
-        },
-        {
-            name: 'Silver',
-            price: `${user.currency ? user.currency : '$'}4,000.00`,
-            features: [
-                '24x7 Support',
-                'Professional Charts',
-                'Trading Alerts',
-                'Trading Central Silver',
-                'Live Trading With Experts',
-                'SMS & Email Alerts',
-                '12,600 USD Bonus',
-            ],
-        },
-    ];
+   
 
     const navigateMobileHandler = (url) => {
         if (url === 'dashboard') {
@@ -182,13 +181,11 @@ const Upgrade = () => {
         } else {
             return navigate(`/${url}`)
         }
-
     };
 
 
     const navigatePlanHandler = ()=>{
-        navigate('/fund-account')
-
+        return
     }
 
 
@@ -217,6 +214,9 @@ const Upgrade = () => {
                         openSendModalFun={openSendModalFun}
                         title='Our Plans'
                     />
+
+
+
 
 
 

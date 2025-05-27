@@ -170,8 +170,8 @@ const Profile = () => {
                                         />
                                     </div>
                                     <div className={styles.userDetails}>
-                                        <h2 className={styles.name}>{user.firstName.slice(0, 8)} {user.lastName.slice(0, 8)}</h2>
-                                        <p className={styles.email}>{user.email.slice(0, 15)}...</p>
+                                        <h2 className={styles.name}>{user?.firstName?.slice(0, 8)} {user?.lastName?.slice(0, 8)}</h2>
+                                        <p className={styles.email}>{user?.email?.slice(0, 15)}...</p>
                                     </div>
                                 </div>
 
@@ -220,16 +220,7 @@ const Profile = () => {
                                     </div>
 
 
-                                    <div className={styles.detailItem} onClick={() => openModal('Current Plan', user.currentPlan)}>
-                                        <span className={styles.label}>Current Plan</span>
-                                        <p className={styles.value}>{user.currentPlan ? user.currentPlan : ''}</p>
-                                    </div>
-
-
-                                    <div className={styles.detailItem} >
-                                        <span className={styles.label}>2FA Status</span>
-                                        <p className={styles.value}>Enabled</p>
-                                    </div>
+                                    
                                 </div>
 
                                 <div className={styles.buttonWrapper}>

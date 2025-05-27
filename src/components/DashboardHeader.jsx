@@ -48,7 +48,7 @@ const DesktopHeader = ({openMobileMenu,openBuyModalFun,openSendModalFun,sidebarO
     
         <button className={styles.imagebutton} onClick={profileHandler}>
   <img 
-    src={user.profilePhotoUrl} 
+    src={user?.profilePhotoUrl} 
     alt="Profile" 
     style={{ width:'100%', height:'100%' }} 
   />

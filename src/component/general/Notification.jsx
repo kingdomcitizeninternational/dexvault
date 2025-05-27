@@ -20,7 +20,6 @@ const styles = {
     padding: '12px 16px',
     backgroundColor: '#fff',
     borderRadius: '8px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
     width: '100%',
     maxWidth: '400px',
     gap: '12px',

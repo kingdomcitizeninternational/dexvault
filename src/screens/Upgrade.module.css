@@ -187,7 +187,28 @@
 
 
 
+.tickerTape {
+  overflow: hidden;
+  background-color: #fafafa;
+  padding: 12px 0;
+  margin-bottom: 24px;
+}
 
+.tickerInner {
+  display: flex;
+  animation: scroll 50s linear infinite;
+  gap: 40px;
+  white-space: nowrap;
+}
+
+.tickerItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: black;
+  font-size: 14px;
+  font-family: 'ABeeZee';
+}
 
 
 

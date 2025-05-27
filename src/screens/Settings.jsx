@@ -167,13 +167,7 @@ const Settings = () => {
                   <FaDollarSign className={styles.icon} /> Currency
                   <span className={styles.settingRight}>{user.currency ? user.currency : 'USD'}</span>
                 </div>
-                <div className={styles.settingsItem}>
-                  <FaBell className={styles.icon} /> Transaction Alerts
-                  <label className={styles.switch}>
-                    <input type="checkbox" checked readOnly />
-                    <span className={styles.slider}></span>
-                  </label>
-                </div>
+               
 
               </div>
 

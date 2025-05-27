@@ -1,445 +1,75 @@
 /* Main Layout */
 .dashboard {
-    display: flex;
-    background-color: rgb(252, 252, 252);
-    width: 100vw;
-    height: 100vh;
-    padding: 0px;
-    margin: 0px;
-    flex-direction: row;
-    justify-content: space-between;
-    overflow: hidden;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  padding: 0px;
+  margin: 0px;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
 
 .dashboard .leftSection {
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(255, 255, 255);
+  width: 20%;
+  display: flex;
+  flex-direction: column;
 
 }
 
 
 .dashboard .mainSection {
-    width: 80%;
-    margin-left: 5px;
-    background-color: white;
-    padding: 0px;
-    justify-content: flex-start;
-    overflow-y: scroll;
-
-
+  width: 80%;
+  margin-left: 5px;
+  padding: 0px;
+  justify-content: flex-start;
+  overflow-y: scroll;
 }
 
 
 
-.headerContainer {
-    background-color: rgb(255, 255, 255);
-    height: 53px;
-    display: flex;
-    padding: 5px;
-    justify-content: space-between;
-    padding-right: 20px;
-    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1);
-}
 
-
-.title {
-    font-family: 'ABeeZee', sans-serif;
-    font-weight: bolder;
-    width: 50%
-}
-
-.title h2 {
-    margin-top: 0px;
-}
-
-.buttonContainer {
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
-}
-
-
-.buysellbutton,
-.sendreceivebutton {
-  width: 130px;
-  height: 45px;
-  padding: 5px 10px;
-  font-size: 14px;
-  color: #fff;
-  background-color: #4F46E5;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.2);
-  transition: 
-    background-color 0.3s ease,
-    transform 0.25s ease,
-    box-shadow 0.3s ease,
-    color 0.3s ease;
-}
-
-/* Unified hover effect */
-.buysellbutton:hover,
-.sendreceivebutton:hover {
-  background-color: #4338CA;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(67, 56, 202, 0.25);
-}
-
-/* Optional special hover color for send button */
-.sendreceivebutton:hover {
-  color: #4F46E5;
-  background-color: #ffffff;
-}
-.sendreceivebutton {
-    background-color: #fdfdfd;
-    color: black;
-
-}
-
-.notificationbutton,
-.imagebutton {
-    border-radius: 45px;
-    width: 45px;
-    height: 45px;
-    background-color: #fdfdfd;
-    position: relative;
-}
-
-.notificationbutton span {
-    color: #fff;
-    position: absolute;
-    top: 4px;
-    right: 5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    background-color: red;
-    font-size: 10px;
-}
-
-/*
-.mobileHeader {
-    height: 40px;
-    width: 100%;
-    padding: 10px;
-    display: none;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
- 
-}*/
-.mobileHeader {
-    height: 40px;
-    width: 100%;
-    padding: 10px;
-    padding-right: 15px;
-    display: none;
-    position: sticky;
-    top: 0;
-    right: 0;
-    left: 0px;
-    z-index: 1000;
-    /* Add this to prevent content underneath from showing through */
-}
-
-
-
-.hamburger,
-.bell {
-    cursor: pointer;
-    z-index: 1000;
-}
-
-
-
-/* styling the balance section */
-.dashboardContent {
-    width: 100%;
-}
-
-.balanceSection {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-
-
-.balanceCard {
-    background-color: #4F46E5;
-    width: 100%;
-    border-radius: 30px;
-    position: relative;
-    /* Required for positioning the light reflection */
-    overflow: hidden;
-    /* Hide the part of the light reflection that is outside the card */
-    padding-bottom: 20px;
-    display: none;
-
-}
-
-
-.balanceCard {
-    position: relative;
-    /* Ensure pseudo-element is scoped to this */
-    overflow: hidden;
-    /* Hide the animated gradient overflow */
-    /* Other styles you already have for the card (background, padding, etc.) */
-}
-
-.balanceCard::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.6) 50%,
-            rgba(255, 255, 255, 0) 100%);
-    animation: lightReflection 4s infinite linear;
-    z-index: 1;
-    pointer-events: none;
-}
 
 @keyframes lightReflection {
-    0% {
-        left: -100%;
-    }
+  0% {
+      left: -100%;
+  }
 
-    50% {
-        left: 100%;
-    }
+  50% {
+      left: 100%;
+  }
 
-    100% {
-        left: 100%;
-    }
-}
-
-.balanceCard .amount {
-    text-align: center;
-    width: 100%;
-    font-size: 35px;
-    color: #fff;
-    font-family: 'ABeeZee', sans-serif;
-    margin-bottom: 10px;
-}
-
-.balanceCard .amounttext {
-    margin-top: 0px;
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    font-family: 'ABeeZee', sans-serif;
-}
-
-
-.balanceActionContainer {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-}
-
-.balanceActionContainer button {
-    width: 55px;
-    /* You can adjust this size */
-    height: 55px;
-    /* Ensures the height is the same as the width for a perfect circle */
-    border-radius: 50%;
-    /* Make it rounded */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* Center the icon inside the button */
-    align-items: center;
-    /* Center the icon inside the button */
-    padding: 2px;
-    /* No extra padding needed, since we're defining the width and height */
-    background-color: #393bc1;
-    /* Example background color for the buttons */
-    border: none;
-    /* Removes any border */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* Smooth transition for hover effect */
-    color: #fff;
-    /* Text color */
-    font-family: 'ABeeZee', sans-serif;
-    /* Font style */
-
-    /* Box-shadow for the button */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Horizontal offset, Vertical offset, Blur radius, Spread radius, and Color */
-}
-
-.balanceActionContainer button:hover {
-    background-color: #6D63F1;
-    /* Lighter background color on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    /* Increase shadow on hover */
+  100% {
+      left: 100%;
+  }
 }
 
 
 
-/* Style the entire crypto section */
-.cryptoSection {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #fff;
-    /* Light background for the section */
-    border-radius: 10px;
-    /* Light shadow for the section */
-}
 
 
 
-.tabsContainer {
-    padding: 15px;
-    display: none;
-}
 
-.tabs {
-    display: flex;
-    width: 100%;
-}
 
-.tabs button {
-    width: 50%;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-radius: 1px;
-    background-color: #f8f9fa;
-    font-family: 'ABeeZee';
-    font-weight: 900;
-    font-size: 16px
-}
 
-.activeTab {
-    border-bottom: 2px solid #4F46E5;
-}
 
 .tabContent {}
 
 /*desktop styling*/
 .desktopMainSection {
 
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .desktopMainSectionleft {
-    width: 50%
+  width: 50%
 }
 
-.desktopMainSectionright {
-    width: 50%
-}
 
-.desktopbalanceSection {
-    width: 95%;
-    padding: 10px;
-    background-color: #4F46E5;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-}
 
-.desktopMainSection {
-    position: relative;
-    /* Scope the ::before within this section */
-    overflow: hidden;
-    /* Prevent the light effect from spilling out */
-    /* Add your normal styles here */
-}
-
-.desktopMainSection::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.6) 50%,
-            rgba(255, 255, 255, 0) 100%);
-    animation: lightReflection 5s infinite linear;
-    z-index: 1;
-    pointer-events: none;
-}
-
-@keyframes lightReflection {
-    0% {
-        left: -100%;
-    }
-
-    50% {
-        left: 100%;
-    }
-
-    100% {
-        left: 100%;
-    }
-}
-
-.desktopamounttext {
-    font-size: 18px;
-    margin-bottom: 0px;
-    font-weight: 900;
-    font-family: 'ABeeZee';
-    color: #fff
-}
-
-.desktopamount {
-    font-size: 35px;
-    margin-top: 0px;
-    font-weight: 900;
-    font-family: 'ABeeZee';
-    color: #fff;
-
-}
-
-/* styling the desktop tab section*/
-
-.desktoptabsContainer {
-    display: flex;
-    padding: 10px;
-    margin-top: 0px;
-    padding-top: 0px;
-}
-
-.desktoptabssection {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.desktoptabssection p {
-    font-size: 18px;
-    font-weight: 900;
-    font-family: 'ABeeZee';
-}
-
-.desktoptabssection select {
-    border-radius: 5px;
-    height: 30px;
-    width: 110px;
-    border: 1px solid rgb(230, 230, 230);
-    background-color: #f4f4f4;
-    border-radius: 15px;
-    font-family: 'ABeeZee';
-    font-weight: 900;
-}
-
-.desktoptabContent {
-    padding: 10px;
-
-}
 
 
 /*  right dashboard styles*/
@@ -447,89 +77,356 @@
 
 
 .rightPanel {
-    width: 100%;
-    max-width: 350px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  width: 100%;
+  max-width: 350px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .card {
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .heading {
-    font-size: 1rem;
-    font-weight: 900;
-    margin-bottom: 0.75rem;
-    color: #222;
+  font-size: 1rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  color: #222;
 }
 
 
 
 
-/* Styling the bottom tab*/
+/*  card section */
 
-.bottomTabContainer {
-    position: fixed;
-    z-index: 2000;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    width: 100%;
-    height: 40px;
-    background-color: #fff;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    box-shadow: 10px 0px 8px rgba(0, 0, 0, 0.1);
-
-}
-
-.bottomTabContainer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #ffffff;
-    border-top: 1px solid #e0e0e0;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    z-index: 500;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.bottomTabContainer a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    font-size: 13px;
-    color: #444;
-    transition: all 0.2s ease-in-out;
-}
-
-.bottomTabContainer a:hover {
-    color: #4f46e5;
-}
-
-.icon {
-    font-size: 20px;
-    margin-bottom: 3px;
-}
-
-.activeTab {
-    color: #4f46e5 !important;
-    font-weight: bold;
+.cardContainer{
+display:flex
 }
 
 
 
+
+.cardContainer {
+  position: relative;
+  /* Scope the ::before within this section */
+  overflow: hidden;
+  /* Prevent the light effect from spilling out */
+  /* Add your normal styles here */
+}
+
+
+.cardContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.6) 50%,
+          rgba(255, 255, 255, 0) 100%);
+  animation: lightReflection 5s infinite linear;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes lightReflection {
+  0% {
+      left: -100%;
+  }
+
+  50% {
+      left: 100%;
+  }
+
+  100% {
+      left: 100%;
+  }
+}
+
+.cardSection {
+margin: 20px;
+width:60%
+}
+
+.cardRightSection{
+
+padding:10px;
+width:40%;
+display: flex;
+justify-content: center;
+padding-top: 20px;
+
+}
+
+
+.rightCard {
+color: white;
+padding: 20px;
+border-radius: 16px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+width: 100%;
+max-width: 300px;
+background:  #0C1125;
+height:90vh
+}
+
+.rightCard .title {
+font-size: 1.2rem;
+font-weight: 600;
+margin-bottom: 20px;
+color: #87cefa;
+}
+
+.rightCard .section {
+margin-bottom: 16px;
+}
+
+.rightCard .label {
+font-size: 0.85rem;
+color: #bbb;
+margin-bottom: 4px;
+}
+
+.rightCard .planBox {
+background-color: #293a52;
+padding: 8px 12px;
+border-radius: 8px;
+}
+
+.rightCard .planName {
+font-weight: 500;
+color: #ffffff;
+}
+
+.rightCard .infoRow {
+display: flex;
+justify-content: space-between;
+gap: 12px;
+margin-bottom: 16px;
+}
+
+.rightCard .infoBox {
+flex: 1;
+}
+
+.rightCard .value {
+font-size: 1.1rem;
+font-weight: 500;
+color: #ffffff;
+}
+
+.rightCard .progressBar {
+height: 8px;
+background-color: #333;
+border-radius: 4px;
+overflow: hidden;
+margin: 20px 0;
+}
+
+.rightCard .progress {
+height: 100%;
+background: linear-gradient(90deg, #00c6ff, #0072ff);
+}
+
+.rightCard .button {
+width: 100%;
+padding: 10px;
+background-color: #4F46E5;
+color: white;
+border: none;
+border-radius: 12px;
+font-size: 0.95rem;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.rightCard .button:hover {
+background-color: #1681cc;
+}
+
+
+
+.topCard {
+background:#4e54c8;
+color: white;
+padding: 20px;
+border-radius: 12px;
+margin-bottom: 20px;
+}
+
+.welcomeContent{
+display: flex;
+}
+
+.actionButtons{
+align-self: flex-end;
+}
+
+.welcomeContent h3 {
+margin: 0;
+}
+
+.balanceLabel {
+font-size: 14px;
+opacity: 0.8;
+}
+
+.balanceAmount {
+font-size: 36px;
+margin: 5px 0;
+}
+
+.withdrawBtn,.investBtn,.depositBtn{
+height: 40px;
+
+}
+
+.balanceBTC {
+font-size: 14px;
+opacity: 0.6;
+}
+
+.actionButtons button {
+margin: 10px 5px 0;
+padding: 8px 14px;
+border: none;
+border-radius: 6px;
+background-color: #ffffff20;
+color: white;
+cursor: pointer;
+}
+
+.bottomCards {
+display: flex;
+flex-wrap: wrap;
+gap:14px
+}
+
+
+
+.carditem {
+background-color:  #0C1125;
+color: white;
+border-radius: 12px;
+padding: 20px;
+position: relative;
+width:23%;
+}
+
+.cardIcon {
+font-size: 24px;
+width: 40px;
+height: 40px;
+border-radius: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 10px;
+color: white;
+}
+
+.cardTitle {
+font-size: 14px;
+opacity: 0.8;
+}
+
+.cardAmount {
+font-size: 24px;
+margin: 5px 0;
+}
+
+.percentageUp {
+color: #00ff99;
+font-size: 14px;
+}
+
+.transferBtn {
+margin-top: 10px;
+padding: 10px 12px;
+background-color: #4e54c8;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+}
+
+.liveTraders {
+margin-top: 8px;
+font-size: 14px;
+opacity: 0.8;
+}
+
+
+
+
+
+@media screen and (max-width: 1024px) {
+.cardContainer {
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.cardSection,
+.cardRightSection {
+  width: 90%;
+  
+}
+
+.cardRightSection {
+  padding-top: 10px;
+}
+
+.rightCard {
+  height: auto;
+  width: 100%;
+}
+
+
+
+}
+
+@media screen and (max-width: 600px) {
+.rightCard .infoRow {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.welcomeContent,  .actionButtons{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+
+}
+
+.actionButtons{
+flex-direction: row;
+width:100%;
+justify-content: flex-start;
+gap:5px
+}
+
+.actionButtons button {
+  width: 40%;
+  margin: 10px 0;
+}
+
+.bottomCards {
+  flex-direction: column;
+  align-items: left;
+}
+
+.carditem {
+  width: 85%;
+}
+}
 
 
 
@@ -549,492 +446,424 @@
 
 
 .dashboardGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    padding: 24px;
-    animation: fadeIn 0.6s ease-in;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 24px;
+  animation: fadeIn 0.6s ease-in;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.card {
+  border-radius: 16px;
+  padding: 10px;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  font-family: 'ABeeZee';
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.balance {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+}
+
+.equivalentCard {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.bonusCard {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.tradersCard {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+}
+
+.referralCard {
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+.referralCard h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.referralCard a {
+  color: #4f46e5;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.trendsCard {
+  background: #f3f4f6;
+  color: #111827;
+  background-color: red;
+}
+
+.chartPlaceholder {
+  background: #e5e7eb;
+  height: 90px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  color: #6b7280;
+  margin-top: 10px;
+  font-family: 'ABeeZee';
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  .card {
-    border-radius: 16px;
-    padding: 10px;
-    color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-    font-family: 'ABeeZee';
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-  }
-  
-  .balance {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
-  }
-  
-  .equivalentCard {
-    background: linear-gradient(135deg, #16a34a, #22c55e);
-  }
-  
-  .bonusCard {
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
-  }
-  
-  .tradersCard {
-    background: linear-gradient(135deg, #ea580c, #f97316);
-  }
-  
-  .referralCard {
-    background: #ffffff;
-    color: #111827;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-  }
-  
-  .referralCard h3 {
-    font-size: 18px;
-    margin-bottom: 8px;
-  }
-  
-  .referralCard a {
-    color: #4f46e5;
-    text-decoration: underline;
-    font-weight: 500;
-  }
-  
-  .trendsCard {
-    background: #f3f4f6;
-    color: #111827;
-    background-color: red;
-  }
-  
-  .chartPlaceholder {
-    background: #e5e7eb;
-    height: 90px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    color: #6b7280;
-    margin-top: 10px;
-    font-family: 'ABeeZee';
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
+}
 
 
 
+.tickerTape {
+  overflow: hidden;
+  background-color: #fafafa;
+  padding: 12px 0;
+  margin-bottom: 24px;
+}
+
+.tickerInner {
+  display: flex;
+  animation: scroll 50s linear infinite;
+  gap: 40px;
+  white-space: nowrap;
+}
+
+.tickerItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: black;
+  font-size: 14px;
+  font-family: 'ABeeZee';
+}
 
 
+.coinIcon {
+  width: 20px;
+  height: 20px;
+}
 
-  .tickerTape {
-    overflow: hidden;
-    background-color: #fafafa;
-    padding: 12px 0;
-    margin-bottom: 24px;
-  }
-  
-  .tickerInner {
-    display: flex;
-    animation: scroll 50s linear infinite;
-    gap: 40px;
-    white-space: nowrap;
-  }
-  
-  .tickerItem {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: black;
-    font-size: 14px;
-    font-family: 'ABeeZee';
-  }
-  
-  .coinIcon {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .coinName {
-    font-weight: 600;
-    font-family: 'ABeeZee';
-  }
-  
-  .priceUp {
-    color: #22c55e;
-  }
-  
-  .priceDown {
-    color: #ef4444;
-  }
+.coinName {
+  font-weight: 600;
+  font-family: 'ABeeZee';
+}
+
+.priceUp {
+  color: #22c55e;
+}
+
+.priceDown {
+  color: #ef4444;
+}
 
 
-  /* Portfolio.module.css */
+/* Portfolio.module.css */
 
 .chartContainer {
-    padding: 1.5rem;
-    background-color: #ffffff;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    animation: fadeInUp 0.6s ease forwards;
-    transform: translateY(10px);
-    opacity: 0;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.6s ease forwards;
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  @keyframes fadeInUp {
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+}
+
+.tradingChart {
+  width: 100%;
+  height: 500px;
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+
+@keyframes scroll {
+  0% {
+    transform: translateX(50%);
   }
-  
-  .tradingChart {
-    width: 100%;
-    height: 500px;
-    border: none;
-    border-radius: 1rem;
-    overflow: hidden;
+  100% {
+    transform: translateX(-50%);
   }
-  
-  
-  @keyframes scroll {
-    0% {
-      transform: translateX(50%);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-  
+}
 
 
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  padding: 40px 20px;
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  border-radius: 24px;
+}
 
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'ABeeZee', sans-serif;
+  color:#fff
+}
 
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  .dashboardGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    padding: 40px 20px;
-    background-size: 400% 400%;
-    animation: gradientBG 12s ease infinite;
-    border-radius: 24px;
-  }
-  
-  @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  .card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    font-family: 'ABeeZee', sans-serif;
-    color:#fff
-  }
-  
-  .card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-  }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.6) 50%,
-            rgba(255, 255, 255, 0) 100%);
-    animation: lightReflection 4s infinite linear;
-    z-index: 1;
-    pointer-events: none;
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.6) 50%,
+          rgba(255, 255, 255, 0) 100%);
+  animation: lightReflection 4s infinite linear;
+  z-index: 1;
+  pointer-events: none;
 }
 
 @keyframes lightReflection {
-    0% {
-        left: -100%;
-    }
+  0% {
+      left: -100%;
+  }
 
-    50% {
-        left: 100%;
-    }
+  50% {
+      left: 100%;
+  }
 
-    100% {
-        left: 100%;
-    }
+  100% {
+      left: 100%;
+  }
 }
 
-  .card h2, .card h3 {
-    margin: 0 0 8px;
-    font-size: 30px;
-    font-weight: bold;
-    color: #fff;
-    font-family: 'ABeeZee', sans-serif;
+.card h2, .card h3 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  font-family: 'ABeeZee', sans-serif;
+}
+
+.card p {
+  margin: 0;
+  font-size: 16px;
+  color: #eeeeee;
+}
+
+.referralCard {
+  background: linear-gradient(145deg, #f8f9fe, #ecf0ff);
+
+
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.referralCard h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color:#4f46e5;
+}
+.referralCard a {
+  margin-top: 12px;
+  color: #4e4e4e;
+  text-decoration: underline;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+.referralCard p{
+  color: rgb(56, 56, 56);
+}
+.referralCard a:hover {
+  color: #c3c8ff;
+}
+
+.trendsCard {
+  background-color: rgb(98, 97, 111);
+  color:rgb(41, 41, 46)
+}
+.trendsTitle {
+  font-weight: bold;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #4f46e5;
+}
+.chartPlaceholder {
+  height: 100px;
+  background-color: #e0e7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+/* Add responsiveness */
+@media (max-width: 600px) {
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+    padding: 20px 10px;
   }
-  
-  .card p {
-    margin: 0;
-    font-size: 16px;
-    color: #eeeeee;
-  }
-  
-  .referralCard {
-    background: linear-gradient(145deg, #f8f9fe, #ecf0ff);
-
-
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .referralCard h3 {
-    font-size: 20px;
-    margin-bottom: 12px;
-    color:#4f46e5;
-  }
-  .referralCard a {
-    margin-top: 12px;
-    color: #4e4e4e;
-    text-decoration: underline;
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
-  .referralCard p{
-    color: rgb(56, 56, 56);
-  }
-  .referralCard a:hover {
-    color: #c3c8ff;
-  }
-  
-  .trendsCard {
-    background-color: rgb(98, 97, 111);
-    color:rgb(41, 41, 46)
-  }
-  .trendsTitle {
-    font-weight: bold;
-    margin-bottom: 16px;
-    font-size: 16px;
-    color: #4f46e5;
-  }
-  .chartPlaceholder {
-    height: 100px;
-    background-color: #e0e7ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    font-size: 12px;
-    color: #4f46e5;
-    font-weight: 600;
-  }
-  
-  /* Add responsiveness */
-  @media (max-width: 600px) {
-    .dashboardGrid {
-      grid-template-columns: 1fr;
-      padding: 20px 10px;
-    }
-  }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
 
 @media (max-width: 850px) {
-   
+ 
 
-    .dashboard .leftSection {
-        width: 18%;
-    }
+  .dashboard .leftSection {
+      width: 18%;
+  }
 
-    .dashboard .mainSection {
-        width: 82%;
-    }
+  .dashboard .mainSection {
+      width: 82%;
+  }
 
-    .title {
-        width: 30%
-    }
+  .title {
+      width: 30%
+  }
 
-    .buttonContainer {
-        width: 70%
-    }
+  .buttonContainer {
+      width: 70%
+  }
 
-    .dashboardContent {
-        width: 80%;
+  .dashboardContent {
+      width: 80%;
 
-    }
+  }
 
 
 }
 
 @media (max-width: 700px) {
-    .title {
-        width: 20%
-    }
+  .title {
+      width: 20%
+  }
 
-    .buttonContainer {
-        width: 80%
-    }
+  .buttonContainer {
+      width: 80%
+  }
 
-    .dashboardContent {
-        width: 80%;
+  .dashboardContent {
+      width: 80%;
 
-    }
+  }
 }
 
 /* mobile screen*/
 @media (max-width: 600px) {
 
-    .title {
-        display: none;
-    }
+  .title {
+      display: none;
+  }
 
-    .buttonContainer {
-        display: none;
-    }
+  .buttonContainer {
+      display: none;
+  }
 
-    .dashboard .leftSection {
-        display: none;
-    }
-
-
-    .dashboard .mainSection {
-        width: 100%;
-    }
-
-    .headerContainer {
-        background: transparent;
-        padding: 0px;
-        box-shadow: none;
-    }
+  .dashboard .leftSection {
+      display: none;
+  }
 
 
+  .dashboard .mainSection {
+      width: 100%;
+  }
 
-    .mobileHeader {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .dashboard .mainSection {
-        margin-left: 0px;
-    }
-
-
-    .balanceCard {
-        display: block;
-    }
+  .headerContainer {
+      background: transparent;
+      padding: 0px;
+      box-shadow: none;
+  }
 
 
-    .dashboardContent {
-        width: 100%;
-    }
 
-    .tabsContainer {
-        display: block;
-    }
+  .mobileHeader {
+      display: flex;
+      justify-content: space-between;
+  }
 
-
-    /*  styling the desktop balance*/
-
-    .desktopbalanceSection {
-        display: none;
-    }
+  .dashboard .mainSection {
+      margin-left: 0px;
+  }
 
 
-    /* dsktop tab section */
-    .desktoptabsContainer {
-        display: none;
-    }
+  .balanceCard {
+      display: block;
+  }
 
-    .desktoptabContent {
-        display: none;
-    }
 
-    .rightPanel {
-        display: none;
-    }
+  .dashboardContent {
+      width: 100%;
+  }
+
+  .tabsContainer {
+      display: block;
+  }
+
+
+  /*  styling the desktop balance*/
+
+  .desktopbalanceSection {
+      display: none;
+  }
+
+
+  /* dsktop tab section */
+  .desktoptabsContainer {
+      display: none;
+  }
+
+  .desktoptabContent {
+      display: none;
+  }
+
+  .rightPanel {
+      display: none;
+  }
 
 }

@@ -52,9 +52,9 @@ const Sidebar = ({ isOpen, toggleSidebar, isInvest, navigateMobileHandler }) => 
       >
         {/* User Info */}
         <div className={styles.userProfile}>
-          <img src={user.profilePhotoUrl} alt="User" className={styles.avatar} />
+          <img src={user?.profilePhotoUrl} alt="User" className={styles.avatar} />
           <p className={styles.username}>
-            {user.firstName?.slice(0, 7)}.. {user.lastName?.slice(0, 7)}..
+            {user?.firstName?.slice(0, 7)}.. {user.lastName?.slice(0, 7)}..
           </p>
         </div>
 
