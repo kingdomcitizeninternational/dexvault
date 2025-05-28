@@ -343,7 +343,7 @@ export const checkPasscode = (data) => {
         return {
           bool: true,
           message: dataResponse.response,
-          url: 'invest',
+          url: 'portfolio',
           phrase: ''
         };
       }

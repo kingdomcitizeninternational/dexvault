@@ -4,7 +4,7 @@ import styles from './Portfolio.module.css';
 import BuyModal from '../Modal/BuyModal';
 import Sidebar from '../components/MobileSideBar';
 import BottomTabs from '../components/BottomTabs';
-import 'react-activity/dist/library.css'; // 
+import 'react-activity/dist/library.css'; 
 import DesktopSideBar from '../components/DesktopSideBar';
 import DesktopHeader from '../components/DashboardHeader'
 import SendModal from '../Modal/SendModal';
@@ -36,7 +36,7 @@ const Portfolio = () => {
     const dispatch = useDispatch()
 
 
-    console.log(user)
+
 
 
     const fetchAllData = async () => {
@@ -81,7 +81,6 @@ const Portfolio = () => {
 
         fetchCryptoData();
     }, []);
-
 
 
     useEffect(() => {

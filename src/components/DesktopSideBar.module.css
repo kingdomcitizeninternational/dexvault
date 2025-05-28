@@ -57,15 +57,16 @@
 }
 
 .navItem.active {
-    background-color: #fdfdfd;
+    background-color: #ffffff;
     color: #4F46E5;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.08);
+    box-shadow: 0 4px 12px rgba(22, 63, 91, 0.08);
 }
 
 .navItem.active svg {
     color: #4F46E5;
 }
+
 
 @media (max-width: 850px) {
     .navItem p {

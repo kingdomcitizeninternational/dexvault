@@ -14,9 +14,9 @@ const BuyModal = () => {
 
   const navigateToPortfolio = () => {
     if (location.pathname === "/portfolio") {
-      navigate("/invest");
-    } else {
       navigate("/settings");
+    } else {
+      navigate("/portfolio");
     }
   };
 

@@ -10,8 +10,8 @@ const BottomTabs = ({ navigateTabHandler }) => {
 
     const tabs = [
         { label: 'Home', icon: <FaHome className={styles.icon} />, path: 'dashboard' },
-        { label: 'Invest', icon: <FaChartLine className={styles.icon} />, path: 'invest' },
-        { label: 'Profile', icon: <FaUser className={styles.icon} />, path: 'profile' },
+        { label: 'portfolio', icon: <FaChartLine className={styles.icon} />, path: 'portfolio' },
+        { label: 'profile', icon: <FaUser className={styles.icon} />, path: 'profile' },
         { label: 'Settings', icon: <FaCog className={styles.icon} />, path: 'settings' }
     ];
 

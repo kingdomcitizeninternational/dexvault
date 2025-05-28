@@ -1,12 +1,12 @@
 import React from 'react';
-import { 
-  FaBell, 
-  FaUser, 
-  FaCog, 
-  FaHome, 
-  FaSignOutAlt, 
-  FaExchangeAlt, 
-  FaTachometerAlt, 
+import {
+  FaBell,
+  FaUser,
+  FaCog,
+  FaHome,
+  FaSignOutAlt,
+  FaExchangeAlt,
+  FaTachometerAlt,
   FaWallet // <-- Add this
 } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
@@ -48,10 +48,19 @@ const DesktopSideBar = ({ isInvest, navigateMobileHandler }) => {
 
   return (
     <div className={styles.sidebarContent}>
-      <h2 className={styles.sidebarTitle}>Dexvault</h2>
+
+      <div className={styles.titleCon}>
+
+        <div className={styles.titleContainer}>
+          <h2 className={styles.sidebarTitle}>Dexvault</h2>
+        </div>
+
+      </div>
+
       <nav className={styles.nav}>
         {allLinks.map(({ to, icon, label }) => {
-          const isActive = location.pathname === to;
+          const isActive = location.pathname === `/${to}`;
+
           return (
             <div
               key={to}

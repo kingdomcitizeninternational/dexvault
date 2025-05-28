@@ -58,7 +58,7 @@ export default function ConfirmPasscodeScreen() {
                 }
                 setIsLoading(false)
                 //navigate to notification triggering page!!!!
-                return navigate(`/invest`)
+                return navigate(`/portfolio`)
             }
             if (newPasscode.length === 4 && newPasscode !== code) {
                 setIsAuthError(true)

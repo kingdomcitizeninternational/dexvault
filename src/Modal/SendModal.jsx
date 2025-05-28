@@ -13,7 +13,7 @@ const SendModal = () => {
 
 const navigateToPortfolio = () => {
   if (location.pathname === "/portfolio") {
-    navigate("/invest");
+    navigate("/settings");
   } else if(location.pathname === "/settings") {
     navigate("/portfolio");
   }

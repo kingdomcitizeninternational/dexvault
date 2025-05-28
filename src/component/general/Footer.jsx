@@ -114,7 +114,7 @@ const Footer = () => {
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/wallet">Wallet</a></li>
-            <li><a href="/portfolioments">Investments</a></li>
+            <li><a href="/portfolio">Investments</a></li>
             <li><a href="/support">Support</a></li>
             <li><a href="/faq">FAQs</a></li>
           </ul>

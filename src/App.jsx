@@ -44,8 +44,8 @@ import { NotificationToast } from "./component/general/Notification";
 import { toast, Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Registeration from './screens/Registeration';
-import ProfilePhoto from './screens/ProfilePhoto';
+//import Registeration from './screens/Registeration';
+//import ProfilePhoto from './screens/ProfilePhoto';
 
 
 import ImgUrl from './assets/192.png';
@@ -64,7 +64,7 @@ function App() {
     const apiCall = async () => {
       const res = await dispatch(checkIfIsLoggedIn());
       if (res.bool) {
-        navigate('/invest');
+        navigate('/portfolio');
         generateToken(res.message.user);
         onMessage(messaging, (payload) => {
           toast(<NotificationToast
@@ -134,15 +134,15 @@ function App() {
           <Route path='/notifications' element={<ProtectedRoute><NotificationPage /></ProtectedRoute>} />
           <Route path='/transactions' element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
           <Route path='/assets' element={<ProtectedRoute><Assets /></ProtectedRoute>} />
-          <Route path='/invest' element={<ProtectedRoute><Portfolio /></ProtectedRoute>} />
+          <Route path='/portfolio' element={<ProtectedRoute><Portfolio /></ProtectedRoute>} />
           <Route path='/portfolio' element={<ProtectedRoute><Portfolio /></ProtectedRoute>} />
           <Route path='/trade-center' element={<ProtectedRoute><TradeCenter /></ProtectedRoute>} />
           <Route path='/upgrade' element={<ProtectedRoute><Upgrade /></ProtectedRoute>} />
           <Route path='/fund-account' element={<ProtectedRoute><FundAccount /></ProtectedRoute>} />
           <Route path='/withdraw' element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
 
-          <Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
-          <Route path='/profilephoto' element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />
+          {/*<Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
+          <Route path='/profilephoto' element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />*/}
         </Routes>
       </Suspense>
 
