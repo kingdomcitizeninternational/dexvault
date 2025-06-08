@@ -140,9 +140,11 @@ function App() {
           <Route path='/fund-account' element={<ProtectedRoute><FundAccount /></ProtectedRoute>} />
           <Route path='/withdraw' element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
 
+
           <Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
           <Route path='/profilephoto' element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />
   
+
         </Routes>
       </Suspense>
 
