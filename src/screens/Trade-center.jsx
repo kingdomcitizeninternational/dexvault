@@ -13,6 +13,8 @@ import BackHeader from '../components/BackHeader';
 import { SpinnerModal } from '../Modal/SpinnerModal';
 import { fetchTrade } from '../store/action/appStorage';
 import { useDispatch, useSelector } from 'react-redux';
+import { idbGet,idbRemove,idbSet } from '../store/action/appStorage';
+
 
 const TradeCenter = () => {
     const [cryptoData, setCryptoData] = useState([]);
@@ -201,7 +203,7 @@ const TradeCenter = () => {
     }, [dragging]);
 
 
-      const navigateMobileHandler = (url) => {
+      const navigateMobileHandler = async(url) => {
         
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
@@ -210,7 +212,7 @@ const TradeCenter = () => {
                 return
               }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -229,7 +231,7 @@ const TradeCenter = () => {
                 return
               }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -326,6 +328,7 @@ const TradeCenter = () => {
     >
         <thead>
             <tr style={{ backgroundColor: '#f8f8f8', borderBottom: '2px solid #ddd' }}>
+                
                 <th
                     style={{
                         padding: '12px 15px',

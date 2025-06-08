@@ -51,56 +51,54 @@ const Settings = () => {
     setOpenCurrencyModal(false)
   }
 
-
-
-   const navigateMobileHandler = (url) => {
-       
-        if (url === 'dashboard') {
-          if (!user.walletFeauture) {
+  const navigateMobileHandler = async(url) => {
+    if (url === 'dashboard') {
+        if (!user.walletFeauture) {
             setIsAuthError(true)
             setAuthInfo('Wallet feature is not enabled yet on this account')
             return
-          }
-            //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
-            if (!seedphrase) {
-                return navigate('/create-wallet', { state: { email: user.email } })
-            } else {
-                if (seedphrase && chain && network && address) {
-                    return navigate('/dashboard')
-                } else {
-                    return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-                }
-            }
-
-
-        } else if (url === 'transactions') {
-          if (!user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-          }
-            //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
-            if (!seedphrase) {
-                return navigate('/create-wallet', { state: { email: user.email } })
-            } else {
-
-                if (seedphrase && chain && network && address) {
-                    return navigate('/transactions')
-
-                } else {
-
-                    return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-                }
-            }
-
-
+        }
+        //logic to check if wallet properties are saved to async storage
+        let seedphrase = await idbGet('seedphrase');
+        if (!seedphrase) {
+            return navigate('/create-wallet', { state: { email: user.email } })
         } else {
-            return navigate(`/${url}`)
+            if (seedphrase && chain && network && address) {
+                return navigate('/dashboard')
+            } else {
+                return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+            }
         }
 
-    };
+    } else if (url === 'transactions') {
+        if (!user.walletFeauture) {
+            setIsAuthError(true)
+            setAuthInfo('Wallet feature is not enabled yet on this account')
+            return
+        }
+        //logic to check if wallet properties are saved to async storage
+        let seedphrase = await idbGet('seedphrase');
+        if (!seedphrase) {
+            return navigate('/create-wallet', { state: { email: user.email } })
+        } else {
+
+            if (seedphrase && chain && network && address) {
+                return navigate('/transactions')
+
+            } else {
+
+                return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+            }
+        }
+
+
+    } else {
+        return navigate(`/${url}`)
+    }
+}
+
+
+
 
 
   return (

@@ -28,7 +28,7 @@ export const BitcoinPaymentModal = ({
           close
         </span>
         <p className={styles.modalState}>
-          Please send <strong>{amount}</strong> to the {btcAddress.name}  address below to complete payment:
+          Please send <strong>${amount}</strong> worth of  {btcAddress.name} to the {btcAddress.name}  address below to complete payment:
         </p>
         <div
           style={{

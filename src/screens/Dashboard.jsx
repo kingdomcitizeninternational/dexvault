@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getToken } from '../store/action/appStorage';
 import { evmChains } from '../utils/utils';
 
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 
 const data = [
@@ -218,7 +219,7 @@ const Dashboard = () => {
     }
 
 
-    const navigateTabHandler = (url) => {
+    const navigateTabHandler = async(url) => {
        
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
@@ -227,7 +228,7 @@ const Dashboard = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -246,7 +247,7 @@ const Dashboard = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -267,7 +268,7 @@ const Dashboard = () => {
 
     }
 
-    const navigateMobileHandler = (url) => {
+    const navigateMobileHandler = async(url) => {
        
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
@@ -276,7 +277,7 @@ const Dashboard = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -294,7 +295,7 @@ const Dashboard = () => {
                 setAuthInfo('Wallet feature is not enabled yet on this account')
                 return
             }
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {

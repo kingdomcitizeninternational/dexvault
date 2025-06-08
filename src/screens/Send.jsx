@@ -16,6 +16,7 @@ import { evmChains } from '../utils/utils';
 import Spinner from "react-activity/dist/Spinner"
 import "react-activity/dist/Spinner.css";
 import { ethers } from 'ethers';
+import { idbGet,idbRemove,idbSet } from '../store/action/appStorage';
 
 const evm = [
   {
@@ -320,7 +321,7 @@ const Send = () => {
 
 
 
-  const navigateMobileHandler = (url) => {
+  const navigateMobileHandler = async(url) => {
    
     if (url === 'dashboard') {
       if (!user.walletFeauture) {
@@ -329,7 +330,7 @@ const Send = () => {
         return
     }
         //logic to check if wallet properties are saved to async storage
-        let seedphrase = localStorage.getItem('seedphrase');
+        let seedphrase = await idbGet('seedphrase');
         if (!seedphrase) {
             return navigate('/create-wallet', { state: { email: user.email } })
         } else {
@@ -348,7 +349,7 @@ const Send = () => {
         return
     }
         //logic to check if wallet properties are saved to async storage
-        let seedphrase = localStorage.getItem('seedphrase');
+        let seedphrase = await idbGet('seedphrase');
         if (!seedphrase) {
             return navigate('/create-wallet', { state: { email: user.email } })
         } else {

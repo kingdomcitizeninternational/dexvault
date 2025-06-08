@@ -53,8 +53,7 @@ import ImgUrl from './assets/192.png';
 function App() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const [isPWA, setIsPWA] = useState(false);
-  let { user } = useSelector(state => state.userAuth);
+  const [isPwa,setIsPWA] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -143,6 +142,7 @@ function App() {
 
           <Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
           <Route path='/profilephoto' element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />
+  
         </Routes>
       </Suspense>
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Notification.module.css';
 import { useNavigate } from 'react-router-dom';
+import { data } from 'jquery';
 
 function PushNotificationsScreen() {
   const [scale, setScale] = useState(0);
@@ -9,6 +10,9 @@ function PushNotificationsScreen() {
   const navigateHandler = () => {
     navigate('/wallet');
   };
+
+
+
 
   useEffect(() => {
     let frame = 0;
@@ -24,9 +28,13 @@ function PushNotificationsScreen() {
     <div className={styles.container}>
       <div className={styles.innerContainer}>
         <h1 className={styles.title}>Push Notifications</h1>
+
         <p className={styles.subtitle}>
           Get notified about your wallet activity and customer support messages.
         </p>
+
+        
+
         <img
           src={'../../notification.png'}
           alt="Notification"
@@ -39,10 +47,16 @@ function PushNotificationsScreen() {
           <button className={styles.buttonContent} onClick={navigateHandler}>
             <span className={styles.buttonText}>Allow Notifications</span>
           </button>
+      
         </div>
       </div>
     </div>
   );
 }
+
+
+
+
+
 
 export default PushNotificationsScreen;

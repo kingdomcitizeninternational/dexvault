@@ -12,6 +12,7 @@ import { Spinner } from 'react-activity';
 import DesktopSideBar from '../components/DesktopSideBar';
 import AuthModal from '../Modal/AuthModal';
 import { useSelector } from 'react-redux';
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 const transactions = [
     {
@@ -106,7 +107,7 @@ const BuyAsset = () => {
 
 
 
-    const navigateMobileHandler = () => {
+    const navigateMobileHandler = async() => {
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -114,7 +115,7 @@ const BuyAsset = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -133,7 +134,7 @@ const BuyAsset = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {

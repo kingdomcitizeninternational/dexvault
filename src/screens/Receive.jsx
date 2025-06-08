@@ -11,6 +11,7 @@ import DesktopSideBar from '../components/DesktopSideBar';
 import BackHeader from '../components/BackHeader'; // ✅ Imported BackHeader
 import { useSelector } from 'react-redux';
 import AuthModal from '../Modal/AuthModal';
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 const transactions = [
     {
@@ -87,7 +88,7 @@ const ReceiveAsset = () => {
     const navigateHandler = () => navigate(-1);
 
 
-      const navigateMobileHandler = (url) => {
+      const navigateMobileHandler = async(url) => {
         
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
@@ -96,7 +97,7 @@ const ReceiveAsset = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -115,7 +116,7 @@ const ReceiveAsset = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {

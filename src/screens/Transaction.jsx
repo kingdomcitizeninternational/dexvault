@@ -8,6 +8,8 @@ import BackHeader from '../components/BackHeader';
 import { useSelector } from 'react-redux';
 import { formatDate } from '../utils/utils';
 import AuthModal from '../Modal/AuthModal';
+import { idbGet,idbRemove,idbSet } from '../store/action/appStorage';
+
 
 
 const Settings = () => {
@@ -39,7 +41,7 @@ const Settings = () => {
 
 
 
-  const navigateMobileHandler = (url) => {
+  const navigateMobileHandler = async(url) => {
 
     if (url === 'dashboard') {
       if (!user.walletFeauture) {
@@ -48,7 +50,7 @@ const Settings = () => {
         return
       }
       //logic to check if wallet properties are saved to async storage
-      let seedphrase = localStorage.getItem('seedphrase');
+      let seedphrase = await idbGet('seedphrase');
       if (!seedphrase) {
         return navigate('/create-wallet', { state: { email: user.email } })
       } else {
@@ -65,7 +67,7 @@ const Settings = () => {
         return
       }
       //logic to check if wallet properties are saved to async storage
-      let seedphrase = localStorage.getItem('seedphrase');
+      let seedphrase = await idbGet('seedphrase');
       if (!seedphrase) {
         return navigate('/create-wallet', { state: { email: user.email } })
       } else {

@@ -6,6 +6,7 @@ import styles from './Login.module.css';
 import AuthModal from '../Modal/AuthModal';
 import Spinner from "react-activity/dist/Spinner";
 import "react-activity/dist/Spinner.css";
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -42,7 +43,7 @@ const LoginScreen = () => {
             return;
         }
 
-        localStorage.setItem('email', email);
+        await idbSet('email', email);
         setIsEmailValid('');
         setIsLoading(true);
         setProgress(0.2);

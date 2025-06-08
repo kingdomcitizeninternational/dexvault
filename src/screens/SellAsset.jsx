@@ -12,6 +12,7 @@ import DesktopSideBar from '../components/DesktopSideBar';
 import BackHeader from '../components/BackHeader'; // ✅ Correct import
 import AuthModal from '../Modal/AuthModal';
 import { useSelector } from 'react-redux';
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 
 
@@ -138,7 +139,7 @@ const SellAsset = () => {
 
 
  
-const navigateMobileHandler = (url) => {
+const navigateMobileHandler = async(url) => {
  
   if (url === 'dashboard') {
     if (!user.walletFeauture) {
@@ -147,7 +148,7 @@ const navigateMobileHandler = (url) => {
       return
   }
       //logic to check if wallet properties are saved to async storage
-      let seedphrase = localStorage.getItem('seedphrase');
+      let seedphrase = await idbGet('seedphrase');
       if (!seedphrase) {
           return navigate('/create-wallet', { state: { email: user.email } })
       } else {
@@ -157,8 +158,6 @@ const navigateMobileHandler = (url) => {
               return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
           }
       }
-
-
   } else if (url === 'transactions') {
     if (!user.walletFeauture) {
       setIsAuthError(true)
@@ -166,14 +165,12 @@ const navigateMobileHandler = (url) => {
       return
   }
       //logic to check if wallet properties are saved to async storage
-      let seedphrase = localStorage.getItem('seedphrase');
+      let seedphrase = await idbGet('seedphrase');
       if (!seedphrase) {
           return navigate('/create-wallet', { state: { email: user.email } })
       } else {
-
           if (seedphrase && chain && network && address) {
               return navigate('/transactions')
-
           } else {
 
               return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })

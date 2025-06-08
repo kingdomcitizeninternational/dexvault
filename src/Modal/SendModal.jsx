@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./BuyModal.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 const SendModal = () => {
   const { user, seedphrase, chain, network, address } = useSelector((state) => state.userAuth);
@@ -19,14 +20,15 @@ const navigateToPortfolio = () => {
   }
 };
 
-  const navigateSend = () => {
+
+  const navigateSend = async() => {
     if (!user.walletFeauture) {
       setIsAuthError(true);
       setAuthInfo("Wallet feature is not enabled yet on this account");
       return;
     }
 
-    const localSeedphrase = localStorage.getItem("seedphrase");
+    const localSeedphrase = await idbGet("seedphrase");
     if (!localSeedphrase) {
       return navigate("/create-wallet", { state: { email: user.email } });
     } else {
@@ -38,14 +40,14 @@ const navigateToPortfolio = () => {
     }
   };
 
-  const navigateReceive = () => {
+  const navigateReceive = async() => {
     if (!user.walletFeauture) {
       setIsAuthError(true);
       setAuthInfo("Wallet feature is not enabled yet on this account");
       return;
     }
 
-    const localSeedphrase = localStorage.getItem("seedphrase");
+    const localSeedphrase = await idbGet("seedphrase");
     if (!localSeedphrase) {
       return navigate("/create-wallet", { state: { email: user.email } });
     } else {

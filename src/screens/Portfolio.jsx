@@ -15,6 +15,7 @@ import 'aos/dist/aos.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchInvestment } from '../store/action/appStorage';
 import { FaDollarSign, FaDatabase } from 'react-icons/fa';
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 
 
@@ -161,7 +162,7 @@ const Portfolio = () => {
 
 
 
-    const navigateTabHandler = (url) => {
+    const navigateTabHandler = async(url) => {
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -169,7 +170,7 @@ const Portfolio = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -188,7 +189,7 @@ const Portfolio = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -210,7 +211,7 @@ const Portfolio = () => {
 
 
 
-    const navigateMobileHandler = (url) => {
+    const navigateMobileHandler = async(url) => {
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -218,7 +219,7 @@ const Portfolio = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -237,7 +238,7 @@ const Portfolio = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {

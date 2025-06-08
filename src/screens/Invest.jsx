@@ -23,6 +23,7 @@ import AuthModal from '../Modal/AuthModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getToken } from '../store/action/appStorage';
 import { evmChains } from '../utils/utils';
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 
 
@@ -76,6 +77,8 @@ const Invest = () => {
     const [ticker, setTicker] = useState("");
     const [balance, setBalance] = useState("");
     let { user, seedphrase, chain, network, address } = useSelector(state => state.userAuth)
+
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -207,7 +210,7 @@ const Invest = () => {
     }
 
 
-    const navigateTabHandler = (url) => {
+    const navigateTabHandler = async(url) => {
        
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
@@ -216,7 +219,7 @@ const Invest = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -235,16 +238,13 @@ const Invest = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
-
                 if (seedphrase && chain && network && address) {
                     return navigate('/transactions')
-
                 } else {
-
                     return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
                 }
             }
@@ -256,7 +256,7 @@ const Invest = () => {
     }
 
 
-    const navigateMobileHandler = (url) => {
+    const navigateMobileHandler = async(url) => {
        
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
@@ -266,7 +266,7 @@ const Invest = () => {
             } else {
                 //logic to check if wallet properties are saved to async storage
 
-                let seedphrase = localStorage.getItem('seedphrase');
+                let seedphrase = await idbGet('seedphrase');
 
                 if (!seedphrase) {
 

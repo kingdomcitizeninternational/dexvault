@@ -13,7 +13,9 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-activity/dist/Spinner';
-import { createDeposit, fetchDeposit } from '../store/action/appStorage';
+import { createDeposit, fetchDeposit} from '../store/action/appStorage';
+
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 
 
@@ -33,13 +35,13 @@ const FundAccount = () => {
         address: ''
     })
     const [paymentAmount, setPaymentAmount] = useState()
-    const [isPaymentMode, setIsPaymentMode] = useState('Bitcoin')
+    const [isPaymentMode, setIsPaymentMode] = useState('')
     let { user, chain, network, address, admin } = useSelector(state => state.userAuth)
     const dispatch = useDispatch()
 
     const [fund, setFund] = useState({
         plan: 'Starter',
-        amount: '2000'
+        amount: ''
     })
 
 
@@ -110,6 +112,7 @@ const FundAccount = () => {
 
 
     }
+
     const sellFunction = () => {
         setOpenBuyModal(false)
     }
@@ -129,7 +132,7 @@ const FundAccount = () => {
         navigate(-1)
     }
 
-    const navigateMobileHandler = (url) => {
+    const navigateMobileHandler = async(url) => {
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -137,7 +140,7 @@ const FundAccount = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -155,7 +158,7 @@ const FundAccount = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -175,29 +178,7 @@ const FundAccount = () => {
         }
     }
 
-    const changeHandler = (data) => {
-        if (data === 'Starter') {
-            setFund({
-                plan: 'Starter',
-                amount: '2000'
-            })
 
-        } else if (data === 'Bronze') {
-            setFund({
-                plan: 'Bronze',
-                amount: '3000'
-            })
-
-
-        } else if (data === 'Silver') {
-            setFund({
-                plan: 'Silver',
-                amount: '4000'
-            })
-
-
-        }
-    }
 
     const changeModeHandler = (data) => {
         setIsPaymentMode(data)
@@ -205,23 +186,17 @@ const FundAccount = () => {
 
     const createDepositHandler = async () => {
         if (loading) return;
-
-        if (!user?.accountStatus) {
-            setAuthInfo('Account not yet verified');
-            setIsAuthError(true);
-            return;
-        }
-
         if (isPaymentMode === 'isPaymentMode' || isPaymentMode === '') {
             setAuthInfo('Please select the mode of deposit');
             setIsAuthError(true);
             return;
         }
 
-        const { amount, plan } = fund;
+        const { amount} = fund;
         const mode = isPaymentMode;
+        alert(mode)
 
-        if (!amount || !plan || !mode) {
+        if (!amount || !mode) {
             setAuthInfo('Please fill all required fields correctly');
             setIsAuthError(true);
             return;
@@ -235,8 +210,7 @@ const FundAccount = () => {
 
         const data = {
             amount,
-            plan,
-            mode,
+            mode:isPaymentMode,
             user
         };
 
@@ -287,10 +261,30 @@ const FundAccount = () => {
                 name: 'Bitcoin',
                 address: admin.bitcoinwalletaddress,
             })
-        } else if (type === 'Etheruem') {
+
+        } else if (type === 'Ethereum') {
             setAdminPaymentAddr({
-                name: 'Etheruem',
-                address: admin.etheriumwalletaddress,
+                name: 'Ethereum',
+                address: admin.ethereumwalletaddress,
+            })
+        } else if (type === 'Usdt Erc20') {
+            setAdminPaymentAddr({
+                name: 'Usdt Erc20',
+                address: admin.usdt_erc20walletaddress
+            })
+
+
+
+        } else if (type === 'Usdt Trc20') {
+            setAdminPaymentAddr({
+                name: 'Usdt Trc20',
+                address: admin.usdt_trc20walletaddress,
+            })
+        }
+        else if (type === 'Usdt') {
+            setAdminPaymentAddr({
+                name: 'Usdt',
+                address: admin.usdt_walletaddress,
             })
         }
         setPaymentAmount(amount)
@@ -346,30 +340,7 @@ const FundAccount = () => {
                     {!loading ? <div className={styles.container}>
 
                         <div className={styles.card}>
-                            <div className={styles.formGroup}>
-                                <select
-                                    className={styles.select}
-                                    style={{
-                                        width: '100%',
-                                        padding: '12px 15px',
-                                        fontSize: '16px',
-                                        borderRadius: '8px',
-                                        border: '1px solid #ddd',
-                                        backgroundColor: '#fff',
-                                        outline: 'none',
-                                        transition: 'border 0.3s ease',
-                                    }}
-                                    onChange={(e) => changeModeHandler(e.target.value)}
-                                >
-                                    <option value="">Method of Payment</option>
-                                    <option value="">Bitcoin</option>
-                                    <option value="">Etheruem</option>
-                                    <option value="">Gcash</option>
 
-
-                                </select>
-
-                            </div>
 
                             <div className={styles.formGroup}>
                                 <select
@@ -379,8 +350,16 @@ const FundAccount = () => {
                                 >
                                     <option value="">Method of Payment</option>
                                     <option value="Bitcoin">Bitcoin</option>
-                                    <option value="Etheruem">Etheruem</option>
-                                    <option value="Gcash">Gcash</option>
+                                    <option value="Ethereum">Ethereum</option>
+
+                                    <option value="Usdt Erc20">Usdt ERC20  </option>
+
+
+                                    <option value="Usdt Trc20">Usdt TRC20  </option>
+
+                                    <option value="Usdt">Usdt   </option>
+
+
                                 </select>
 
                             </div>
@@ -409,15 +388,57 @@ const FundAccount = () => {
 
                         {isDeposits && isDeposits.length > 0 && (
                             <div className={styles.tableWrapper}>
-                                <table className={styles.tradeTable}>
+                                <table className={styles.tradeTable} style={{
+                                    width: '100%',
+                                    borderCollapse: 'collapse',
+                                    fontFamily: "'ABeeZee', sans-serif",
+                                    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+                                    backgroundColor: '#fff',
+                                }}>
                                     <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Date</th>
-                                            <th>AMOUNT</th>
-                                            <th>TRANSACTION TYPE</th>
-                                            <th>STATUS</th>
-                                            {isDeposits.some(deposit => deposit.status === 'pending') && <th>ACTION</th>}
+                                        <tr style={{ backgroundColor: '#f8f8f8', borderBottom: '2px solid #ddd' }}>
+                                            <th style={{
+                                                padding: '12px 15px',
+                                                textAlign: 'left',
+                                                fontSize: '18px', // Increased font size
+                                                fontWeight: '600',
+                                                color: '#333',
+                                            }}>ID</th>
+                                            <th style={{
+                                                padding: '12px 15px',
+                                                textAlign: 'left',
+                                                fontSize: '18px', // Increased font size
+                                                fontWeight: '600',
+                                                color: '#333',
+                                            }}>Date</th>
+                                            <th style={{
+                                                padding: '12px 15px',
+                                                textAlign: 'left',
+                                                fontSize: '18px', // Increased font size
+                                                fontWeight: '600',
+                                                color: '#333',
+                                            }}>Amount</th>
+                                            <th style={{
+                                                padding: '12px 15px',
+                                                textAlign: 'left',
+                                                fontSize: '18px', // Increased font size
+                                                fontWeight: '600',
+                                                color: '#333',
+                                            }}>Transaction Type</th>
+                                            <th style={{
+                                                padding: '12px 15px',
+                                                textAlign: 'left',
+                                                fontSize: '18px', // Increased font size
+                                                fontWeight: '600',
+                                                color: '#333',
+                                            }}>Status</th>
+                                            {isDeposits.some(deposit => deposit.status === 'pending') && <th style={{
+                                                padding: '12px 15px',
+                                                textAlign: 'left',
+                                                fontSize: '18px', // Increased font size
+                                                fontWeight: '600',
+                                                color: '#333',
+                                            }}>Action</th>}
                                         </tr>
                                     </thead>
                                     <tbody>

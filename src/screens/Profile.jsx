@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import ProfileModal from '../Modal/ProfileModal';
 import AuthModal from '../Modal/AuthModal';
 import { FaUser } from 'react-icons/fa';
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 const Profile = () => {
   const [openBuyModal, setOpenBuyModal] = useState(false);
@@ -46,26 +47,53 @@ const Profile = () => {
 
   const hideProfileModal = () => setOpenProfileModal(false);
 
-  const navigateMobileHandler = (url) => {
-    if (!user.walletFeauture) {
-      setIsAuthError(true);
-      setAuthInfo('Wallet feature is not enabled yet on this account');
-      return;
+  const navigateMobileHandler = async(url) => {
+    if (url === 'dashboard') {
+        if (!user.walletFeauture) {
+            setIsAuthError(true)
+            setAuthInfo('Wallet feature is not enabled yet on this account')
+            return
+        }
+
+        //logic to check if wallet properties are saved to async storage
+        let seedphrase = await idbGet('seedphrase');
+        if (!seedphrase) {
+            return navigate('/create-wallet', { state: { email: user.email } })
+        } else {
+            if (seedphrase && chain && network && address) {
+                return navigate('/dashboard')
+            } else {
+                return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+            }
+        }
+
+    } else if (url === 'transactions') {
+        if (!user.walletFeauture) {
+            setIsAuthError(true)
+            setAuthInfo('Wallet feature is not enabled yet on this account')
+            return
+        }
+
+        //logic to check if wallet properties are saved to async storage
+        let seedphrase = await idbGet('seedphrase');
+        if (!seedphrase) {
+            return navigate('/create-wallet', { state: { email: user.email } })
+        } else {
+
+            if (seedphrase && chain && network && address) {
+                return navigate('/transactions')
+
+            } else {
+
+                return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+            }
+        }
+
+
+    } else {
+        return navigate(`/${url}`)
     }
-
-    const savedSeed = localStorage.getItem('seedphrase');
-
-    if (!savedSeed) {
-      return navigate('/create-wallet', { state: { email: user.email } });
-    }
-
-    if (network && address && savedSeed) {
-      if (url === 'dashboard') return navigate('/dashboard');
-      if (url === 'transactions') return navigate('/transactions');
-    }
-
-    return navigate('/import-wallet', { state: { email: user.email, seedphrase: savedSeed } });
-  };
+};
 
   return (
     <>

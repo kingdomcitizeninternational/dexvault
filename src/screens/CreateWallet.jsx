@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {openWallet } from '../store/action/appStorage';
+import {idbGet, openWallet } from '../store/action/appStorage';
 import styles from './CreateWallet.module.css';
 import Spinner from "react-activity/dist/Spinner";
 import "react-activity/dist/Spinner.css";
@@ -11,15 +11,27 @@ import OnscreenModal from "../Modal/OnscreenModal";
 
 
 
+
+
 const CreateWalletScreen = () => {
     const [seedPhrase, setSeedPhrase] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isAuthError, setIsAuthError] = useState(false);
     const [authInfo, setAuthInfo] = useState("");
     const [isScreenLoading, setIsScreenLoading] = useState(false);
- 
+    const [email,setEmail] = useState('')
 
-    const email = localStorage.getItem('email') || '';
+
+    const loadEmailFromStorage =async()=>{
+        const retrievedEmail = await idbGet('email')
+        setEmail(retrievedEmail)
+    }
+
+
+    useEffect(()=>{
+     loadEmailFromStorage()
+    },[loadEmailFromStorage])
+ 
 
 
 

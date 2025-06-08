@@ -12,6 +12,8 @@ import AOS from 'aos';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-activity';
 import { createWithdraw, fetchWithdraw } from '../store/action/appStorage';
+import { idbGet,idbRemove,idbSet } from '../store/action/appStorage';
+
 
 const Withdraw = () => {
     const [loading, setLoading] = useState(true);
@@ -28,9 +30,9 @@ const Withdraw = () => {
     const [accountNumber, setAccountNumber] = useState('');
     const [bankName, setBankName] = useState('');
     const [bitcoinAddress, setBitcoinAddress] = useState('');
-    const [etheriumAddress, setEtheriumAddress] = useState('');
-    const [cashappAddress, setCashappAddress] = useState('');
-    const [zelleAddress, setZelleAddress] = useState('');
+    const [ethereumAddress, setEthereumAddress] = useState('');
+    
+    
 
     const [openBuyModal, setOpenBuyModal] = useState(false);
     const [openSendModal, setOpenSendModal] = useState(false);
@@ -67,19 +69,19 @@ const Withdraw = () => {
             setIsAuthError(true);
             return;
         }
-    
+
         if (!user.accountStatus) {
             setAuthInfo('Account not yet veririfed');
             setIsAuthError(true);
             return;
         }
-    
+
         if (Number(user.availableBalance) < Number(amount)) {
             setAuthInfo('Insufficient fund');
             setIsAuthError(true);
             return;
         }
-    
+
         let data = {
             amount,
             method,
@@ -88,11 +90,10 @@ const Withdraw = () => {
             account_number: accountNumber,
             bank_name: bankName,
             bitcoin_address: bitcoinAddress,
-            etherium_address: etheriumAddress,
-            cashapp_address: cashappAddress,
-            zelle_address: zelleAddress,
+            ethereum_address: ethereumAddress,
+            
         };
-    
+
         try {
             setLoading(true);
             const res = await dispatch(createWithdraw(data));
@@ -100,13 +101,13 @@ const Withdraw = () => {
                 setIsAuthError(true);
                 return setAuthInfo(res.message);
             }
-    
+
             setIsAuthError(true);
             setWithdrawals(res.message);
             setAuthInfo("Withdrawal initiated.");
             setLoading(false);
             fetchWithdrawHandler();
-    
+
             // ✅ Clear all input fields
             setAmount('');
             setMethod('');
@@ -114,7 +115,7 @@ const Withdraw = () => {
             setAccountNumber('');
             setBankName('');
             setBitcoinAddress('');
-            setEtheriumAddress('');
+            setEthereumAddress('');
             setCashappAddress('');
             setZelleAddress('');
         } catch (error) {
@@ -123,7 +124,7 @@ const Withdraw = () => {
             setLoading(false);
         }
     };
-    
+
 
 
 
@@ -161,7 +162,7 @@ const Withdraw = () => {
         navigate(-1);
     };
 
-    const navigateMobileHandler = (url) => {
+    const navigateMobileHandler = async(url) => {
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -169,7 +170,7 @@ const Withdraw = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -187,7 +188,7 @@ const Withdraw = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -268,10 +269,9 @@ const Withdraw = () => {
                                         <option value="">Receive Payment through</option>
                                         <option value="bank">Bank</option>
                                         <option value="bitcoin">Bitcoin</option>
-                                        <option value="etherium">Ethereum</option>
-                                        <option value="cashapp">CashApp</option>
-                                        <option value="zelle">Zelle</option>
-                                    </select>
+                                        <option value="ethereum">Ethereum</option>
+                                        
+                                        </select>
                                 </div>
 
                                 {method === 'bank' && (
@@ -317,39 +317,16 @@ const Withdraw = () => {
                                 )}
 
 
-{method === 'etherium' && (
-    <div className={styles.formGroup}>
-        <input
-            placeholder="Ethereum Address"
-            className={styles.input}
-            value={etheriumAddress}
-            onChange={(e) => setEtheriumAddress(e.target.value)}
-        />
-    </div>
-)}
-
-{method === 'cashapp' && (
-    <div className={styles.formGroup}>
-        <input
-            placeholder="CashApp Username"
-            className={styles.input}
-            value={cashappAddress}
-            onChange={(e) => setCashappAddress(e.target.value)}
-        />
-    </div>
-)}
-
-{method === 'zelle' && (
-    <div className={styles.formGroup}>
-        <input
-            placeholder="Zelle Email or Phone"
-            className={styles.input}
-            value={zelleAddress}
-            onChange={(e) => setZelleAddress(e.target.value)}
-        />
-    </div>
-)}
-
+                                {method === 'ethereum' && (
+                                    <div className={styles.formGroup}>
+                                        <input
+                                            placeholder="Ethereum Address"
+                                            className={styles.input}
+                                            value={ethereumAddress}
+                                            onChange={(e) => setEthereumAddress(e.target.value)}
+                                        />
+                                    </div>
+                                )}
 
                                 <button className={styles.button} onClick={handleWithdraw}>
                                     Withdraw
@@ -357,7 +334,7 @@ const Withdraw = () => {
                             </div>
 
                             <div className={styles.historyCard}>
-                                <h3 className={styles.sectionTitle}>Withdraw history</h3>
+
                                 {withdrawals.length === 0 ? (
                                     <p className={styles.emptyText}>No withdrawals found.</p>
                                 ) : (

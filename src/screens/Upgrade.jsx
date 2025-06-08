@@ -12,6 +12,8 @@ import BackHeader from '../components/DashboardHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPackages } from '../store/action/appStorage';
 import { fetchInvestment } from '../store/action/appStorage';
+import { idbGet,idbRemove,idbSet } from '../store/action/appStorage';
+
 
 
 
@@ -136,7 +138,7 @@ const Upgrade = () => {
     }
    
 
-    const navigateMobileHandler = (url) => {
+    const navigateMobileHandler = async(url) => {
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -144,7 +146,7 @@ const Upgrade = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
@@ -163,7 +165,7 @@ const Upgrade = () => {
                 return
             }
             //logic to check if wallet properties are saved to async storage
-            let seedphrase = localStorage.getItem('seedphrase');
+            let seedphrase = await idbGet('seedphrase');
             if (!seedphrase) {
                 return navigate('/create-wallet', { state: { email: user.email } })
             } else {
