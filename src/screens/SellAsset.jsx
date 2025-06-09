@@ -12,7 +12,7 @@ import DesktopSideBar from '../components/DesktopSideBar';
 import BackHeader from '../components/BackHeader'; // ✅ Correct import
 import AuthModal from '../Modal/AuthModal';
 import { useSelector } from 'react-redux';
-import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
+import { idbRemove, idbSet, idbGet } from "../store/action/appStorage";
 
 
 
@@ -52,7 +52,7 @@ const SellAsset = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAuthError, setIsAuthError] = useState(false);
   const [authInfo, setAuthInfo] = useState("");
-  
+
   let { user, seedphrase, chain, network, address } = useSelector(state => state.userAuth)
 
 
@@ -134,58 +134,61 @@ const SellAsset = () => {
 
 
 
-  
 
 
 
- 
-const navigateMobileHandler = async(url) => {
- 
-  if (url === 'dashboard') {
-    if (!user.walletFeauture) {
-      setIsAuthError(true)
-      setAuthInfo('Wallet feature is not enabled yet on this account')
-      return
-  }
+
+
+  const navigateMobileHandler = async (url) => {
+    if (url === 'dashboard') {
+      if (!user.walletFeauture) {
+        setIsAuthError(true)
+        setAuthInfo('Wallet feature is not enabled yet on this account')
+        return
+      }
       //logic to check if wallet properties are saved to async storage
       let seedphrase = await idbGet('seedphrase');
       if (!seedphrase) {
-          return navigate('/create-wallet', { state: { email: user.email } })
+        return navigate('/create-wallet', { state: { email: user.email } })
       } else {
-          if (seedphrase && chain && network && address) {
-              return navigate('/dashboard')
-          } else {
-              return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-          }
+        if (seedphrase && chain && network && address) {
+          return navigate('/dashboard')
+        } else {
+          return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+        }
       }
-  } else if (url === 'transactions') {
-    if (!user.walletFeauture) {
-      setIsAuthError(true)
-      setAuthInfo('Wallet feature is not enabled yet on this account')
-      return
-  }
+    } else if (url === 'transactions') {
+      if (!user.walletFeauture) {
+        setIsAuthError(true)
+        setAuthInfo('Wallet feature is not enabled yet on this account')
+        return
+      }
       //logic to check if wallet properties are saved to async storage
       let seedphrase = await idbGet('seedphrase');
       if (!seedphrase) {
-          return navigate('/create-wallet', { state: { email: user.email } })
+        return navigate('/create-wallet', { state: { email: user.email } })
       } else {
-          if (seedphrase && chain && network && address) {
-              return navigate('/transactions')
-          } else {
+        if (seedphrase && chain && network && address) {
+          return navigate('/transactions')
+        } else {
 
-              return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-          }
+          return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+        }
       }
 
 
-  } else {
+    } else {
       return navigate(`/${url}`)
+    }
+
+  };
+
+
+  const sellHandler =()=>{
+      setIsAuthError(true)
+      setAuthInfo('This feature is not enabled yet on this account')
   }
-
-};
-
-
-
+  
 
 
 
@@ -197,7 +200,7 @@ const navigateMobileHandler = async(url) => {
 
       <div className={styles.dashboard}>
         <div className={styles.leftSection}>
-          <DesktopSideBar navigateMobileHandler={navigateMobileHandler}/>
+          <DesktopSideBar navigateMobileHandler={navigateMobileHandler} />
         </div>
 
         <div className={styles.mainSection}>
@@ -224,7 +227,7 @@ const navigateMobileHandler = async(url) => {
               <div className={styles.cryptoList}>
                 {!loading ? (
                   filteredCrypto.map((coin) => (
-                    <div key={coin.id} className={styles.cryptoItem}>
+                    <div key={coin.id} className={styles.cryptoItem} onClick={()=>sellHandler()}>
                       <div className={styles.coinInfo}>
                         <img src={coin.image} alt={coin.name} className={styles.coinImage} />
                         <div>

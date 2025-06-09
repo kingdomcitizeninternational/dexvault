@@ -18,6 +18,7 @@ const DesktopHeader = ({ openMobileMenu, openBuyModalFun, openSendModalFun, side
     };
 
     const profileHandler = () => {
+
         navigate('/profile');
     };
 
@@ -47,7 +48,7 @@ const DesktopHeader = ({ openMobileMenu, openBuyModalFun, openSendModalFun, side
 
                 <button className={styles.notificationbutton} onClick={notificationHandler}>
                     <FaBell color='black' size={18} />
-                    <span>55</span>
+                    <span>0</span>
                 </button>
 
                 <button className={styles.imagebutton} onClick={profileHandler}>
@@ -59,7 +60,7 @@ const DesktopHeader = ({ openMobileMenu, openBuyModalFun, openSendModalFun, side
                             onError={() => setImageError(true)}
                         />
                     ) : (
-                        <FaUser size={22} color="white" />
+                        <FaUser size={22} color="black"  />
                     )}
                 </button>
             </div>

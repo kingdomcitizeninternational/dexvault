@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import ProfileModal from '../Modal/ProfileModal';
 import AuthModal from '../Modal/AuthModal';
 import { FaUser } from 'react-icons/fa';
-import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
+import { idbGet } from "../store/action/appStorage";
 
 const Profile = () => {
   const [openBuyModal, setOpenBuyModal] = useState(false);
@@ -21,7 +21,8 @@ const Profile = () => {
   const [authInfo, setAuthInfo] = useState('');
   const [imageError, setImageError] = useState(false);
 
-  const { network, address, user, seedphrase } = useSelector(state => state.userAuth);
+  let { user, seedphrase, chain, network, address } = useSelector(state => state.userAuth)
+
   const navigate = useNavigate();
 
   const updateAuthError = () => {
@@ -47,53 +48,59 @@ const Profile = () => {
 
   const hideProfileModal = () => setOpenProfileModal(false);
 
-  const navigateMobileHandler = async(url) => {
-    if (url === 'dashboard') {
-        if (!user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
 
+
+
+
+  const navigateMobileHandler = async (url) => {
+    alert(url)
+    try {
+      if (url === 'dashboard') {
+        if (!user.walletFeauture) {
+          setIsAuthError(true)
+          setAuthInfo('Wallet feature is not enabled yet on this account')
+          return
+        }
+        //logic to check if wallet properties are saved to async storage
+        let seedphrase = await idbGet('seedphrase');
+
+        if (!seedphrase) {
+
+          return navigate('/create-wallet', { state: { email: user.email } })
+        } else {
+
+          if (seedphrase && chain && network && address) {
+            return navigate('/dashboard')
+          } else {
+            return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+          }
+        }
+      } else if (url === 'transactions') {
+        if (!user.walletFeauture) {
+          setIsAuthError(true)
+          setAuthInfo('Wallet feature is not enabled yet on this account')
+          return
+        }
         //logic to check if wallet properties are saved to async storage
         let seedphrase = await idbGet('seedphrase');
         if (!seedphrase) {
-            return navigate('/create-wallet', { state: { email: user.email } })
+          return navigate('/create-wallet', { state: { email: user.email } })
         } else {
-            if (seedphrase && chain && network && address) {
-                return navigate('/dashboard')
-            } else {
-                return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-            }
+          if (seedphrase && chain && network && address) {
+            return navigate('/transactions')
+          } else {
+            return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+          }
         }
-
-    } else if (url === 'transactions') {
-        if (!user.walletFeauture) {
-            setIsAuthError(true)
-            setAuthInfo('Wallet feature is not enabled yet on this account')
-            return
-        }
-
-        //logic to check if wallet properties are saved to async storage
-        let seedphrase = await idbGet('seedphrase');
-        if (!seedphrase) {
-            return navigate('/create-wallet', { state: { email: user.email } })
-        } else {
-
-            if (seedphrase && chain && network && address) {
-                return navigate('/transactions')
-
-            } else {
-
-                return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-            }
-        }
-
-
-    } else {
+      } else {
         return navigate(`/${url}`)
+      }
+    } catch (err) {
+      console.log(err)
     }
-};
+  };
+
+
 
   return (
     <>
@@ -128,7 +135,7 @@ const Profile = () => {
                         onError={() => setImageError(true)}
                       />
                     ) : (
-                      <FaUser className={styles.avatar} color="rgb(230,230,230)" size={40} />
+                      <FaUser className={styles.avatar} color="rgb(180,180,180)" size={40} />
                     )}
                   </div>
                   <div className={styles.userDetails}>

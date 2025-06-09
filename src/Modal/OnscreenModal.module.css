@@ -7,8 +7,8 @@
   }
   
   .spinner {
-    font-size: 60px; /* Size of the spinner */
-    animation: spin 1s infinite linear;
+    font-size: 80px; /* Size of the spinner */
+    animation: spin 1.5s infinite linear;
   }
   
   @keyframes spin {

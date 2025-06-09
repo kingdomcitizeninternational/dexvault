@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { FaSpinner } from 'react-icons/fa';  // For the spinner icon
-import styles from  './OnscreenModal.module.css';  // For additional styling
-
-
+import { FaSpinner } from 'react-icons/fa';
+import styles from  './OnscreenModal.module.css';  
 
 
 

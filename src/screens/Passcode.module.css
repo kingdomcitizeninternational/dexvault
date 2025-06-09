@@ -172,7 +172,10 @@ input:checked+.slider:before {
 
 
 
-
+.linkUrl{
+  cursor: pointer;
+  font-weight:700
+}
 
 
 

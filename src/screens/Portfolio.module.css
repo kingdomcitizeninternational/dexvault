@@ -33,15 +33,15 @@
 
 @keyframes lightReflection {
   0% {
-      left: -100%;
+    left: -100%;
   }
 
   50% {
-      left: 100%;
+    left: 100%;
   }
 
   100% {
-      left: 100%;
+    left: 100%;
   }
 }
 
@@ -104,8 +104,8 @@
 
 /*  card section */
 
-.cardContainer{
-display:flex
+.cardContainer {
+  display: flex
 }
 
 
@@ -128,9 +128,9 @@ display:flex
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.6) 50%,
-          rgba(255, 255, 255, 0) 100%);
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%);
   animation: lightReflection 5s infinite linear;
   z-index: 1;
   pointer-events: none;
@@ -138,229 +138,234 @@ display:flex
 
 @keyframes lightReflection {
   0% {
-      left: -100%;
+    left: -100%;
   }
 
   50% {
-      left: 100%;
+    left: 100%;
   }
 
   100% {
-      left: 100%;
+    left: 100%;
   }
 }
 
 .cardSection {
-margin: 20px;
-width:60%
+  margin: 20px;
+  width: 60%
 }
 
-.cardRightSection{
+.cardRightSection {
 
-padding:10px;
-width:40%;
-display: flex;
-justify-content: center;
-padding-top: 20px;
+  padding: 10px;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
 
 }
 
 
 .rightCard {
-color: white;
-padding: 20px;
-border-radius: 16px;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-width: 100%;
-max-width: 300px;
-background:  #0C1125;
-height:90vh
+  color: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 300px;
+  background: #0C1125;
+  height: 90vh
 }
 
 .rightCard .title {
-font-size: 1.2rem;
-font-weight: 600;
-margin-bottom: 20px;
-color: #87cefa;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #87cefa;
 }
 
 .rightCard .section {
-margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .rightCard .label {
-font-size: 0.85rem;
-color: #bbb;
-margin-bottom: 4px;
+  font-size: 0.85rem;
+  color: #bbb;
+  margin-bottom: 4px;
 }
 
 .rightCard .planBox {
-background-color: #293a52;
-padding: 8px 12px;
-border-radius: 8px;
+  background-color: #293a52;
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 
 .rightCard .planName {
-font-weight: 500;
-color: #ffffff;
+  font-weight: 500;
+  color: #ffffff;
 }
 
 .rightCard .infoRow {
-display: flex;
-justify-content: space-between;
-gap: 12px;
-margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .rightCard .infoBox {
-flex: 1;
+  flex: 1;
 }
 
 .rightCard .value {
-font-size: 1.1rem;
-font-weight: 500;
-color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
 }
 
 .rightCard .progressBar {
-height: 8px;
-background-color: #333;
-border-radius: 4px;
-overflow: hidden;
-margin: 20px 0;
+  height: 8px;
+  background-color: #333;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 20px 0;
 }
 
 .rightCard .progress {
-height: 100%;
-background: linear-gradient(90deg, #00c6ff, #0072ff);
+  height: 100%;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
 }
 
 .rightCard .button {
-width: 100%;
-padding: 10px;
-background-color: #4F46E5;
-color: white;
-border: none;
-border-radius: 12px;
-font-size: 0.95rem;
-cursor: pointer;
-transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 10px;
+  background-color: #4F46E5;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .rightCard .button:hover {
-background-color: #1681cc;
+  background-color: #1681cc;
 }
 
 
 
 .topCard {
-background:#4e54c8;
-color: white;
-padding: 20px;
-border-radius: 12px;
-margin-bottom: 20px;
+  background: #4e54c8;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
 }
 
-.welcomeContent{
-display: flex;
+.welcomeContent {
+  display: flex;
 }
 
-.actionButtons{
-align-self: flex-end;
+.actionButtons {
+  align-self: flex-end;
 }
 
 .welcomeContent h3 {
-margin: 0;
+  margin: 0;
 }
 
 .balanceLabel {
-font-size: 14px;
-opacity: 0.8;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 .balanceAmount {
-font-size: 36px;
-margin: 5px 0;
+  font-size: 36px;
+  margin: 5px 0;
 }
 
-.withdrawBtn,.investBtn,.depositBtn{
-height: 40px;
+.withdrawBtn,
+.investBtn,
+.depositBtn {
+  height: 40px;
 
 }
 
 .balanceBTC {
-font-size: 14px;
-opacity: 0.6;
+  font-size: 14px;
+  opacity: 0.6;
 }
 
 .actionButtons button {
-margin: 10px 5px 0;
-padding: 8px 14px;
-border: none;
-border-radius: 6px;
-background-color: #ffffff20;
-color: white;
-cursor: pointer;
+  margin: 10px 5px 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ffffff20;
+  color: white;
+  cursor: pointer;
 }
 
 .bottomCards {
-display: flex;
-flex-wrap: wrap;
-gap:14px
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px
 }
-
 
 
 .carditem {
-background-color:  #0C1125;
-color: white;
-border-radius: 12px;
-padding: 20px;
-position: relative;
-width:23%;
+  background-color: #0C1125;
+  color: white;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  width: 23%;
 }
 
+
+
+
+
 .cardIcon {
-font-size: 24px;
-width: 40px;
-height: 40px;
-border-radius: 8px;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-bottom: 10px;
-color: white;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: white;
 }
 
 .cardTitle {
-font-size: 14px;
-opacity: 0.8;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 .cardAmount {
-font-size: 24px;
-margin: 5px 0;
+  font-size: 24px;
+  margin: 5px 0;
 }
 
 .percentageUp {
-color: #00ff99;
-font-size: 14px;
+  color: #00ff99;
+  font-size: 14px;
 }
 
 .transferBtn {
-margin-top: 10px;
-padding: 10px 12px;
-background-color: #4e54c8;
-color: white;
-border: none;
-border-radius: 6px;
-cursor: pointer;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background-color: #4e54c8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .liveTraders {
-margin-top: 8px;
-font-size: 14px;
-opacity: 0.8;
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 
@@ -368,64 +373,82 @@ opacity: 0.8;
 
 
 @media screen and (max-width: 1024px) {
-.cardContainer {
-  flex-direction: column;
-  align-items: center;
-  
-}
+  .cardContainer {
+    flex-direction: column;
+    align-items: center;
 
-.cardSection,
-.cardRightSection {
-  width: 90%;
-  
-}
+  }
 
-.cardRightSection {
-  padding-top: 10px;
-}
+  .cardSection,
+  .cardRightSection {
+    width: 90%;
 
-.rightCard {
-  height: auto;
-  width: 100%;
-}
+  }
+
+  .cardRightSection {
+    padding-top: 10px;
+  }
+
+  .rightCard {
+    height: auto;
+    width: 100%;
+  }
 
 
 
 }
 
 @media screen and (max-width: 600px) {
-.rightCard .infoRow {
-  flex-direction: column;
-  gap: 8px;
-}
+  .cardSection {
+    width: 100%;
+    padding: 10px
+  }
 
-.welcomeContent,  .actionButtons{
-  display: flex;
-  flex-direction: column;
-  align-items: left;
+  .topCard {
+    justify-self: center;
+  }
 
-}
+  .rightCard .infoRow {
+    flex-direction: column;
+    gap: 8px;
+  }
 
-.actionButtons{
-flex-direction: row;
-width:100%;
-justify-content: flex-start;
-gap:5px
-}
+  .welcomeContent,
+  .actionButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
 
-.actionButtons button {
-  width: 40%;
-  margin: 10px 0;
-}
+  }
 
-.bottomCards {
-  flex-direction: column;
-  align-items: left;
-}
+  .actionButtons {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 5px
+  }
 
-.carditem {
-  width: 85%;
-}
+  .actionButtons button {
+    width: 40%;
+    margin: 10px 0;
+  }
+
+  .bottomCards {
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+  }
+
+  .carditem {
+    width: 75%;
+  }
+
+
+  .topCard {
+    width: 75%;
+
+  }
+
 }
 
 
@@ -526,6 +549,7 @@ gap:5px
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -608,6 +632,7 @@ gap:5px
   0% {
     transform: translateX(50%);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -625,9 +650,17 @@ gap:5px
 }
 
 @keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .card {
@@ -639,7 +672,7 @@ gap:5px
   position: relative;
   overflow: hidden;
   font-family: 'ABeeZee', sans-serif;
-  color:#fff
+  color: #fff
 }
 
 .card:hover {
@@ -655,9 +688,9 @@ gap:5px
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.6) 50%,
-          rgba(255, 255, 255, 0) 100%);
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%);
   animation: lightReflection 4s infinite linear;
   z-index: 1;
   pointer-events: none;
@@ -665,19 +698,20 @@ gap:5px
 
 @keyframes lightReflection {
   0% {
-      left: -100%;
+    left: -100%;
   }
 
   50% {
-      left: 100%;
+    left: 100%;
   }
 
   100% {
-      left: 100%;
+    left: 100%;
   }
 }
 
-.card h2, .card h3 {
+.card h2,
+.card h3 {
   margin: 0 0 8px;
   font-size: 30px;
   font-weight: bold;
@@ -700,11 +734,13 @@ gap:5px
   flex-direction: column;
   justify-content: space-between;
 }
+
 .referralCard h3 {
   font-size: 20px;
   margin-bottom: 12px;
-  color:#4f46e5;
+  color: #4f46e5;
 }
+
 .referralCard a {
   margin-top: 12px;
   color: #4e4e4e;
@@ -712,23 +748,27 @@ gap:5px
   font-weight: bold;
   transition: color 0.3s ease;
 }
-.referralCard p{
+
+.referralCard p {
   color: rgb(56, 56, 56);
 }
+
 .referralCard a:hover {
   color: #c3c8ff;
 }
 
 .trendsCard {
   background-color: rgb(98, 97, 111);
-  color:rgb(41, 41, 46)
+  color: rgb(41, 41, 46)
 }
+
 .trendsTitle {
   font-weight: bold;
   margin-bottom: 16px;
   font-size: 16px;
   color: #4f46e5;
 }
+
 .chartPlaceholder {
   height: 100px;
   background-color: #e0e7ff;
@@ -753,26 +793,26 @@ gap:5px
 
 
 @media (max-width: 850px) {
- 
+
 
   .dashboard .leftSection {
-      width: 18%;
+    width: 18%;
   }
 
   .dashboard .mainSection {
-      width: 82%;
+    width: 82%;
   }
 
   .title {
-      width: 30%
+    width: 30%
   }
 
   .buttonContainer {
-      width: 70%
+    width: 70%
   }
 
   .dashboardContent {
-      width: 80%;
+    width: 80%;
 
   }
 
@@ -781,15 +821,15 @@ gap:5px
 
 @media (max-width: 700px) {
   .title {
-      width: 20%
+    width: 20%
   }
 
   .buttonContainer {
-      width: 80%
+    width: 80%
   }
 
   .dashboardContent {
-      width: 80%;
+    width: 80%;
 
   }
 }
@@ -798,72 +838,72 @@ gap:5px
 @media (max-width: 600px) {
 
   .title {
-      display: none;
+    display: none;
   }
 
   .buttonContainer {
-      display: none;
+    display: none;
   }
 
   .dashboard .leftSection {
-      display: none;
+    display: none;
   }
 
 
   .dashboard .mainSection {
-      width: 100%;
+    width: 100%;
   }
 
   .headerContainer {
-      background: transparent;
-      padding: 0px;
-      box-shadow: none;
+    background: transparent;
+    padding: 0px;
+    box-shadow: none;
   }
 
 
 
   .mobileHeader {
-      display: flex;
-      justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
   }
 
   .dashboard .mainSection {
-      margin-left: 0px;
+    margin-left: 0px;
   }
 
 
   .balanceCard {
-      display: block;
+    display: block;
   }
 
 
   .dashboardContent {
-      width: 100%;
+    width: 100%;
   }
 
   .tabsContainer {
-      display: block;
+    display: block;
   }
 
 
   /*  styling the desktop balance*/
 
   .desktopbalanceSection {
-      display: none;
+    display: none;
   }
 
 
   /* dsktop tab section */
   .desktoptabsContainer {
-      display: none;
+    display: none;
   }
 
   .desktoptabContent {
-      display: none;
+    display: none;
   }
 
   .rightPanel {
-      display: none;
+    display: none;
   }
 
 }

@@ -19,7 +19,6 @@ import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 
 
-
 const Portfolio = () => {
     const [cryptoData, setCryptoData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -316,8 +315,6 @@ const Portfolio = () => {
                                 ))}
                             </div>
                         </div>
-
-
 
                         <div className={styles.cardContainer}>
                             <div className={styles.cardSection}>

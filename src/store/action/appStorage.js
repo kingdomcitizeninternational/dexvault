@@ -1275,6 +1275,54 @@ export const fetchInvestment = (id) => {
 }
 
 
+export const fetchPasscode = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(`https://backend.dexvault.net/changepassword`,{
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify(data),
+      })
+
+   
+
+      if (response.status === 404) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+        return {
+          bool: true,
+          message: data.response.message,
+        }
+      }
+    } catch (err) {
+      console.log(err)
+      return {
+        bool: false,
+        message: "network error"
+      }
+    }
+  }
+}
+
+
+
 export const logout = () => async (dispatch) => {
   try {
     await Promise.all([

@@ -4,6 +4,16 @@ import { FaBell, FaUser } from 'react-icons/fa';
 import styles from './BackHeader.module.css'; // Make sure the CSS file path is correct
 
 const BackHeader = ({ navigateHandler, openBuyModalFun, openSendModalFun,title }) => {
+
+
+  const profileHandler = () => {
+        
+        navigate('/profile');
+    };
+
+
+
+
   return (
     <div className={styles.headerContainer}>
       <div className={styles.mobileHeader}>
@@ -26,9 +36,9 @@ const BackHeader = ({ navigateHandler, openBuyModalFun, openSendModalFun,title }
         </button>
         <button className={styles.notificationbutton}>
           <FaBell color="black" size={18} />
-          <span>55</span>
+          <span>0</span>
         </button>
-        <button className={styles.imagebutton}>
+        <button className={styles.imagebutton} onClick={profileHandler}>
           <FaUser color="black" size={18} />
         </button>
       </div>

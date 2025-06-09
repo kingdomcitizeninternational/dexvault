@@ -109,12 +109,23 @@ const CreateWalletScreen = () => {
                     <h2 className={styles.title}>Create Your Wallet</h2>
                     <p className={styles.description}>Generate a new wallet by creating a seed phrase.</p>
 
+
+                    <button
+                        className={styles.generateButton}
+                        onClick={()=>navigate('/import-wallet',{ state: { email } })}
+                    >
+                        Import Wallet
+                    </button>
+
                     <button
                         className={styles.generateButton}
                         onClick={generateSeedPhrase}
                     >
                         {isLoading ? <Spinner size={24} color="#fff" /> : 'Generate Seed Phrase'}
                     </button>
+
+                    
+                   
 
                     {seedPhrase ? (
                         <div className={styles.seedPhraseContainer}>

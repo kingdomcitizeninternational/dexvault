@@ -10,6 +10,8 @@ import BackHeader from '../components/BackHeader'
 import AuthModal from '../Modal/AuthModal';
 import { useSelector } from 'react-redux';
 import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBellSlash } from '@fortawesome/free-solid-svg-icons'; // Add this import at the top
 
 
 
@@ -96,7 +98,7 @@ const Notification = () => {
                     return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
                 }
             }
-            
+
         } else if (url === 'transactions') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -149,6 +151,15 @@ const Notification = () => {
                         <div className={styles.dashboardContentleft}>
 
                             <div className={styles.notificationContainer}>
+
+                            <div className={styles.notificationContainer}>
+  <div className={styles.noNotificationBox}>
+    <FontAwesomeIcon icon={faBellSlash} size="3x" className={styles.noNotifIcon} />
+    <p className={styles.noNotifText}>No notifications yet</p>
+    <p className={styles.noNotifSubtext}>You’ll see new alerts and updates here as they arrive.</p>
+  </div>
+</div>
+
                                
                             
                             </div>

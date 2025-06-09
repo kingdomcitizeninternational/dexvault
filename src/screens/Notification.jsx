@@ -55,8 +55,4 @@ function PushNotificationsScreen() {
 }
 
 
-
-
-
-
 export default PushNotificationsScreen;

@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback,useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faFingerprint, faBackspace } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faBackspace } from '@fortawesome/free-solid-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 import styles from './Passcode.module.css';
-import { checkPasscode } from "../store/action/appStorage";
+import { checkPasscode, fetchPasscode } from "../store/action/appStorage";
 import OnscreenModal from "../Modal/OnscreenModal";
 import AuthModal from '../Modal/AuthModal';
 import { useDispatch } from "react-redux";
@@ -11,7 +12,6 @@ import { useDispatch } from "react-redux";
 
 export default function PasscodeScreen() {
     const [passcode, setPasscode] = useState("");
-    const [isFingerprintEnabled, setIsFingerprintEnabled] = useState(false);
     const [isAuthError, setIsAuthError] = useState(false);
     const [authInfo, setAuthInfo] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -30,25 +30,24 @@ export default function PasscodeScreen() {
             const newPasscode = passcode + num;
             setPasscode(newPasscode);
 
-            // Check if all 4 digits are entered and trigger the alert
             if (newPasscode.length === 4) {
-                // navigate to main app screen
-                setIsLoading(true)
+                setIsLoading(true);
 
-                let res = await dispatch(checkPasscode({
+                const res = await dispatch(checkPasscode({
                     code: newPasscode,
-                    email
-                }))
-                setIsLoading(false)
-                console.log(res)
+                    email,
+                }));
+
+                setIsLoading(false);
 
                 if (!res.bool) {
-                    setIsAuthError(true)
-                    setAuthInfo(res.message)
-                    return
+                    setPasscode(""); // 👈 Reset input on error
+                    setIsAuthError(true);
+                    setAuthInfo(res.message);
+                    return;
                 }
-                //navigate to notification triggering page!!!!
-                navigate(`/${res.url}`)
+
+                navigate(`/${res.url}`);
             }
         }
     };
@@ -67,6 +66,56 @@ export default function PasscodeScreen() {
         setIsAuthError(prev => !prev);
         setAuthInfo('');
     }, []);
+
+
+
+
+    const fpassHandler = async () => {
+        if (!email) {
+            setIsAuthError(true)
+            setAuthInfo('Invalid email provided!')
+            return
+        }
+        setIsLoading(true)
+        //call api to send passcode as an email to the client
+
+        let res = await dispatch(fetchPasscode({ email: email }))
+        setIsLoading(false)
+        if (!res.bool) {
+            setIsAuthError(true)
+            setAuthInfo(res.message)
+            return
+        }
+        setIsAuthError(true)
+        setAuthInfo(res.message)
+    }
+
+
+
+
+    // Inside PasscodeScreen component
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            const key = event.key;
+
+            if (!isLoading && !isAuthError) {
+                if (/^\d$/.test(key)) {
+                    handleKeyPress(key);
+                } else if (key === "Backspace") {
+                    handleDelete();
+                }
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [passcode, isLoading, isAuthError]); // Make sure this updates when needed
+
+
+
 
 
 
@@ -89,7 +138,7 @@ export default function PasscodeScreen() {
                                 <div className={styles.progressBarFilled} style={{ width: '100%' }}></div>
                             </div>
                             <div className={styles.progressbar}>
-                                <div className={styles.progressBarFilled} style={{ width: '50%' }}></div>
+                                <div className={styles.progressBarFilled} style={{ width: '100%' }}></div>
                             </div>
                             <div className={styles.progressbar}>
                                 <div className={styles.progressBarFilled} style={{ width: '0%' }}></div>
@@ -111,16 +160,13 @@ export default function PasscodeScreen() {
                     </div>
 
                     <div className={styles.fingerprintContainer}>
-                        <FontAwesomeIcon icon={faFingerprint} size="lg" />
-                        <p className={styles.fingerprintText}>Enable Fingerprint to log in</p>
-                        <label className={styles.switch}>
-                            <input
-                                type="checkbox"
-                                checked={isFingerprintEnabled}
-                                onChange={() => setIsFingerprintEnabled(!isFingerprintEnabled)}
-                            />
-                            <span className={styles.slider}></span>
-                        </label>
+
+
+                        <FontAwesomeIcon icon={faLock} size="lg" />
+
+
+                        <p className={styles.fingerprintText}>Forget passcode?? <span className={styles.linkUrl} onClick={fpassHandler} style={{ color: '#4F46E5' }}>click here</span></p>
+
                     </div>
 
                     <div className={styles.keypad}>

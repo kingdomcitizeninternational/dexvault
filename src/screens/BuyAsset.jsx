@@ -12,7 +12,7 @@ import { Spinner } from 'react-activity';
 import DesktopSideBar from '../components/DesktopSideBar';
 import AuthModal from '../Modal/AuthModal';
 import { useSelector } from 'react-redux';
-import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
+import { idbRemove, idbSet, idbGet } from "../store/action/appStorage";
 
 const transactions = [
     {
@@ -107,7 +107,7 @@ const BuyAsset = () => {
 
 
 
-    const navigateMobileHandler = async() => {
+    const navigateMobileHandler = async () => {
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -153,6 +153,13 @@ const BuyAsset = () => {
             return navigate(`/${url}`)
         }
 
+    }
+
+
+
+    const openNavigate = () => {
+        setIsAuthError(true)
+        setAuthInfo('This feature is not enabled yet on this account')
     }
 
 
@@ -218,7 +225,7 @@ const BuyAsset = () => {
                             <div className={styles.cryptoList}>
                                 {!loading ? (
                                     filteredCrypto.map((coin) => (
-                                        <div key={coin.id} className={styles.cryptoItem}>
+                                        <div key={coin.id} className={styles.cryptoItem} onClick={() => openNavigate()}>
                                             <div className={styles.coinInfo}>
                                                 <img src={coin.image} alt={coin.name} className={styles.coinImage} />
                                                 <div>

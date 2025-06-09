@@ -8,7 +8,9 @@ import BackHeader from '../components/BackHeader';
 import { useSelector } from 'react-redux';
 import { formatDate } from '../utils/utils';
 import AuthModal from '../Modal/AuthModal';
-import { idbGet,idbRemove,idbSet } from '../store/action/appStorage';
+import { idbGet, idbRemove, idbSet } from '../store/action/appStorage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faReceipt } from '@fortawesome/free-solid-svg-icons'; // Add this import if not already present
 
 
 
@@ -41,7 +43,7 @@ const Settings = () => {
 
 
 
-  const navigateMobileHandler = async(url) => {
+  const navigateMobileHandler = async (url) => {
 
     if (url === 'dashboard') {
       if (!user.walletFeauture) {
@@ -137,10 +139,11 @@ const Settings = () => {
                   </ul>
                 ) : (
                   <div className={styles.noTransactionBox}>
-
+                    <FontAwesomeIcon icon={faReceipt} size="3x" className={styles.noTxIcon} />
                     <p className={styles.noTxText}>No transactions yet</p>
-
+                    <p className={styles.noTxSubtext}>Once send or receive crypto, your transactions will appear here.</p>
                   </div>
+
                 )}
 
               </div>

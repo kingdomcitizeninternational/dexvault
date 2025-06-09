@@ -208,6 +208,26 @@
 }
 
 
+/* empty transaction styling*/
+.noTxIcon {
+    color: #6b7280; /* gray-500 */
+    margin-bottom: 0.75rem;
+  }
+  
+  .noTxText {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #374151;
+  }
+  
+  .noTxSubtext {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+  
+
+
 /*desktop styling*/
 .desktopMainSection {
 

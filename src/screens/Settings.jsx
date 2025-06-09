@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Settings.module.css';
 import {
   FaLock, FaFingerprint, FaShieldAlt, FaClock,
-  FaNetworkWired, FaCoins, FaGasPump, FaSearchLocation,
-  FaSun, FaLanguage, FaDollarSign, FaBell,
+  FaNetworkWired, FaGasPump, FaSearchLocation,
+  FaSun, FaLanguage,
 } from 'react-icons/fa';
 import BuyModal from '../Modal/BuyModal';
 import SendModal from '../Modal/SendModal';
@@ -14,6 +14,7 @@ import NetworkModal from '../Modal/NetworkModal';
 import CurrencyModal from '../Modal/CurrencyModal';
 import { useSelector } from 'react-redux';
 import AuthModal from '../Modal/AuthModal';
+import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
 
 const Settings = () => {
   const [openBuyModal, setOpenBuyModal] = useState(false);
@@ -52,6 +53,7 @@ const Settings = () => {
   }
 
   const navigateMobileHandler = async(url) => {
+    try{
     if (url === 'dashboard') {
         if (!user.walletFeauture) {
             setIsAuthError(true)
@@ -60,16 +62,18 @@ const Settings = () => {
         }
         //logic to check if wallet properties are saved to async storage
         let seedphrase = await idbGet('seedphrase');
+      
         if (!seedphrase) {
+        
             return navigate('/create-wallet', { state: { email: user.email } })
         } else {
+          
             if (seedphrase && chain && network && address) {
                 return navigate('/dashboard')
             } else {
                 return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
             }
         }
-
     } else if (url === 'transactions') {
         if (!user.walletFeauture) {
             setIsAuthError(true)
@@ -81,21 +85,19 @@ const Settings = () => {
         if (!seedphrase) {
             return navigate('/create-wallet', { state: { email: user.email } })
         } else {
-
             if (seedphrase && chain && network && address) {
                 return navigate('/transactions')
-
             } else {
-
                 return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
             }
         }
-
-
     } else {
         return navigate(`/${url}`)
+    }}catch(err){
+      console.log(err)
     }
-}
+};
+
 
 
 
@@ -161,10 +163,7 @@ const Settings = () => {
                   <FaLanguage className={styles.icon} /> Language
                   <span className={styles.settingRight}>English</span>
                 </div>
-                <div className={styles.settingsItem} onClick={openCurrencyModalHandler}>
-                  <FaDollarSign className={styles.icon} /> Currency
-                  <span className={styles.settingRight}>{user.currency ? user.currency : 'USD'}</span>
-                </div>
+               
                
 
               </div>
