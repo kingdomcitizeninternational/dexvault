@@ -44,8 +44,8 @@ import { NotificationToast } from "./component/general/Notification";
 import { toast, Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-//import Registeration from './screens/Registeration';
-//import ProfilePhoto from './screens/ProfilePhoto';
+import Registeration from './screens/Registeration';
+import ProfilePhoto from './screens/ProfilePhoto';
 
 
 import ImgUrl from './assets/192.png';
@@ -141,9 +141,9 @@ function App() {
           <Route path='/withdraw' element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
 
 
-          {/*<Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
+          <Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
           <Route path='/profilephoto' element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />
-  */}
+  
   
 
         </Routes>
