@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import FallBackComponent from './components/Fallback';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ProtectedRoute from './components/ProtectedRoute';
 import InstallBanner from './components/PWA';
 

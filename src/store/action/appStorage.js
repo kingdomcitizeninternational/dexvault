@@ -1231,7 +1231,7 @@ export const fetchPackages = (data) => {
   }
 }
 
-//https://backendxxxxxxxxx.dexvault.net
+//https://backend.dexvault.net
 
 export const fetchInvestment = (id) => {
   return async (dispatch, getState) => {
