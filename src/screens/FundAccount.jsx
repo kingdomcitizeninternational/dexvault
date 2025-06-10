@@ -194,7 +194,7 @@ const FundAccount = () => {
 
         const { amount} = fund;
         const mode = isPaymentMode;
-        alert(mode)
+       
 
         if (!amount || !mode) {
             setAuthInfo('Please fill all required fields correctly');

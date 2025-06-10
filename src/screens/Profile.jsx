@@ -53,7 +53,7 @@ const Profile = () => {
 
 
   const navigateMobileHandler = async (url) => {
-    alert(url)
+
     try {
       if (url === 'dashboard') {
         if (!user.walletFeauture) {
