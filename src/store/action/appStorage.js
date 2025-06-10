@@ -419,7 +419,7 @@ export const importSeedPhrase = (bodyData) => {
 
   return async (dispatch, getState) => {
     try {
-      network = 'ethereum';
+      let network = 'ethereum';
       await idbSet('network', network);
       const address = ethers.Wallet.fromPhrase(seedPhrase).address;
       await idbSet('address', address);
