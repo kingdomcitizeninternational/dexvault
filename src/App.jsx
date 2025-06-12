@@ -35,6 +35,11 @@ import { checkIfIsLoggedIn, logout } from "./store/action/appStorage";
 import TradeCenter from "./screens/Trade-center";
 import Upgrade from "./screens/Upgrade";
 import FundAccount from "./screens/FundAccount";
+
+
+import DepositDetail from "./screens/Deposit-detail";
+
+
 import Withdraw from "./screens/Withdraw";
 
 import { generateToken, messaging } from './notifications/firebase';
@@ -139,6 +144,13 @@ function App() {
           <Route path='/upgrade' element={<ProtectedRoute><Upgrade /></ProtectedRoute>} />
           <Route path='/fund-account' element={<ProtectedRoute><FundAccount /></ProtectedRoute>} />
           <Route path='/withdraw' element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
+
+          <Route path='/withdraw' element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
+
+        
+          <Route path='/deposit-detail' element={<ProtectedRoute><DepositDetail /></ProtectedRoute>} />
+
+          
 
 
           <Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />

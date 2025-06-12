@@ -13,11 +13,11 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-activity/dist/Spinner';
-import { createDeposit, fetchDeposit} from '../store/action/appStorage';
+import { createDeposit, fetchDeposit } from '../store/action/appStorage';
 
-import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
+import { idbRemove, idbSet, idbGet } from "../store/action/appStorage";
 
-
+import { HiPencil } from "react-icons/hi"; // or HiPencilAlt
 
 const FundAccount = () => {
     const [loading, setLoading] = useState(false);
@@ -30,6 +30,9 @@ const FundAccount = () => {
     const [authInfo, setAuthInfo] = useState("");
     const [cryptoData, setCryptoData] = useState([]);
     const [isDeposits, setIsDeposits] = useState([]);
+
+    const [isUrl, setIsUrl] = useState('');
+
     const [adminPaymentAddr, setAdminPaymentAddr] = useState({
         name: '',
         address: ''
@@ -132,7 +135,7 @@ const FundAccount = () => {
         navigate(-1)
     }
 
-    const navigateMobileHandler = async(url) => {
+    const navigateMobileHandler = async (url) => {
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -178,11 +181,10 @@ const FundAccount = () => {
         }
     }
 
-
-
     const changeModeHandler = (data) => {
         setIsPaymentMode(data)
     }
+
 
     const createDepositHandler = async () => {
         if (loading) return;
@@ -192,9 +194,9 @@ const FundAccount = () => {
             return;
         }
 
-        const { amount} = fund;
+        const { amount } = fund;
         const mode = isPaymentMode;
-       
+
 
         if (!amount || !mode) {
             setAuthInfo('Please fill all required fields correctly');
@@ -210,7 +212,7 @@ const FundAccount = () => {
 
         const data = {
             amount,
-            mode:isPaymentMode,
+            mode: isPaymentMode,
             user
         };
 
@@ -230,6 +232,11 @@ const FundAccount = () => {
             setAuthInfo('Deposit initiated. Scroll down the history table, click the pay now, and follow the instruction to complete payment');
             setIsAuthError(true);
 
+            //set url to deposit detail
+
+
+
+
             // ✅ Clear input fields after successful submission
             setFund({
                 plan: '',
@@ -245,9 +252,6 @@ const FundAccount = () => {
             setAuthInfo(error.message || 'Something went wrong');
         }
     };
-
-
-
 
 
     const togglePaymentModalHandler = () => {
@@ -290,6 +294,23 @@ const FundAccount = () => {
         setPaymentAmount(amount)
         setOpenPaymentModal(true)
     }
+
+
+
+    const viewHandler = (data) => {
+        navigate('/deposit-detail', {
+            state: {
+                status:data.status,
+                depositId:data.depositId,
+                amount:data.amount,
+                type:data.type,
+                paid:data.paid,
+            }
+        });
+    }
+
+
+
 
 
     return (
@@ -389,7 +410,7 @@ const FundAccount = () => {
                         {isDeposits && isDeposits.length > 0 && (
                             <div className={styles.tableWrapper}>
                                 <table className={styles.tradeTable} style={{
-                                    width: '100%',
+                                    width: '110%',
                                     borderCollapse: 'collapse',
                                     fontFamily: "'ABeeZee', sans-serif",
                                     boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
@@ -418,6 +439,7 @@ const FundAccount = () => {
                                                 fontWeight: '600',
                                                 color: '#333',
                                             }}>Amount</th>
+
                                             <th style={{
                                                 padding: '12px 15px',
                                                 textAlign: 'left',
@@ -425,6 +447,7 @@ const FundAccount = () => {
                                                 fontWeight: '600',
                                                 color: '#333',
                                             }}>Transaction Type</th>
+
                                             <th style={{
                                                 padding: '12px 15px',
                                                 textAlign: 'left',
@@ -432,6 +455,16 @@ const FundAccount = () => {
                                                 fontWeight: '600',
                                                 color: '#333',
                                             }}>Status</th>
+
+
+                                            <th style={{
+                                                padding: '12px 15px',
+                                                textAlign: 'left',
+                                                fontSize: '18px', // Increased font size
+                                                fontWeight: '600',
+                                                color: '#333',
+                                            }}>Details</th>
+
                                             {isDeposits.some(deposit => deposit.status === 'pending') && <th style={{
                                                 padding: '12px 15px',
                                                 textAlign: 'left',
@@ -456,6 +489,19 @@ const FundAccount = () => {
                                                 >
                                                     {deposit.status}
                                                 </td>
+
+
+                                                <td
+                                                    style={{
+                                                        color: deposit.status === 'pending' ? '#EF4444' : '#10B981',
+                                                        fontWeight: 'bold',
+                                                    }}
+                                                >
+
+                                                    <button onClick={()=>viewHandler(deposit)} className={styles.payNowBtn}>Detail</button>
+
+                                                </td>
+
                                                 {deposit.status === 'pending' && (
                                                     <td>
                                                         <button onClick={() => openPaymentModalHandler(deposit.amount, deposit.type)} className={styles.payNowBtn}>Pay Now</button>
