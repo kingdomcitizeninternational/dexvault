@@ -12,7 +12,6 @@ import BackHeader from '../components/BackHeader';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from 'react-activity/dist/Spinner';
 import { createPay, idbGet } from "../store/action/appStorage";
 
 const DepositDetail = () => {
@@ -232,7 +231,7 @@ const DepositDetail = () => {
                         )}
 
                         <div className={styles.formGroup}>
-                            <label>Amount ($)</label>
+                            <label>Amount($) to be paid </label>
                             <input type="number" className={styles.input} value={isData.amount || ''} onChange={(e) => handleChangeHandler(e, 'amount')} readOnly />
                         </div>
 
@@ -242,12 +241,12 @@ const DepositDetail = () => {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label>Status</label>
+                            <label>Deposit Status</label>
                             <input type="text" className={styles.input} value={isData.status || ''} onChange={(e) => handleChangeHandler(e, 'status')} readOnly />
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label>Type</label>
+                            <label>Payment method</label>
                             <input type="text" className={styles.input} value={isData.type || ''} onChange={(e) => handleChangeHandler(e, 'type')} readOnly />
                         </div>
 
