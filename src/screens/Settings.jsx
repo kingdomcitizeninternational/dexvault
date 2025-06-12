@@ -141,16 +141,16 @@ const Settings = () => {
               </div>
 
               {/* NETWORK */}
-              <div className={styles.settingsSection}>
+              {seedphrase && chain && network && address && <div className={styles.settingsSection}>
                 <h3 className={styles.settingsTitle}>Network</h3>
 
-                {seedphrase && chain && network && address && <div className={styles.settingsItem} onClick={openNetworkModalHandler}><FaNetworkWired className={styles.icon} /> Select Network</div>}
+                <div className={styles.settingsItem} onClick={openNetworkModalHandler}><FaNetworkWired className={styles.icon} /> Select Network</div>
 
               
                 {seedphrase && chain && network && address &&<div className={styles.settingsItem}><FaGasPump className={styles.icon} /> Gas Fee Settings</div>}
 
-                <div className={styles.settingsItem}><FaSearchLocation className={styles.icon} /> Explorer Preference</div>
-              </div>
+                
+              </div>}
 
               {/* NOTIFICATIONS */}
               <div className={styles.settingsSection}>

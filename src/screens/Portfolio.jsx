@@ -15,9 +15,7 @@ import 'aos/dist/aos.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchInvestment } from '../store/action/appStorage';
 import { FaDollarSign, FaDatabase } from 'react-icons/fa';
-import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
-
-
+import { idbRemove, idbSet, idbGet } from "../store/action/appStorage";
 
 const Portfolio = () => {
     const [cryptoData, setCryptoData] = useState([]);
@@ -25,19 +23,16 @@ const Portfolio = () => {
     const [openBuyModal, setOpenBuyModal] = useState(false);
     const [openSendModal, setOpenSendModal] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [isAuthError, setIsAuthError] = useState(false);
     const [authInfo, setAuthInfo] = useState("");
-    let { user, chain, network, address } = useSelector(state => state.userAuth)
     const [count, setCount] = useState(0);
     const [investment, setInvestment] = useState(null);
     const [btcEquivalent, setBtcEquivalent] = useState("0.0000");
     const [btcPrice, setBtcPrice] = useState(null);
-    const dispatch = useDispatch()
 
-
-
-
+    const dispatch = useDispatch();
+    const { user, chain, network, address } = useSelector(state => state.userAuth);
 
     const fetchAllData = async () => {
         try {
@@ -47,9 +42,6 @@ const Portfolio = () => {
                 return setIsAuthError(true);
             }
             setInvestment(investRes.message);
-
-            // Store handler result
-
         } catch (error) {
             console.error("Error fetching data:", error);
             setAuthInfo("An unexpected error occurred.");
@@ -59,15 +51,27 @@ const Portfolio = () => {
         }
     };
 
+    const fetchCryptoData = async () => {
+        try {
+            const res = await fetch(
+                'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&order=market_cap_desc&per_page=1&page=1&sparkline=false'
+            );
+            const data = await res.json();
+            setBtcPrice(data[0].current_price);
+        } catch (error) {
+            console.error('Error fetching BTC price:', error);
+        }
+    };
+
     useEffect(() => {
         fetchAllData();
+        fetchCryptoData();
     }, []);
-
 
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });
 
-        const fetchCryptoData = async () => {
+        const fetchAllCoins = async () => {
             try {
                 const res = await fetch(
                     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false'
@@ -79,183 +83,26 @@ const Portfolio = () => {
             }
         };
 
-        fetchCryptoData();
+        fetchAllCoins();
     }, []);
 
-
     useEffect(() => {
-        // Check if there's a stored value
         const storedCount = localStorage.getItem('liveTradersCount');
         if (storedCount) {
             setCount(Number(storedCount));
         }
 
-        const increment = 5; // Control speed here
+        const increment = 5;
         const interval = setInterval(() => {
             setCount(prev => {
                 const next = prev + increment;
-
                 localStorage.setItem('liveTradersCount', next);
                 return next;
             });
-        }, 1500); // Control animation smoothness here
+        }, 1500);
 
         return () => clearInterval(interval);
     }, []);
-
-
-
-
-
-    const updateAuthError = () => {
-        setIsAuthError(prev => !prev);
-        setAuthInfo('')
-    }
-
-
-    const openBuyModalFun = () => {
-        setOpenBuyModal(true)
-    }
-
-    const openSendModalFun = () => {
-        setOpenSendModal(true)
-    }
-
-    const buyFunction = () => {
-        setOpenBuyModal(false)
-
-
-    }
-    const sellFunction = () => {
-        setOpenBuyModal(false)
-
-
-    }
-
-
-    const sendFunction = () => {
-        setOpenSendModal(false)
-    }
-
-    const receiveFunction = () => {
-        setOpenSendModal(false)
-    }
-
-
-    const openMobileMenu = () => {
-        setSidebarOpen(prev => !prev)
-    }
-
-
-
-
-
-    const notificationHandler = () => {
-        navigate('/notifications')
-    }
-
-    if (loading) {
-        return <LoadingSkeleton />
-    }
-
-
-
-
-    const navigateTabHandler = async(url) => {
-        if (url === 'dashboard') {
-            if (!user.walletFeauture) {
-                setIsAuthError(true)
-                setAuthInfo('Wallet feature is not enabled yet on this account')
-                return
-            }
-            //logic to check if wallet properties are saved to async storage
-            let seedphrase = await idbGet('seedphrase');
-            if (!seedphrase) {
-                return navigate('/create-wallet', { state: { email: user.email } })
-            } else {
-                if (seedphrase && chain && network && address) {
-                    return navigate('/dashboard')
-                } else {
-                    return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-                }
-            }
-
-
-        } else if (url === 'transactions') {
-            if (!user.walletFeauture) {
-                setIsAuthError(true)
-                setAuthInfo('Wallet feature is not enabled yet on this account')
-                return
-            }
-            //logic to check if wallet properties are saved to async storage
-            let seedphrase = await idbGet('seedphrase');
-            if (!seedphrase) {
-                return navigate('/create-wallet', { state: { email: user.email } })
-            } else {
-
-                if (seedphrase && chain && network && address) {
-                    return navigate('/transactions')
-
-                } else {
-
-                    return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-                }
-            }
-
-
-        } else {
-            return navigate(`/${url}`)
-        }
-    }
-
-
-
-    const navigateMobileHandler = async(url) => {
-        if (url === 'dashboard') {
-            if (!user.walletFeauture) {
-                setIsAuthError(true)
-                setAuthInfo('Wallet feature is not enabled yet on this account')
-                return
-            }
-            //logic to check if wallet properties are saved to async storage
-            let seedphrase = await idbGet('seedphrase');
-            if (!seedphrase) {
-                return navigate('/create-wallet', { state: { email: user.email } })
-            } else {
-                if (seedphrase && chain && network && address) {
-                    return navigate('/dashboard')
-                } else {
-                    return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-                }
-            }
-
-
-        } else if (url === 'transactions') {
-            if (!user.walletFeauture) {
-                setIsAuthError(true)
-                setAuthInfo('Wallet feature is not enabled yet on this account')
-                return
-            }
-            //logic to check if wallet properties are saved to async storage
-            let seedphrase = await idbGet('seedphrase');
-            if (!seedphrase) {
-                return navigate('/create-wallet', { state: { email: user.email } })
-            } else {
-
-                if (seedphrase && chain && network && address) {
-                    return navigate('/transactions')
-
-                } else {
-
-                    return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
-                }
-            }
-
-
-        } else {
-            return navigate(`/${url}`)
-        }
-    };
 
     useEffect(() => {
         if (btcPrice && user?.availableBalance) {
@@ -263,10 +110,76 @@ const Portfolio = () => {
             setBtcEquivalent(btcVal);
         }
     }, [btcPrice, user?.availableBalance]);
+
+    const updateAuthError = () => {
+        setIsAuthError(false);
+        setAuthInfo('');
+    };
+
     const navigateHandler = (url) => navigate(`/${url}`);
 
+    const openBuyModalFun = () => setOpenBuyModal(true);
+    const openSendModalFun = () => setOpenSendModal(true);
 
+    const buyFunction = () => setOpenBuyModal(false);
+    const sellFunction = () => setOpenBuyModal(false);
+    const sendFunction = () => setOpenSendModal(false);
+    const receiveFunction = () => setOpenSendModal(false);
 
+    const openMobileMenu = () => setSidebarOpen(prev => !prev);
+    const notificationHandler = () => navigate('/notifications');
+
+    const navigateTabHandler = async (url) => {
+
+        try {
+          if (url === 'dashboard') {
+            if (!user.walletFeauture) {
+              setIsAuthError(true)
+              setAuthInfo('Wallet feature is not enabled yet on this account')
+              return
+            }
+            //logic to check if wallet properties are saved to async storage
+            let seedphrase = await idbGet('seedphrase');
+    
+            if (!seedphrase) {
+    
+              return navigate('/create-wallet', { state: { email: user.email } })
+            } else {
+    
+              if (seedphrase && chain && network && address) {
+                return navigate('/dashboard')
+              } else {
+                return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+              }
+            }
+          } else if (url === 'transactions') {
+            if (!user.walletFeauture) {
+              setIsAuthError(true)
+              setAuthInfo('Wallet feature is not enabled yet on this account')
+              return
+            }
+            //logic to check if wallet properties are saved to async storage
+            let seedphrase = await idbGet('seedphrase');
+            if (!seedphrase) {
+              return navigate('/create-wallet', { state: { email: user.email } })
+            } else {
+              if (seedphrase && chain && network && address) {
+                return navigate('/transactions')
+              } else {
+                return navigate('/import-wallet', { state: { email: user.email, seedphrase: seedphrase } })
+              }
+            }
+          } else {
+            return navigate(`/${url}`)
+          }
+        } catch (err) {
+          console.log(err)
+        }
+      };
+
+    if (loading) {
+        return <LoadingSkeleton />;
+    }
 
     return (
         <>
@@ -276,12 +189,11 @@ const Portfolio = () => {
 
             <div className={styles.dashboard}>
                 <div className={styles.leftSection}>
-                    <DesktopSideBar isInvest={true} navigateMobileHandler={navigateMobileHandler} />
+                    <DesktopSideBar isInvest={true} navigateMobileHandler={navigateTabHandler} />
                 </div>
 
-                {/*  sidebar content */}
                 {sidebarOpen && (
-                    <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} isInvest={true} navigateMobileHandler={navigateMobileHandler} />
+                    <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} isInvest={true} navigateMobileHandler={navigateTabHandler} />
                 )}
 
                 <div className={styles.mainSection}>
@@ -293,23 +205,15 @@ const Portfolio = () => {
                         sidebarOpen={sidebarOpen}
                     />
 
-
                     <div className={styles.dashboardContent}>
-                        <div className={styles.tickerTape} style={{ marginRight: '10px', marginLeft: '10px', marginBottom: "0px" }}>
+                        <div className={styles.tickerTape}>
                             <div className={styles.tickerInner}>
                                 {cryptoData.map((coin, index) => (
                                     <div key={index} className={styles.tickerItem}>
                                         <img src={coin.image} alt={coin.name} className={styles.coinIcon} />
                                         <span className={styles.coinName}>{coin.symbol.toUpperCase()}</span>
-                                        <span
-                                            className={
-                                                coin.price_change_percentage_24h >= 0
-                                                    ? styles.priceUp
-                                                    : styles.priceDown
-                                            }
-                                        >
-                                            ${coin.current_price.toFixed(2)}
-                                            ({coin.price_change_percentage_24h.toFixed(2)}%)
+                                        <span className={coin.price_change_percentage_24h >= 0 ? styles.priceUp : styles.priceDown}>
+                                            ${coin.current_price.toFixed(2)} ({coin.price_change_percentage_24h.toFixed(2)}%)
                                         </span>
                                     </div>
                                 ))}
@@ -318,17 +222,14 @@ const Portfolio = () => {
 
                         <div className={styles.cardContainer}>
                             <div className={styles.cardSection}>
-                                {/* Top Welcome Card */}
                                 <div className={styles.topCard}>
                                     <div className={styles.welcomeContent}>
                                         <div className={styles.leftContent}>
                                             <h3>Welcome Back, {user?.firstName?.slice(0, 5)}!</h3>
-
                                             <p className={styles.balanceLabel}>Available Balance</p>
                                             <h1 className={styles.balanceAmount}>${user.availableBalance}</h1>
                                             <p className={styles.balanceBTC}>{btcEquivalent} BTC</p>
                                         </div>
-
                                         <div className={styles.actionButtons}>
                                             <button className={styles.depositBtn} onClick={() => navigateHandler('fund-account')}>Deposit</button>
                                             <button className={styles.withdrawBtn} onClick={() => navigateHandler('withdraw')}>Withdraw</button>
@@ -336,7 +237,6 @@ const Portfolio = () => {
                                     </div>
                                 </div>
 
-                                {/* Bottom Cards */}
                                 <div className={styles.bottomCards}>
                                     <div className={styles.carditem}>
                                         <div className={styles.cardIcon} style={{ backgroundColor: '#4e54c8' }}>
@@ -344,7 +244,6 @@ const Portfolio = () => {
                                         </div>
                                         <p className={styles.cardTitle}>Total Profit</p>
                                         <h2 className={styles.cardAmount}>${investment?.totalProfit}.00</h2>
-                                        
                                     </div>
 
                                     <div className={styles.carditem}>
@@ -400,7 +299,6 @@ const Portfolio = () => {
                                                     : '---'}
                                             </p>
                                         </div>
-
                                     </div>
 
                                     <div className={styles.section}>
@@ -415,8 +313,6 @@ const Portfolio = () => {
                             </div>
                         </div>
 
-
-
                         <div className={styles.chartContainer}>
                             <iframe
                                 src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_b64f2&symbol=BITSTAMP%3ABTCUSD&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=Light&style=1&timezone=Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=localhost"
@@ -424,21 +320,16 @@ const Portfolio = () => {
                                 height="500"
                                 allowtransparency="true"
                                 frameBorder="0"
-
                             ></iframe>
                         </div>
                     </div>
-
-
-
-
                 </div>
-            </div >
+            </div>
 
             <BottomTabs navigateTabHandler={navigateTabHandler} />
         </>
-
     );
 };
 
 export default Portfolio;
+
