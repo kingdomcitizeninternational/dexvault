@@ -147,8 +147,12 @@
 
 .progressContainer {
     width: 30%;
-    margin-bottom: 20px; /* Adds space between the progress bar and other elements */
+    margin-bottom: 20px; 
+    
+    /* Adds space between the progress bar and other elements */
 }
+
+
 
 .progressBar {
     width: 100%;

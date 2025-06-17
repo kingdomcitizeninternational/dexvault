@@ -23,11 +23,36 @@ import LoadingSkeleton from '../components/Loader';
 import AuthModal from '../Modal/AuthModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getToken } from '../store/action/appStorage';
-import { evmChains } from '../utils/utils';
+
 
 import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
+import { evmChains } from '../utils/utils';
 
 
+
+/*
+How the emv chains look like
+
+const evmChains = [
+    
+    {
+      name: "Bitcoin",
+      ticker: "BTC",
+      chainId: 'btc',
+      chainHex: "btc",
+      rpcUrl:'' 
+    },
+  
+    {
+      name: "Kava EVM",
+      ticker: "KAVA",
+      chainId: 2222,
+      chainHex: "0x8ae",
+      rpcUrl: 'https://rpc.ankr.com/premium-http/kava_api/f414bb17cce648f9c2381aa7a35bda9970bc1aa99d455cae9c3d07609a1bb84d'
+    }
+  ];
+
+  */
 const data = [
     { name: 'Bitcoin', value: 40 },
     { name: 'Ethereum', value: 35 },
@@ -198,7 +223,6 @@ const Dashboard = () => {
         navigate('/send-assets')
     }
 
-
     const actionHandler = (data) => {
         //for buy and sell throw why user has error
         if(data === 'sell-assets'|| data === 'buy-assets'){
@@ -210,6 +234,7 @@ const Dashboard = () => {
         navigate(`/${data}`)
     }
     
+
     const notificationHandler = () => {
         navigate('/notifications')
     }
@@ -314,6 +339,16 @@ const Dashboard = () => {
     };
 
 
+    const getUsdEquivalent = () => {
+        // Find the matching crypto in the fetched CoinGecko data
+        const coin = cryptoData.find(c => c.symbol.toLowerCase() === ticker.toLowerCase());
+        if (coin) {
+            return (parseFloat(balance) * coin.current_price).toFixed(2);
+        }
+        return "0.00";
+    };
+    
+
 
 
 
@@ -347,25 +382,15 @@ const Dashboard = () => {
 
                         <div className={styles.mobileMainSection}>
                             <div className={styles.balanceSection}>
-                                <div className={styles.balanceCard}>
-                                    <p className={styles.amount}>{balance}{ticker}</p>
-                                    <p className={styles.amounttext}>Your wallet balance</p>
+                            <div className={styles.balanceCard}>
+                            
+  <p className={styles.amount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
+  <p className={styles.usdAmount}>${getUsdEquivalent()} USD</p>
+  <p className={styles.amounttext}>Your wallet balance</p>
+  
+ 
+</div>
 
-                                    <div className={styles.balanceActionContainer}>
-                                        <button onClick={() => actionHandler('buy-assets')}>
-                                            <FaPlus size={18} /> Buy
-                                        </button>
-                                        <button onClick={() => actionHandler('sell-assets')}>
-                                            <FaMinus size={18} /> Sell
-                                        </button>
-                                        <button onClick={() => actionHandler('send-assets')}>
-                                            <FaPaperPlane size={18} onClick={sendHandler} /> Send
-                                        </button>
-                                        <button onClick={() => actionHandler('receive')}>
-                                            <MdArrowDownward size={18} /> Receive
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
                             {/* Switchable Tabs */}
                             <div className={styles.tabsContainer}>
@@ -374,13 +399,14 @@ const Dashboard = () => {
                                         className={activeTab === 'tab1' ? styles.activeTab : ''}
                                         onClick={() => setActiveTab('tab1')}
                                     >
-                                        Token
+                                       
+                                        Market Trends
                                     </button>
                                     <button
                                         className={activeTab === 'tab2' ? styles.activeTab : ''}
                                         onClick={() => setActiveTab('tab2')}
                                     >
-                                        Market Trends
+                                         Token
                                     </button>
                                 </div>
 
@@ -390,7 +416,8 @@ const Dashboard = () => {
                                         loading ? (
                                             <SpinnerModal />
                                         ) : (
-                                            <Token data={cryptoData} />
+                                            <MarketTrend data={token} />
+
                                         )
                                     )}
 
@@ -398,7 +425,8 @@ const Dashboard = () => {
                                         loading ? (
                                             <SpinnerModal />
                                         ) : (
-                                            <MarketTrend data={token} />
+                                           
+                                              <Token data={cryptoData} />
                                         )
                                     )}
                                 </div>
@@ -413,10 +441,14 @@ const Dashboard = () => {
                             <div className={styles.desktopMainSectionleft}>
                                 <div className={styles.desktopbalanceSection}>
                                     <p className={styles.desktopamounttext}>Your wallet balance</p>
-                                    <div className={styles.desktopbalanceCard}>
-                                        <p className={styles.desktopamount}>{balance}{ticker}</p>
 
-                                    </div>
+
+                                    <div className={styles.desktopbalanceCard}>
+  <p className={styles.desktopamount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
+  <p className={styles.desktopusdAmount}>${getUsdEquivalent()} USD</p>
+</div>
+
+
                                 </div>
 
                                 <div className={styles.desktoptabsContainer}>
