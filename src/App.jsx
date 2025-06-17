@@ -38,8 +38,6 @@ import FundAccount from "./screens/FundAccount";
 
 
 import DepositDetail from "./screens/Deposit-detail";
-
-
 import Withdraw from "./screens/Withdraw";
 
 import { generateToken, messaging } from './notifications/firebase';

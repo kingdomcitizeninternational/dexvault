@@ -387,6 +387,21 @@ const Dashboard = () => {
   <p className={styles.amount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
   <p className={styles.usdAmount}>${getUsdEquivalent()} USD</p>
   <p className={styles.amounttext}>Your wallet balance</p>
+
+  <div className={styles.balanceActionContainer}>
+                                        <button onClick={() => actionHandler('buy-assets')}>
+                                            <FaPlus size={18} /> Buy
+                                        </button>
+                                        <button onClick={() => actionHandler('sell-assets')}>
+                                            <FaMinus size={18} /> Sell
+                                        </button>
+                                        <button onClick={() => actionHandler('send-assets')}>
+                                            <FaPaperPlane size={18} onClick={sendHandler} /> Send
+                                        </button>
+                                        <button onClick={() => actionHandler('receive')}>
+                                            <MdArrowDownward size={18} /> Receive
+                                        </button>
+                                    </div>
   
  
 </div>
