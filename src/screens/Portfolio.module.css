@@ -759,11 +759,11 @@
   }
 
   .carditem {
-    width: 75%;
+    width: 83%;
   }
 
   .topCard {
-    width: 75%;
+    width: 83%;
   }
   .rightCard{
     width: 83%;
@@ -780,8 +780,6 @@
 }
 
 @media (max-width: 850px) {
-
-
   .dashboard .leftSection {
     width: 18%;
   }
