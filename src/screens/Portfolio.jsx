@@ -16,6 +16,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchInvestment } from '../store/action/appStorage';
 import { FaDollarSign, FaDatabase } from 'react-icons/fa';
 import { idbRemove, idbSet, idbGet } from "../store/action/appStorage";
+import MultiCoinChart from './Chart';
+
+
 
 const Portfolio = () => {
     const [cryptoData, setCryptoData] = useState([]);
@@ -130,7 +133,6 @@ const Portfolio = () => {
     const notificationHandler = () => navigate('/notifications');
 
     const navigateTabHandler = async (url) => {
-
         try {
           if (url === 'dashboard') {
             if (!user.walletFeauture) {
@@ -180,6 +182,10 @@ const Portfolio = () => {
     if (loading) {
         return <LoadingSkeleton />;
     }
+    
+
+
+
 
     return (
         <>
@@ -206,6 +212,7 @@ const Portfolio = () => {
                     />
 
                     <div className={styles.dashboardContent}>
+                    
                         <div className={styles.tickerTape}>
                             <div className={styles.tickerInner}>
                                 {cryptoData.map((coin, index) => (
@@ -267,6 +274,8 @@ const Portfolio = () => {
                                         </p>
                                     </div>
                                 </div>
+
+                               
                             </div>
 
                             <div className={styles.cardRightSection}>
@@ -310,18 +319,24 @@ const Portfolio = () => {
 
                                     <button className={styles.button} onClick={() => navigateHandler('fund-account')}>Transact...</button>
                                 </div>
+
                             </div>
+
+                           
                         </div>
 
-                        <div className={styles.chartContainer}>
-                            <iframe
-                                src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_b64f2&symbol=BITSTAMP%3ABTCUSD&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=Light&style=1&timezone=Etc%2FUTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=localhost"
-                                width="100%"
-                                height="500"
-                                allowtransparency="true"
-                                frameBorder="0"
-                            ></iframe>
+                    
+                     
+                        
+
+                       
+                        <div className={styles.cardContainer}>
+                        <MultiCoinChart />
                         </div>
+                        
+                           
+
+
                     </div>
                 </div>
             </div>

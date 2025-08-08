@@ -67,8 +67,10 @@ const DesktopSideBar = ({ isInvest, navigateMobileHandler }) => {
               onClick={() => navigateMobileHandler(to)}
               className={`${styles.navItem} ${isActive ? styles.active : ""}`}
               style={{ cursor: 'pointer' }} // optional, makes it clear it's clickable
-            >
-              {icon}
+            ><span>
+                {icon}
+              </span>
+
               <p>{label}</p>
             </div>
           );

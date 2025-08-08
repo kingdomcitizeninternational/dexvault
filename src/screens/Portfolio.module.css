@@ -27,6 +27,10 @@
   overflow-y: scroll;
 }
 
+.dashboardContent{
+  margin-bottom: 100px;
+}
+
 
 
 
@@ -99,9 +103,6 @@
   color: #222;
 }
 
-
-
-
 /*  card section */
 
 .cardContainer {
@@ -156,13 +157,12 @@
 }
 
 .cardRightSection {
-
   padding: 10px;
   width: 40%;
   display: flex;
   justify-content: center;
   padding-top: 20px;
-
+  
 }
 
 
@@ -172,8 +172,7 @@
   border-radius: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 300px;
-  background: #0C1125;
+  background: #3a3d47;
   height: 90vh
 }
 
@@ -261,6 +260,7 @@
   margin-bottom: 20px;
 }
 
+
 .welcomeContent {
   display: flex;
 }
@@ -313,7 +313,7 @@
 
 
 .carditem {
-  background-color: #0C1125;
+  background-color: #3a3d47;
   color: white;
   border-radius: 12px;
   padding: 20px;
@@ -367,104 +367,6 @@
   font-size: 14px;
   opacity: 0.8;
 }
-
-
-
-
-
-@media screen and (max-width: 1024px) {
-  .cardContainer {
-    flex-direction: column;
-    align-items: center;
-
-  }
-
-  .cardSection,
-  .cardRightSection {
-    width: 90%;
-
-  }
-
-  .cardRightSection {
-    padding-top: 10px;
-  }
-
-  .rightCard {
-    height: auto;
-    width: 100%;
-  }
-
-
-
-}
-
-@media screen and (max-width: 600px) {
-  .cardSection {
-    width: 100%;
-    padding: 10px
-  }
-
-  .topCard {
-    justify-self: center;
-  }
-
-  .rightCard .infoRow {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .welcomeContent,
-  .actionButtons {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-
-  }
-
-  .actionButtons {
-    flex-direction: row;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 5px
-  }
-
-  .actionButtons button {
-    width: 40%;
-    margin: 10px 0;
-  }
-
-  .bottomCards {
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-  }
-
-  .carditem {
-    width: 75%;
-  }
-
-
-  .topCard {
-    width: 75%;
-
-  }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*  */
 
 
 
@@ -562,7 +464,7 @@
   overflow: hidden;
   background-color: #fafafa;
   padding: 12px 0;
-  margin-bottom: 24px;
+  margin-bottom: 5px;
 }
 
 .tickerInner {
@@ -727,8 +629,6 @@
 
 .referralCard {
   background: linear-gradient(145deg, #f8f9fe, #ecf0ff);
-
-
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -781,6 +681,93 @@
   font-weight: 600;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1024px) {
+  .cardContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cardSection,
+  .cardRightSection {
+    width: 90%;
+  }
+
+  .cardRightSection {
+    padding-top: 10px;
+  }
+
+  .rightCard {
+    height: auto;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .cardSection {
+    width: 100%;
+    padding: 10px
+  }
+
+  .topCard {
+    justify-self: center;
+  }
+
+  .rightCard .infoRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .welcomeContent,
+  .actionButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+
+  }
+
+  .actionButtons {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 5px
+  }
+
+  .actionButtons button {
+    width: 40%;
+    margin: 10px 0;
+  }
+
+  .bottomCards {
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+  }
+
+  .carditem {
+    width: 75%;
+  }
+
+  .topCard {
+    width: 75%;
+  }
+  .rightCard{
+    width: 83%;
+  }
+
+ 
+}
 /* Add responsiveness */
 @media (max-width: 600px) {
   .dashboardGrid {
@@ -788,9 +775,6 @@
     padding: 20px 10px;
   }
 }
-
-
-
 
 @media (max-width: 850px) {
 
@@ -906,4 +890,26 @@
     display: none;
   }
 
+}
+
+
+
+.chartWrapper {
+  margin-top: 40px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.chartTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.chartContainer iframe {
+  border-radius: 8px;
+  overflow: hidden;
 }

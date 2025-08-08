@@ -5,7 +5,7 @@ export const evmChains = [
     ticker: "BTC",
     chainId: 'btc',
     chainHex: "btc",
-    rpcUrl:'' 
+    rpcUrl: ''
   },
   {
     name: "Ethereum Mainnet",
@@ -54,7 +54,7 @@ export const evmChains = [
     ticker: "FTM",
     chainId: 250,
     chainHex: "0xfa",
-    rpcUrl: ''
+    rpcUrl: "https://rpcapi.fantom.network"
   },
   {
     name: "Base",
@@ -75,8 +75,9 @@ export const evmChains = [
     ticker: "ETH",
     chainId: 59144,
     chainHex: "0xe708",
-    rpcUrl: ''
-  },
+    rpcUrl: "https://rpc.linea.build"
+  }
+  ,
   {
     name: "Scroll",
     ticker: "ETH",
@@ -89,7 +90,7 @@ export const evmChains = [
     ticker: "CRO",
     chainId: 25,
     chainHex: "0x19",
-    rpcUrl: ''
+    rpcUrl: "https://evm.cronos.org"
   },
   {
     name: "Gnosis (xDai)",
@@ -105,34 +106,41 @@ export const evmChains = [
     chainHex: "0xa4ec",
     rpcUrl: 'https://rpc.ankr.com/celo/f414bb17cce648f9c2381aa7a35bda9970bc1aa99d455cae9c3d07609a1bb84d'
   },
+  
   {
     name: "Moonbeam",
     ticker: "GLMR",
     chainId: 1284,
     chainHex: "0x504",
-    rpcUrl: 'https://rpc.ankr.com/moonbeam/f414bb17cce648f9c2381aa7a35bda9970bc1aa99d455cae9c3d07609a1bb84d'
+    rpcUrl: "https://rpc.api.moonbeam.network"
   },
+  
+ 
   {
     name: "Moonriver",
     ticker: "MOVR",
     chainId: 1285,
     chainHex: "0x505",
-    rpcUrl: ''
+    rpcUrl: "https://rpc.api.moonriver.moonbeam.network"
   },
+  
   {
     name: "Harmony",
     ticker: "ONE",
     chainId: 1666600000,
     chainHex: "0x63564c40",
-    rpcUrl: ''
+    rpcUrl: "https://rpc.ankr.com/harmony"
   },
+  
+  
   {
     name: "Metis",
     ticker: "METIS",
     chainId: 1088,
     chainHex: "0x440",
-    rpcUrl: ''
+    rpcUrl: "https://andromeda.metis.io/?owner=1088"
   },
+
   {
     name: "Kava EVM",
     ticker: "KAVA",
@@ -142,7 +150,7 @@ export const evmChains = [
   }
 ];
 
-export const  formatDate = (isoDate) =>{
+export const formatDate = (isoDate) => {
   const date = new Date(isoDate);
 
   const day = date.getDate(); // Day of the month (1–31)

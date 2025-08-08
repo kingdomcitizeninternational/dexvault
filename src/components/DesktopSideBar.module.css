@@ -1,13 +1,14 @@
 .sidebarContent {
     display: flex;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: #fafafa;
     height: 100vh;
     padding: 0px 0;
     font-family: 'ABeeZee', sans-serif;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     overflow-y: scroll;
+    background: #fdfcff;
 }
 
 .sidebarTitle {
@@ -50,6 +51,7 @@
 
 .navItem p {
     margin: 0;
+    font-weight: 900;
 }
 
 .navItem svg {
@@ -68,18 +70,6 @@
 }
 
 
-@media (max-width: 850px) {
-    .navItem p {
-        display: none;
-    }
-
-    .navItem {
-        width: 100px;
-        justify-content: center;
-        padding: 12px;
-        font-size: 20px;
-    }
-}
 
 
 
@@ -88,18 +78,7 @@
 
 
 
-@media (max-width: 850px) {
-    .navItem p {
-        display: none;
-    }
 
-    .navItem {
-        width: 100px;
-        justify-content: center;
-        padding: 12px;
-        font-size: 20px;
-    }
-}
 @media (max-width: 850px) {
     .title {
         display: none;
@@ -112,6 +91,21 @@
     .mobileHeader {
         display: flex;
         justify-content: space-between;
+    }
+
+
+    .navItem p {
+        font-size: .7rem;
+    }
+    .navItem span {
+        display: none;
+    }
+
+    .navItem {
+        width: 100px;
+        justify-content: center;
+        padding: 12px;
+        font-size: 20px;
     }
     
 

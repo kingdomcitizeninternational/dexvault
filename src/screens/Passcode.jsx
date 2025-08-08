@@ -79,11 +79,13 @@ export default function PasscodeScreen() {
                     <FontAwesomeIcon icon={faFingerprint} size="lg" />
                     <p className={styles.fingerprintText}>Enable Fingerprint to log in</p>
                     <label className={styles.switch}>
+                        
                         <input
                             type="checkbox"
                             checked={isFingerprintEnabled}
                             onChange={() => setIsFingerprintEnabled(!isFingerprintEnabled)}
                         />
+
                         <span className={styles.slider}></span>
                     </label>
                 </div>

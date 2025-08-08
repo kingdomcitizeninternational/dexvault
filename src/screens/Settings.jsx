@@ -131,7 +131,7 @@ const Settings = () => {
               {/* SECURITY */}
               <div className={styles.settingsSection}>
                 <h3 className={styles.settingsTitle}>Security</h3>
-                <div className={styles.settingsItem}><FaLock className={styles.icon} /> Change PIN</div>
+                <div className={styles.settingsItem}><FaLock className={styles.icon} /> PIN Setting</div>
                 <div className={styles.settingsItem}><FaFingerprint className={styles.icon} /> Biometric Authentication</div>
                 <div className={styles.settingsItem}><FaShieldAlt className={styles.icon} /> Two-Factor Authentication</div>
                 <div className={styles.settingsItem}>

@@ -52,7 +52,15 @@ const Sidebar = ({ isOpen, toggleSidebar, isInvest, navigateMobileHandler }) => 
       >
         {/* User Info */}
         <div className={styles.userProfile}>
-          <img src={user?.profilePhotoUrl} alt="User" className={styles.avatar} />
+        <img
+  src={
+    user?.profilePhotoUrl ||
+    'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+  }
+  alt="User"
+  className={styles.avatar}
+/>
+
           <p className={styles.username}>
             {user?.firstName?.slice(0, 7)}.. {user.lastName?.slice(0, 7)}..
           </p>
