@@ -417,7 +417,7 @@ const Dashboard = () => {
         // Find the matching crypto in the fetched CoinGecko data
         const coin = cryptoData.find(c => c.symbol.toLowerCase() === ticker.toLowerCase());
         if (coin) {
-            return (parseFloat(balance) * coin.current_price).toFixed(2);
+            return ((parseFloat(balance) || 0) * (coin?.current_price || 0)).toFixed(2);
         }
         return "0.00";
     };
@@ -462,7 +462,8 @@ const Dashboard = () => {
                                     <img src={coin.image} alt={coin.name} className={styles.coinIcon} />
                                     <span className={styles.coinName}>{coin.symbol.toUpperCase()}</span>
                                     <span className={coin.price_change_percentage_24h >= 0 ? styles.priceUp : styles.priceDown}>
-                                        ${coin.current_price.toFixed(2)} ({coin.price_change_percentage_24h.toFixed(2)}%)
+                                       ${(coin?.current_price ?? 0).toFixed(2)} ({(coin?.price_change_percentage_24h ?? 0).toFixed(2)}%)
+
                                     </span>
                                 </div>
                             ))}
@@ -476,7 +477,10 @@ const Dashboard = () => {
                             <div className={styles.balanceSection}>
                                 <div className={styles.balanceCard}>
 
-                                    <p className={styles.amount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
+                                   <p className={styles.amount}>
+  {(parseFloat(balance) || 0).toFixed(6)} {ticker || ''}
+</p>
+
                                     <p className={styles.usdAmount}>${getUsdEquivalent()} USD</p>
                                     <p className={styles.amounttext}>Your wallet balance</p>
 
@@ -551,7 +555,10 @@ const Dashboard = () => {
 
 
                                     <div className={styles.desktopbalanceCard}>
-                                        <p className={styles.desktopamount}>{parseFloat(balance).toFixed(6)} {ticker}</p>
+                                        <p className={styles.desktopamount}>
+  {(parseFloat(balance) || 0).toFixed(6)} {ticker || ''}
+</p>
+
                                         <p className={styles.desktopusdAmount}>${getUsdEquivalent()} USD</p>
                                     </div>
 

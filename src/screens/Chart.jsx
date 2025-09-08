@@ -93,7 +93,8 @@ const MultiCoinChart = () => {
                     <p style={styles.coinPrice}>
                       ${selectedCoin.current_price.toLocaleString()} &nbsp;|&nbsp;
                       <span style={{ color: selectedCoin.price_change_percentage_24h >= 0 ? '#16c784' : '#ea3943' }}>
-                        {selectedCoin.price_change_percentage_24h.toFixed(2)}%
+                       {(selectedCoin?.price_change_percentage_24h ?? 0).toFixed(2)}%
+
                       </span>
                     </p>
                   </div>
