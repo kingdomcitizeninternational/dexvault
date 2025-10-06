@@ -144,10 +144,8 @@ function App() {
           <Route path='/withdraw' element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
 
           <Route path='/withdraw' element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
-
         
           <Route path='/deposit-detail' element={<ProtectedRoute><DepositDetail /></ProtectedRoute>} />
-
 
           <Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
           <Route path='/profilephoto' element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />
