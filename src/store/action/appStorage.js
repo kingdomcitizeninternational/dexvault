@@ -597,8 +597,6 @@ export const chainInfo = (chain, address, network, seedphrase) => {
     //https://dexvault-backend.onrender.com
 
 
-
-    console.log({ chain, address, network, seedphrase })
     try {
       let response = await fetch('https://dexvault-backend.onrender.com/tokens', {
         method: "POST",

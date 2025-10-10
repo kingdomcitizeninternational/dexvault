@@ -149,6 +149,7 @@ function App() {
 
           <Route path='/registeration' element={<ProtectedRoute><Registeration /></ProtectedRoute>} />
           <Route path='/profilephoto' element={<ProtectedRoute><ProfilePhoto /></ProtectedRoute>} />
+          
   
   
 
