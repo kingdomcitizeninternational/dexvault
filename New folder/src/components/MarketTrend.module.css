@@ -1,0 +1,148 @@
+.container {
+    margin-top: 10px;
+  }
+  
+  .cryptocard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    flex-wrap: wrap; /* allows items to wrap on small screens */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cryptocard:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(135deg, #f7fbff, #f7ffff);
+  }
+  
+  .cryptocardLeft,
+  .cryptocardRight,
+  .cryptocardChange {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cryptocardLeft {
+    flex: 1 1 60%;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .cryptocardImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+  }
+  
+  .cryptocardNameCon {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 10px;
+    justify-content: center;
+  }
+  
+  .cryptocardName {
+    margin-bottom: 2px;
+    text-align: start;
+    font-weight: 900;
+    font-family: 'ABeeZee';
+    font-size:18px;
+  }
+  
+  .cryptocardPrice {
+    
+    font-size: 13px;
+    font-weight: 900;
+    font-size:18px;
+  }
+  
+  .cryptocardChange {
+    flex: 1 1 20%;
+    justify-content: center;
+  }
+  
+  .cryptocardRight {
+    flex: 1 1 20%;
+    justify-content: flex-end;
+  }
+  
+  .cryptocardAmount {
+    font-family: 'ABeeZee';
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+
+
+  .noTokenContainer {
+    width: 100%;
+    height: 100%;
+    min-height: 200px; /* or whatever suits your layout */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .noTokenText {
+    font-size: 1.3rem;
+    color: #515151;
+    font-weight: 500;
+    font-family: 'ABeeZee';
+  }
+   
+  /* Make it responsive below 300px */
+  @media (max-width: 300px) {
+    .cryptocard {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+    }
+  
+    .cryptocardLeft,
+    .cryptocardChange,
+    .cryptocardRight {
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  
+    .cryptocardRight {
+      justify-content: flex-start;
+    }
+  
+    .cryptocardChange {
+      justify-content: flex-start;
+    }
+  
+    .cryptocardAmount {
+      font-size: 12px;
+      font-family: 'ABeeZee', sans-serif;
+    }
+  
+    .cryptocardName {
+      font-size: 14px;
+      font-family: 'ABeeZee', sans-serif;
+    }
+  
+    .cryptocardPrice {
+      font-size: 12px;font-family: 'ABeeZee', sans-serif;
+    }
+  
+    .cryptocardImage {
+      width: 35px;
+      height: 35px;
+    }
+  }
+  

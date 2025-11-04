@@ -1,0 +1,120 @@
+.lineContainer{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:50px
+
+}
+
+.line{
+    width:30%;
+    height:5px;
+    border-radius:3px;
+    background-color:#1652f0
+
+}
+
+.patnerSection {
+    background: linear-gradient(rgb(240, 240, 240), #fff);
+    padding-top: 1px;
+    padding-bottom: 60px
+}
+
+
+
+.imageBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.innerBoxImage {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.imageCard {
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+
+/* section header */
+.sectionhead_section {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom:10px
+}
+
+.sectionhead_section h1 {
+    font-size: 3rem;
+    font-family: ABeeZee;
+    margin-bottom: 30px;
+    color:rgb(100,100,100)
+}
+
+.sectionhead_section p {
+    font-family: ABeeZee;
+    font-weight: 400;
+    font-size: 2rem;
+    color: rgb(100, 100, 100);
+    margin-bottom: 80px;
+
+}
+
+
+@media screen and (max-width: 750px) {
+    .innerBoxImage {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .imageCard {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 80px;
+    }
+
+
+    /* sectionHeader*/
+     .sectionhead_section h1 {
+        text-align: center;
+        width: 100%
+    }
+
+    .sectionhead_section p {
+        text-align: center;
+        width: 90%
+    }
+    
+
+}
+@media screen and (max-width: 560px) {
+    .sectionhead_section h1 {
+        text-align: center;
+        width: 98%;
+    }
+
+    .sectionhead_section p {
+        text-align: center;
+        width: 95%
+    }
+    
+
+}

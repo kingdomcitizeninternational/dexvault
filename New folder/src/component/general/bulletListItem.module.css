@@ -1,0 +1,40 @@
+/* bullet list  */
+.bulletlist_con {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.bullet {
+    width: 8px;
+    height: 8px;
+    background-color: black;
+    border-radius: 8px;
+    margin-right: 8px;
+    margin-top: 15px;
+    align-self: flex-start;
+}
+
+.bulletlist_con>p {
+    font-size: 1.4rem;
+    line-height: 34px;
+    width: 70%;
+    margin-bottom: 30px;
+    align-self: flex-start;
+
+}
+
+
+@media screen and (max-width: 768px) {
+     /*bullet */
+     .bulletlist_con>p {
+        font-size: 1.4rem;
+        line-height: 34px;
+        width: 90%;
+        margin-bottom: 30px;
+        align-self: flex-start;
+
+    }
+
+}

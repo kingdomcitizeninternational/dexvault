@@ -1,0 +1,41 @@
+/* Splash.module.css */
+
+.screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4F46E5;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  /* Animation Keyframes */
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: scale(1) rotate(-25deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1) rotate(-25deg);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1) rotate(-25deg);
+    }
+  }
+  
+  /* Image Styling with Animation */
+  .image {
+    width: 80px;
+    height: 80px;
+    animation: fadeInOut 2s ease-in-out infinite;
+  }
+  

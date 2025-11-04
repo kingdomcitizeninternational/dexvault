@@ -1,0 +1,51 @@
+
+/*ABeeZee font import stays here*/
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
+
+::placeholder {
+  font-size: 1rem;
+  color:rgb(134, 134, 134);
+}
+
+:root {
+  color-scheme: light;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+}
+
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+  -webkit-box-shadow:0 0 0 30px white inset !important
+}
+input{
+  background-color: transparent;
+
+}
+
+button {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+
+p,div,h1,h2.h3,h4,h5,h6,button,span,input,select{
+  font-family: 'ABeeZee';
+ 
+}

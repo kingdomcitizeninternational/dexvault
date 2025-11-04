@@ -1,0 +1,28 @@
+.screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4F46E5;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .container.dimmed {
+    opacity: 0.3;
+  }
+  
+  .image {
+    width: 80px;
+    height: 80px;
+    transform: rotate(-25deg);
+  }
+  
+
+ 

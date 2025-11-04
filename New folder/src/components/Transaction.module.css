@@ -1,0 +1,92 @@
+.card {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.heading {
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 0.75rem;
+    color: #222;
+}
+
+/* Transaction Section */
+.transactionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.transactionItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+
+.icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.iconReceived {
+    color: #22c55e;
+}
+
+.iconSent {
+    color: #ef4444;
+}
+
+.iconSwap {
+    color: #3b82f6;
+}
+
+.details {
+    flex: 1;
+    margin-left: 0.5rem;
+}
+
+.txType {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.asset {
+    color: #555;
+    margin-left: 4px;
+}
+
+.date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.amount {
+    font-weight: 600;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.noTransaction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px; /* adjust height if needed */
+    text-align: center;
+  }
+  
+  .noTransactionText {
+    color: #888; /* soft grey */
+    font-size: 16px;
+    font-weight: 500;
+  }
+  

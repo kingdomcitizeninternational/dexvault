@@ -1,0 +1,647 @@
+/* Main Layout */
+.dashboard {
+    display: flex;
+    background-color: rgb(252, 252, 252);
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+
+.dashboard .leftSection {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+
+}
+
+
+.dashboard .mainSection {
+    width: 80%;
+    margin-left: 5px;
+    background-color: white;
+    padding: 0px;
+    justify-content: flex-start;
+    overflow-y: scroll;
+
+
+}
+
+
+
+.headerContainer {
+    background-color: rgb(255, 255, 255);
+    height: 53px;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    padding-right: 20px;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.title {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: bolder;
+    width: 50%
+}
+
+.title h2 {
+    margin-top: 0px;
+}
+
+.buttonContainer {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.buysellbutton,
+.sendreceivebutton {
+  width: 130px;
+  height: 45px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #4F46E5;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.2);
+  transition: 
+    background-color 0.3s ease,
+    transform 0.25s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Unified hover effect */
+.buysellbutton:hover,
+.sendreceivebutton:hover {
+  background-color: #4338CA;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(67, 56, 202, 0.25);
+}
+
+/* Optional special hover color for send button */
+.sendreceivebutton:hover {
+  color: #4F46E5;
+  background-color: #ffffff;
+}
+.sendreceivebutton {
+    background-color: #fdfdfd;
+    color: black;
+
+}
+
+.notificationbutton,
+.imagebutton {
+    border-radius: 45px;
+    width: 45px;
+    height: 45px;
+    background-color: #fdfdfd;
+    position: relative;
+}
+
+.notificationbutton span {
+    color: #fff;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: red;
+    font-size: 10px;
+}
+
+/*
+.mobileHeader {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+ 
+}*/
+.mobileHeader {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    padding-right: 15px;
+    display: none;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0px;
+    z-index: 1000;
+    /* Add this to prevent content underneath from showing through */
+}
+
+
+
+.hamburger,
+.bell {
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
+
+/* styling the balance section */
+.dashboardContent {
+    width: 100%;
+}
+
+.balanceSection {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.balanceCard {
+    background-color: #4F46E5;
+    width: 100%;
+    border-radius: 30px;
+    position: relative;
+    /* Required for positioning the light reflection */
+    overflow: hidden;
+    /* Hide the part of the light reflection that is outside the card */
+    padding-bottom: 20px;
+    display: none;
+
+}
+
+
+.balanceCard {
+    position: relative;
+    /* Ensure pseudo-element is scoped to this */
+    overflow: hidden;
+    /* Hide the animated gradient overflow */
+    /* Other styles you already have for the card (background, padding, etc.) */
+}
+
+.balanceCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    animation: lightReflection 4s infinite linear;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes lightReflection {
+    0% {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.balanceCard .amount {
+    text-align: center;
+    width: 100%;
+    font-size: 35px;
+    color: #fff;
+    font-family: 'ABeeZee', sans-serif;
+    margin-bottom: 10px;
+}
+
+.balanceCard .amounttext {
+    margin-top: 0px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+
+.balanceActionContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.balanceActionContainer button {
+    width: 55px;
+    /* You can adjust this size */
+    height: 55px;
+    /* Ensures the height is the same as the width for a perfect circle */
+    border-radius: 50%;
+    /* Make it rounded */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Center the icon inside the button */
+    align-items: center;
+    /* Center the icon inside the button */
+    padding: 2px;
+    /* No extra padding needed, since we're defining the width and height */
+    background-color: #393bc1;
+    /* Example background color for the buttons */
+    border: none;
+    /* Removes any border */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transition for hover effect */
+    color: #fff;
+    /* Text color */
+    font-family: 'ABeeZee', sans-serif;
+    /* Font style */
+
+    /* Box-shadow for the button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Horizontal offset, Vertical offset, Blur radius, Spread radius, and Color */
+}
+
+.balanceActionContainer button:hover {
+    background-color: #6D63F1;
+    /* Lighter background color on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    /* Increase shadow on hover */
+}
+
+
+
+/* Style the entire crypto section */
+.cryptoSection {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    /* Light background for the section */
+    border-radius: 10px;
+    /* Light shadow for the section */
+}
+
+
+
+.tabsContainer {
+    padding: 15px;
+    display: none;
+}
+
+.tabs {
+    display: flex;
+    width: 100%;
+}
+
+.tabs button {
+    width: 50%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 1px;
+    background-color: #f8f9fa;
+    font-family: 'ABeeZee';
+    font-weight: 900;
+    font-size: 16px
+}
+
+.activeTab {
+    border-bottom: 2px solid #4F46E5;
+}
+
+.tabContent {}
+
+/*desktop styling*/
+.desktopMainSection {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.desktopMainSectionleft {
+    width: 50%
+}
+
+.desktopMainSectionright {
+    width: 50%
+}
+
+.desktopbalanceSection {
+    width: 95%;
+    padding: 10px;
+    background-color: #4F46E5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.desktopMainSection {
+    position: relative;
+    /* Scope the ::before within this section */
+    overflow: hidden;
+    /* Prevent the light effect from spilling out */
+    /* Add your normal styles here */
+}
+
+.desktopMainSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    animation: lightReflection 5s infinite linear;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes lightReflection {
+    0% {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.desktopamounttext {
+    font-size: 18px;
+    margin-bottom: 0px;
+    font-weight: 900;
+    font-family: 'ABeeZee';
+    color: #fff
+}
+
+.desktopamount {
+    font-size: 35px;
+    margin-top: 0px;
+    font-weight: 900;
+    font-family: 'ABeeZee';
+    color: #fff;
+
+}
+
+/* styling the desktop tab section*/
+
+.desktoptabsContainer {
+    display: flex;
+    padding: 10px;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.desktoptabssection {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.desktoptabssection p {
+    font-size: 18px;
+    font-weight: 900;
+    font-family: 'ABeeZee';
+}
+
+.desktoptabssection select {
+    border-radius: 5px;
+    height: 30px;
+    width: 110px;
+    border: 1px solid rgb(230, 230, 230);
+    background-color: #f4f4f4;
+    border-radius: 15px;
+    font-family: 'ABeeZee';
+    font-weight: 900;
+}
+
+.desktoptabContent {
+    padding: 10px;
+
+}
+
+
+/*  right dashboard styles*/
+
+
+
+.rightPanel {
+    width: 100%;
+    max-width: 350px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.heading {
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 0.75rem;
+    color: #222;
+}
+
+
+
+
+/* Styling the bottom tab*/
+
+.bottomTabContainer {
+    position: fixed;
+    z-index: 2000;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 40px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    box-shadow: 10px 0px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.bottomTabContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 500;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.bottomTabContainer a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    font-size: 13px;
+    color: #444;
+    transition: all 0.2s ease-in-out;
+}
+
+.bottomTabContainer a:hover {
+    color: #4f46e5;
+}
+
+.icon {
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+.activeTab {
+    color: #4f46e5 !important;
+    font-weight: bold;
+}
+
+
+
+@media (max-width: 850px) {
+   
+
+    .dashboard .leftSection {
+        width: 18%;
+    }
+
+    .dashboard .mainSection {
+        width: 82%;
+    }
+
+    .title {
+        width: 30%
+    }
+
+    .buttonContainer {
+        width: 70%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+
+
+}
+
+@media (max-width: 700px) {
+    .title {
+        width: 20%
+    }
+
+    .buttonContainer {
+        width: 80%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+}
+
+/* mobile screen*/
+@media (max-width: 600px) {
+
+    .title {
+        display: none;
+    }
+
+    .buttonContainer {
+        display: none;
+    }
+
+    .dashboard .leftSection {
+        display: none;
+    }
+
+
+    .dashboard .mainSection {
+        width: 100%;
+    }
+
+    .headerContainer {
+        background: transparent;
+        padding: 0px;
+        box-shadow: none;
+    }
+
+
+
+    .mobileHeader {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .dashboard .mainSection {
+        margin-left: 0px;
+    }
+
+
+    .balanceCard {
+        display: block;
+    }
+
+
+    .dashboardContent {
+        width: 100%;
+    }
+
+    .tabsContainer {
+        display: block;
+    }
+
+
+    /*  styling the desktop balance*/
+
+    .desktopbalanceSection {
+        display: none;
+    }
+
+
+    /* dsktop tab section */
+    .desktoptabsContainer {
+        display: none;
+    }
+
+    .desktoptabContent {
+        display: none;
+    }
+
+    .rightPanel {
+        display: none;
+    }
+
+}

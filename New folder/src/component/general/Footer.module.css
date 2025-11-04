@@ -1,0 +1,141 @@
+.footer {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  padding: 3rem 1.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+/* Download App Section */
+.downloadSection {
+  text-align: center;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  padding: 2.5rem 1rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.downloadSection h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: #f8fafc;
+}
+
+.downloadSection p {
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.downloadButtons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.downloadBtn {
+  background-color: #1e40af;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.downloadBtn:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.brand h2 {
+  font-size: 1.75rem;
+  color: #4F46E5;
+  margin-bottom: 0.5rem;
+}
+
+.brand p {
+  color: #f8fafc;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.links h4,
+.socials h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: #f8fafc;
+}
+
+.links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.links li {
+  margin-bottom: 0.5rem;
+}
+
+.links a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.links a:hover {
+  color: #38bdf8;
+}
+
+.socials .icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.socials a {
+  font-size: 1.4rem;
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.socials a:hover {
+  color: #38bdf8;
+}
+
+.bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #1e293b;
+  margin-top: 2rem;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+/* Responsive Layouts */
+@media screen and (min-width: 768px) {
+  .container {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .downloadSection p {
+    font-size: 1rem;
+  }
+
+  .downloadButtons {
+    gap: 1.5rem;
+  }
+}

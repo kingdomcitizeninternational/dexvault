@@ -1,0 +1,115 @@
+.header {
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #4f46e5;
+  font-family: 'ABeeZee', sans-serif;
+}
+
+.desktopNav {
+  display: flex;
+  gap: 2rem;
+}
+
+.navLink {
+  color: #374151;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0%;
+  background: #4f46e5;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover {
+  color: #4f46e5;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  color: #374151;
+}
+
+.mobileMenu {
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.04);
+  animation: fadeSlideIn 0.3s ease forwards;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.mobileNavLink {
+  color: #374151;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.mobileNavLink:hover {
+  color: #4f46e5;
+}
+
+.mobileInstallButton,.installButton{
+  background-color:#4f46e5;
+  padding: 12px 24px;
+  color:#fff;
+  border-radius: 5px;
+}
+
+/* Slide/fade-in animation */
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .menuButton {
+    display: block;
+  }
+}

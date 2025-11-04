@@ -1,0 +1,228 @@
+.cointable_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom:20px;
+}
+
+.cointable_desktop {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.cointable_desktop table {
+    width: 90%;
+    border-radius: 5px;
+    border-collapse: collapse;
+    box-shadow: 5px 3px 3px 3px rgb(228, 228, 228);
+
+
+
+}
+
+.cointable_desktop table tr {
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+    transition: 1s all
+}
+
+.cointable_desktop table tr:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+
+.cointable_desktop table tr th {
+    font-weight: 300;
+    font-size: 16px;
+    font-family: ABeeZee;
+    margin: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px
+}
+
+.cointable_desktop table tr td {
+    font-family: ABeeZee;
+    margin: 0px;
+    padding-top: 12px;
+    padding-bottom: 12px
+}
+
+.cointable_desktop table tr .number {
+    width: 12%;
+    text-align: center;
+
+
+}
+
+.cointable_desktop table tr .name {
+    width: 30%;
+    text-align: left;
+
+}
+
+.cointable_desktop table tr .price {
+    width: 20%;
+    text-align: left;
+
+}
+
+.cointable_desktop table tr .change {
+    width: 12%;
+    text-align: left;
+
+}
+
+.cointable_desktop table tr .chart {
+    width: 12%;
+    text-align: left;
+
+}
+
+.cointable_desktop table tr .trade {
+    width: 12%;
+    text-align: left;
+
+}
+
+.cointable_desktop table tr td {
+    font-size: 16px;
+    font-family: ABeeZee;
+    font-weight: 300
+}
+
+.cointable_desktop table tr td button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 50%;
+    background-color: rgb(57, 148, 57);
+    border-radius: 5px;
+    font-size: 1.2rem;
+    color: #fff
+}
+
+.tableCellContainer {
+    display: flex;
+    flex-direction:row;
+    justify-content: flex-start;
+}
+
+.tableCellContainer img {
+    width: 30px;
+    height:30px;
+    margin-right: 10px;
+    align-self:flex-start
+
+}
+
+.tableCellContainer p {
+    font-family: ABeeZee;
+    font-weight: 300;
+    margin-right: 10px
+}
+
+.tableCellContainer p:nth-of-type(1) {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.tableCellContainer p:nth-of-type(2) {
+    font-size: 20px;
+}
+
+/* mobile section */
+.cointable_mobile {
+    width: 100%;
+    margin-right: 0%;
+    display: flex;
+    justify-content: space-between;
+    padding-top:12px;
+    padding-bottom:12px;
+    border-top: 1px solid rgb(220, 220, 220);
+    transition:1s all;
+
+}
+.cointable_mobile:hover{
+    background-color: rgb(240, 240, 240);
+}
+
+.cointable_mobile_left {
+    width: 50%;
+    display:flex
+}
+
+.cointable_mobile_left_imgCon {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right:10px
+}
+
+.cointable_mobile_left_imgCon img {
+    width: 35px;
+    align-self:'flex-start'
+}
+.cointable_mobile_left_symbols p{
+    font-size:20px;
+    font-family:ABeeZee
+}
+
+.cointable_mobile_right {
+    width: 50%;
+    text-align: right;
+    padding-right:20px
+}
+.cointable_mobile_right p{
+    font-size:20px;
+    font-family:ABeeZee;
+
+}
+
+.cointable_mobile_right p:nth-of-type(1){
+   
+    font-weight:500
+}
+
+
+
+@media screen and (max-width: 1200px) {
+
+
+
+    .cointable_desktop {
+        overflow-x: scroll;
+
+    }
+
+    .cointable_desktop table {
+        width: 1200px;
+
+
+
+    }
+
+    .cointable_desktop {
+        width: 100%;
+
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .cointable_container {
+        display: block;
+    }
+
+    .cointable_desktop {
+        display: none
+    }
+}
+
+@media screen and (min-width: 750px) {
+
+    .cointable_mobile {
+        display: none
+    }
+}

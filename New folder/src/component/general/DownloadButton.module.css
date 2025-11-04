@@ -1,0 +1,74 @@
+.getStartedSection_image {
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
+    padding: 15px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgb(250, 250, 250);
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.getStartedSection_imageCon_text {
+    color: #1652f0;
+    margin-bottom: 20px;
+}
+
+.getStartedSection_imageCon_buttonCon {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 960px) {
+    .getStartedSection_image {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .getStartedSection_image {
+        width: 80%;
+        margin-right: 0;
+        margin-left: 0;
+        padding: 15px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .getStartedSection_imageCon_text {
+        font-size: 1.6rem;
+    }
+
+    .getStartedSection_imageCon_buttonCon {
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .getStartedSection_image {
+        width: 90%;
+        padding: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .getStartedSection_imageCon_text {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    .getStartedSection_imageCon_buttonCon {
+        gap: 10px;
+    }
+}

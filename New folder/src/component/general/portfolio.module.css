@@ -1,0 +1,210 @@
+.portfolio_section {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(245, 245, 245);
+    transition: all 0.3s ease;
+}
+
+.portfolio_section h1 {
+    font-size: 2.5rem;
+    font-family: ABeeZee, sans-serif;
+    font-weight: 900;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.portfolio_section p {
+    font-family: ABeeZee, sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    color: rgb(100, 100, 100);
+    margin-bottom: 80px;
+    transition: all 0.3s ease;
+}
+
+.portfolio_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.portfolio_contentCon {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.portfolio_content {
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.portfolio_content_logo {
+    width: 26%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-right: 4%;
+    transition: all 0.3s ease;
+}
+
+.portfolio_content_logo .portfolio_content_logo_con {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 3px 3px rgb(228, 228, 228);
+    transition: all 0.3s ease;
+}
+
+.portfolio_content_logo_con img {
+    width: 40%;
+    transition: all 0.3s ease;
+}
+
+.portfolio_content_writeup {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    transition: all 0.3s ease;
+}
+
+.portfolio_content_writeup h1 {
+    font-size: 1.5rem;
+    color: rgb(120, 120, 120);
+    transition: all 0.3s ease;
+}
+
+.portfolio_content_writeup p {
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.portfolio_imageCon {
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+}
+
+.portfolio_imageCon img {
+    width: 70%;
+    margin-top: 20px;
+    margin-left: 30px;
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 1200px) {
+    .portfolio_container {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .portfolio_contentCon {
+        width: 100%;
+    }
+
+    .portfolio_content_writeup {
+        width: 90%;
+        padding-left: 0px;
+        align-items: flex-start;
+    }
+
+    .portfolio_imageCon {
+        width: 80%;
+        margin-bottom: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .portfolio_imageCon img {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .portfolio_section h1,
+    .portfolio_section p {
+        text-align: center;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .portfolio_section h1,
+    .portfolio_section p {
+        text-align: center;
+        width: 100%;
+    }
+
+    .portfolio_contentCon {
+        width: 100%;
+    }
+
+    .portfolio_content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .portfolio_content_logo {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+
+    .portfolio_content_logo .portfolio_content_logo_con {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 3px 3px 3px 3px rgb(228, 228, 228);
+    }
+
+    .portfolio_content_writeup {
+        width: 90%;
+        align-items: center;
+        padding-left: 0;
+        padding-right: 0;
+        margin: 0;
+    }
+
+    .portfolio_content_writeup h1 {
+        font-size: 1.4rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .portfolio_content_writeup p {
+        font-size: 1.1rem;
+        text-align: center;
+        width: 95%;
+    }
+
+    .portfolio_imageCon img {
+        width: 100%;
+        margin-top: 20px;
+        margin-left: 0;
+    }
+}

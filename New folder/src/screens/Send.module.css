@@ -1,0 +1,622 @@
+/* Main Layout */
+.dashboard {
+    display: flex;
+    background-color: rgb(252, 252, 252);
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+
+.dashboard .leftSection {
+    width: 20%;
+
+}
+
+.dashboard .leftSection,
+.sidebarContent {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.sidebarContent {
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.sidebarTitle {
+    font-weight: 900;
+    color: #4F46E5;
+    margin-bottom: 40px;
+    padding-left: 10px;
+    margin-top: 5px;
+
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.navItem {
+    font-weight: 900;
+    color: rgb(107, 107, 107);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    width: 200px;
+    border-radius: 30px;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding-left: 40px;
+    font-size: 17px;
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+.navItem:nth-of-type(2) {
+    background-color: #fdfdfd;
+    color: #4F46E5;
+}
+
+
+.navItem:hover {
+    background-color: #f5f5f5;
+    color: #4F46E5;
+
+}
+
+
+
+.navItem p {
+    margin-left: 10px;
+}
+
+
+
+.dashboard .mainSection {
+    width: 80%;
+    margin-left: 5px;
+    background-color: white;
+    padding: 0px;
+    justify-content: flex-start;
+    overflow-y: scroll;
+
+
+}
+
+
+
+.headerContainer {
+    background-color: rgb(255, 255, 255);
+    height: 53px;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    padding-right: 20px;
+  
+    margin-bottom: 10px;
+}
+
+
+.title {
+    font-family: 'ABeeZee', sans-serif;
+    font-weight: bolder;
+    width: 50%
+}
+
+.title h2 {
+    margin-top: 0px;
+}
+
+.buttonContainer {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.buysellbutton,
+.sendreceivebutton {
+  width: 130px;
+  height: 45px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #4F46E5;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.2);
+  transition: 
+    background-color 0.3s ease,
+    transform 0.25s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Unified hover effect */
+.buysellbutton:hover,
+.sendreceivebutton:hover {
+  background-color: #4338CA;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(67, 56, 202, 0.25);
+}
+
+/* Optional special hover color for send button */
+.sendreceivebutton:hover {
+  color: #4F46E5;
+  background-color: #ffffff;
+}
+.sendreceivebutton {
+    background-color: #fdfdfd;
+    color: black;
+
+}
+
+.notificationbutton,
+.imagebutton {
+    border-radius: 45px;
+    width: 45px;
+    height: 45px;
+    background-color: #fdfdfd;
+    position: relative;
+}
+
+.notificationbutton span {
+    color: #fff;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: red;
+    font-size: 10px;
+}
+
+
+.mobileHeader {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    display: none;
+    display: flex;
+    align-items: center;
+}
+
+.mobileHeader .hamburger{
+    cursor: pointer;
+    z-index: 1000;
+    width:30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.mobileHeader h2{
+    width:70%;
+    display: flex;
+    justify-content: flex-start;
+
+
+}
+
+
+/*desktop styling*/
+.desktopMainSection {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;  /* Scope the ::before within this section */
+    overflow: hidden; 
+}
+
+
+
+.dashboardContent {
+    width: 100%;
+    display: flex;
+}
+
+
+
+.dashboardContentleft {
+    width: 50%
+}
+
+.dashboardContentright {
+    width: 50%;
+}
+
+/* styling the balance card */
+.balanceSection {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.balanceCard {
+    background-color: #4F46E5;
+    width: 90%;
+    border-radius: 15px;
+    position: relative;
+    /* Required for positioning the light reflection */
+    overflow: hidden;
+    /* Hide the part of the light reflection that is outside the card */
+    padding-bottom: 20px;
+   
+
+}
+
+
+.balanceCard {
+    position: relative;
+    /* Ensure pseudo-element is scoped to this */
+    overflow: hidden;
+    /* Hide the animated gradient overflow */
+    /* Other styles you already have for the card (background, padding, etc.) */
+}
+
+.balanceCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    animation: lightReflection 4s infinite linear;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes lightReflection {
+    0% {
+        left: -100%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.balanceCard .amount {
+    text-align: center;
+    width: 100%;
+    font-size: 35px;
+    color: #fff;
+    font-family: 'ABeeZee', sans-serif;
+    margin-bottom: 10px;
+}
+
+.balanceCard .amounttext {
+    margin-top: 0px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+/*  styling send section */
+.sendBox {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+ 
+    transition: all 0.3s ease-in-out;
+    width: 80%;
+    margin: 0 auto;
+    animation: fadeInUp 0.5s ease;
+  }
+  
+  .sendBox:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sendTitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111;
+    text-align: center;
+  }
+  
+  .label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #333;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  
+  .inputField {
+    width: 90%;
+    padding: 16px 14px;
+    margin-bottom: 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+  }
+  
+  .inputField:focus {
+    border-color: #4f46e5;
+    background-color: white;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    
+  }
+  
+  .sendButton {
+    width: 100%;
+    background-color: #4f46e5;
+    color: white;
+    font-weight: 600;
+    padding: 16px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sendButton:hover {
+    background-color: #4338ca;
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Optional: make the box responsive */
+  @media (max-width: 768px) {
+    .sendBox {
+      padding: 20px;
+      max-width: 100%;
+    }
+  }
+  
+
+
+
+
+
+
+/*  right dashboard styles*/
+
+.rightPanel {
+    width: 100%;
+    max-width: 350px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.heading {
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 0.75rem;
+    color: #222;
+}
+
+/* Transaction Section */
+.transactionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.transactionItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+
+.icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.iconReceived {
+    color: #22c55e;
+}
+
+.iconSent {
+    color: #ef4444;
+}
+
+.iconSwap {
+    color: #3b82f6;
+}
+
+.details {
+    flex: 1;
+    margin-left: 0.5rem;
+}
+
+.txType {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.asset {
+    color: #555;
+    margin-left: 4px;
+}
+
+.date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.amount {
+    font-weight: 600;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+
+/* asset style*/
+
+
+
+
+  
+
+  
+
+
+
+@media (max-width: 850px) {
+    .navItem p {
+        display: none;
+    }
+
+    .navItem {
+        padding: 12px;
+        display: flex;
+        width: 100px;
+        font-size: 20px;
+    }
+
+    .dashboard .leftSection {
+        width: 18%;
+    }
+
+    .dashboard .mainSection {
+        width: 82%;
+    }
+
+    .title {
+        width: 30%
+    }
+
+    .buttonContainer {
+        width: 70%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+
+
+}
+
+@media (max-width: 700px) {
+    .title {
+        width: 20%
+    }
+
+    .buttonContainer {
+        width: 80%
+    }
+
+    .dashboardContent {
+        width: 80%;
+
+    }
+}
+
+/* mobile screen*/
+@media (max-width: 600px) {
+
+    .title {
+        display: none;
+    }
+
+    .buttonContainer {
+        display: none;
+    }
+
+    .dashboard .leftSection {
+        display: none;
+    }
+
+
+    .dashboard .mainSection {
+        width: 100%;
+    }
+
+    .headerContainer {
+        background: transparent;
+        padding: 0px;
+        box-shadow: none;
+      
+    }
+
+
+
+    .mobileHeader {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .dashboard .mainSection {
+        margin-left: 0px;
+    }
+
+
+
+
+    .dashboardContent {
+        width: 100%;
+    }
+
+
+    .rightPanel {
+        display: none;
+    }
+
+    .dashboardContentleft{
+        width: 100%;
+    }
+    .dashboardContentright{
+        display: none;
+    }
+
+}
