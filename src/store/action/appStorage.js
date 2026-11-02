@@ -593,8 +593,6 @@ export const changeChain = (chain, network, address, seedphrase) => {
 
 export const chainInfo = (chain, address, network, seedphrase) => {
   return async (dispatch, getState) => {
-    //https://192.168.43.202xxxxxxxxxx:9090
-    //https://dexvault-backend.onrender.com
 
 
     try {
